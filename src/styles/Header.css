@@ -1,0 +1,19 @@
+.headerbox{
+    background-color: #F6F5FF;
+    width: 100%;
+    height: 20vh;
+    height: 20dvh;
+    display: flex;
+    margin: 0;
+
+}
+.wrapper{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+body{
+    margin: 0;
+    padding: 0;
+}
