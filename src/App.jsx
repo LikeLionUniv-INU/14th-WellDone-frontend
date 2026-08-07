@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Onboarding from './pages/Onboard'
+import Login from './pages/Login'
+import Singup from './pages/SignUp'
 import Home from './pages/Home'
+import AIRoutine from './pages/AIRoutine'
 import {GlobalStyle} from './GlobalStyle'
 import {MobileLayout} from './components/MobileLayout'
 function App() {
@@ -13,7 +17,11 @@ function App() {
       <GlobalStyle /> {/*전역스타일 적용*/}
       <MobileLayout>{/* 모바일 레이아웃 적용*/}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Onboarding />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Singup />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/routine" element={<AIRoutine />} />
   
       </Routes>
       </MobileLayout>
