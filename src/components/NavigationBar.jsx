@@ -1,9 +1,6 @@
-import './NavigationBar.css'
+import "./NavigationBar.css";
 const NavigationBar = () => {
-    return(
-        <>
-        </>
-    );
-}
+  return <></>;
+};
 
 export default NavigationBar;

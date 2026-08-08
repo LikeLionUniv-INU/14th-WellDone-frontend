@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   /* 기본 여백 제거 및 커스텀 */
@@ -20,8 +20,10 @@ export const GlobalStyle = createGlobalStyle`
 /* 💡 핵심 1: html, body 모두 높이를 화면 전체(100dvh)로 고정합니다. */
   html, body{
     width: 100%;
+    max-width:100vw;
     height: 100%;
     height: 100dvh;
+    max-height: 100vh;
     overflow: hidden; /* 바깥 웹브라우저의 전체 스크롤을 방지합니다. */
   }
   /* 💡 화면 폭이 430px 이하(모바일 환경)일 때 적용되는 스타일 */
