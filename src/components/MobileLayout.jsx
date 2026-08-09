@@ -4,7 +4,8 @@ import styled from 'styled-components';
 const MobileWrapper = styled.div`
   width: 100%;
   min-width: 430px; /* 📱 스마트폰 최소 너비 (iPhone SE 기준) */
-  
+  max-width: 100vw;
+
   height: 100dvh;   /* 화면 전체 높이 */
   background-color: #ffffff; /* 핸드폰 내부 실제 앱 배경색 */
   margin: 0 auto;   /* 중앙 정렬 */
@@ -20,6 +21,14 @@ const MobileWrapper = styled.div`
   }
   -ms-overflow-style: none; /* IE, Edge */
   scrollbar-width: none;    /* Firefox */
+  
+  /* 📱 [실제 모바일 화면 (430px 이하)] 프레임 제한을 풀고 100% 채움 */
+  @media (max-width: 430px) {
+    max-width: 100%;
+    min-width: 100%;
+    box-shadow: none;      /* 그림자 제거 */
+    border-radius: 0;       /* 모서리 둥글기 제거 */
+  }
 `;
 
 export function MobileLayout({ children }) {
