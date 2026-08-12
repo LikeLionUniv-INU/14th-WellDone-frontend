@@ -1,12 +1,14 @@
 import "../styles/Home.css";
 import Header from "../components/Header";
+import NavigationBar from "../components/NavigationBar";
 import { getMonthWeek } from "../function/getMonthWeek";
 import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { ChevronLeft, ChevronRight, Pencil, Share2 } from "lucide-react";
-
+import SettingsModal from "../components/SettingsModal";
 import "swiper/css";
+
 
 // 💡 1. 백엔드 연동 시 사용할 더미 데이터 (임시 데이터)
 const DUMMY_GOALS = [
@@ -36,6 +38,7 @@ const DUMMY_GOALS = [
 export default function Home() {
   const [goals, setGoals] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false); // 설정모달 오픈 상태
 
   // 💡 백엔드 연동 예시 코드 (현재는 더미데이터 바인딩)
   useEffect(() => {
@@ -50,7 +53,7 @@ export default function Home() {
   return (
     <>
       <div className="wrapper">
-        <Header />
+        <Header onOpenSettings={() => setIsSettingsOpen(true)} />
         <div
           style={{
             display: "flex",
@@ -59,7 +62,10 @@ export default function Home() {
           }}
         ></div>
         <div className="weekbox">
-          <img src="today.svg" alt="달력" />
+          <img
+            src="today.svg"
+            alt="달력"
+          />
           <span>{getMonthWeek()} </span>
         </div>
         <div className="nowbar">
@@ -67,7 +73,7 @@ export default function Home() {
           <h2>나이트 근무 중 식사후 3시간 경과</h2>
         </div>
 
-        {/* ----------------------슬라이더 와 원형 그래프--------------------- */}
+        {/* ----------------------슬라이더 와 원형 그래프 76~ 173 --------------------- */}
         <div className="goal-slider-wrapper">
           {/* Swiper 컨테이너 */}
           <Swiper
@@ -96,7 +102,10 @@ export default function Home() {
                   <div className="circle-card">
                     {/* 💡 원그래프 (SVG) */}
                     <div className="circle-chart-container">
-                      <svg className="circle-chart" viewBox="0 0 220 220">
+                      <svg
+                        className="circle-chart"
+                        viewBox="0 0 220 220"
+                      >
                         {/* 배경 원 (연한 보라색 트랙) */}
                         <circle
                           className="circle-bg"
@@ -136,10 +145,16 @@ export default function Home() {
           </Swiper>
 
           {/* 💡 커스텀 커서/화살표 버튼 (좌/우) */}
-          <button className="custom-swiper-prev" aria-label="이전">
+          <button
+            className="custom-swiper-prev"
+            aria-label="이전"
+          >
             <ChevronLeft size={20} />
           </button>
-          <button className="custom-swiper-next" aria-label="다음">
+          <button
+            className="custom-swiper-next"
+            aria-label="다음"
+          >
             <ChevronRight size={20} />
           </button>
         </div>
@@ -154,6 +169,15 @@ export default function Home() {
             <span>공유</span>
           </button>
         </div>
+
+
+        {/* ----------------------설정 모달--------------------- */}
+        <SettingsModal
+          isOpen={isSettingsOpen}
+          onClose={() => setIsSettingsOpen(false)}
+        />
+
+       <NavigationBar/>
       </div>
     </>
   );

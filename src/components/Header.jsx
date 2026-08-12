@@ -1,12 +1,14 @@
 import "../styles/Header.css";
 
-const Header = () => {
+const Header = ({ onOpenSettings }) => {
   return (
     <>
       <div className="headerbox">
         <img
           className="menu-icon"
-          onClick={() => {}}
+          onClick={() => {
+            onOpenSettings();
+          }}
           src="list.svg"
           alt="메뉴"
         />{" "}

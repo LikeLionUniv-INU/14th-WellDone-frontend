@@ -18,6 +18,7 @@ body {
   width: 8.5vw;
   height: auto;
   margin-left: 6vw;
+  cursor: pointer;
 }
 
 .logo {
