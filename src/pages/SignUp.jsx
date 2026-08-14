@@ -5,19 +5,51 @@ import "../styles/Signup.css";
 export default function Signup() {
   const navigate = useNavigate();
 
-  // 사용자 입력 정보 관리, 전화,이름 형식 대신 아이디, 비밀번호 형식으로 바뀔수 있음
-  const [name, setName] = useState(""); 
-  const [phone, setPhone] = useState("");
-  const [verificationCode, setVerificationCode] = useState("");
-  const [phoneError, setPhoneError] = useState(false);
+  const [name, setName] = useState("");
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSignUp = () => {
-    if (!phone || phone.length < 10) {
-      setPhoneError(true);
+  const [idError, setIdError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [confirmError, setConfirmError] = useState(false);
+
+  // 아이디 중복 확인 통과 여부 상태
+  const [isIdChecked, setIsIdChecked] = useState(false);
+
+  const validatePassword = (pwd) => {
+    const hasLength = pwd.length >= 6;
+    const hasSpecialChar = /[~!@#$%^&*(),.?":{}|<>]/.test(pwd);
+    return hasLength && hasSpecialChar;
+  };
+
+  // 중복 확인 버튼 클릭 시
+  const handleDuplicateCheck = () => {
+    if (!id.trim()) {
+      alert("아이디를 입력해주세요.");
       return;
     }
-    setPhoneError(false);
-    alert("회원가입 버튼 클릭됨! (UI 테스트용)");
+    alert("사용 가능한 아이디입니다!");
+    setIsIdChecked(true); 
+    setIdError(false);
+  };
+
+  // 모든 조건이 완벽히 충족되었는지 확인하는 활성화 조건 변수
+  const isFormValid = 
+    name.trim() !== "" && 
+    id.trim() !== "" && 
+    isIdChecked && 
+    password.trim() !== "" && 
+    !passwordError && 
+    confirmPassword.trim() !== "" && 
+    !confirmError;
+
+  //  최종 회원가입 핸들러 함수
+  const handleSignUp = () => {
+    if (!isFormValid) return;
+
+    alert("회원가입 요청 성공!"); //임시 로그
+    navigate("/login");
   };
 
   return (
@@ -27,67 +59,114 @@ export default function Signup() {
       </div>
 
       <div className="signup-form-container">
-        {/* 이름 입력 */}
+        {/* 이름 */}
         <div className="signup-input-group">
           <label>이름</label>
-          <div className="signup-input-wrapper">
-            <input
-              type="text"
-              placeholder="홍길동"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
+          <input 
+            type="text" 
+            placeholder="홍길동" 
+            value={name} 
+            onChange={(e) => setName(e.target.value)} 
+          />
         </div>
 
-        {/* 전화번호 입력 */}
+        {/* 아이디 */}
         <div className="signup-input-group">
-          <label>전화번호</label>
-          <div className={`signup-input-wrapper ${phoneError ? "has-error" : ""}`}>
-            <span className="signup-country-code">+82</span>
-            <input
-              type="text"
-              placeholder="010-0000-0000"
-              value={phone}
+          <label>아이디</label>
+          <div className={`signup-input-wrapper ${idError ? "has-error" : ""}`}>
+            <input 
+              type="text" 
+              placeholder="아이디를 입력하세요" 
+              value={id} 
               onChange={(e) => {
-                setPhone(e.target.value);
-                if (phoneError) setPhoneError(false);
-              }}
+                setId(e.target.value);
+                setIdError(false);
+                setIsIdChecked(false); 
+              }} 
             />
-            <button type="button" className="verify-btn">
-              인증번호 전송
+            <button 
+              type="button" 
+              className={`inner-duplicate-btn ${isIdChecked ? "disabled" : ""}`} 
+              onClick={handleDuplicateCheck}
+              disabled={isIdChecked} 
+            >
+              중복 확인
             </button>
           </div>
-          {phoneError && (
-            <span className="signup-error-message">올바른 전화번호를 입력해주세요</span>
-          )}
+          {idError && <span className="signup-error-text">사용할 수 없는 아이디입니다</span>}
         </div>
 
-        {/* 인증번호 입력 */}
+        {/* 비밀번호 */}
         <div className="signup-input-group">
-          <label>인증번호</label>
-          <div className="signup-input-wrapper">
-            <input
-              type="text"
-              placeholder="인증번호 입력"
-              value={verificationCode}
-              onChange={(e) => setVerificationCode(e.target.value)}
+          <label>비밀번호</label>
+          <input 
+            type="password" 
+            placeholder="6자리 이상, 특수문자 포함"
+            value={password} 
+            onChange={(e) => {
+              const value = e.target.value;
+              setPassword(value);
+
+              if (value.length > 0 && !validatePassword(value)) {
+                setPasswordError(true);
+              } else {
+                setPasswordError(false);
+              }
+
+              if (confirmPassword && value !== confirmPassword) {
+                setConfirmError(true);
+              } else {
+                setConfirmError(false);
+              }
+            }} 
+          />
+          {passwordError && <span className="signup-error-text">올바른 비밀번호를 입력해주세요</span>}
+        </div>
+
+        {/* 비밀번호 확인 */}
+        <div className="signup-input-group password-confirm-group">
+          <div className={`signup-input-wrapper ${confirmError ? "has-error" : ""}`}>
+            <input 
+              type="password" 
+              placeholder="비밀번호 확인" 
+              value={confirmPassword} 
+              onChange={(e) => {
+                const value = e.target.value;
+                setConfirmPassword(value);
+
+                if (value !== password) {
+                  setConfirmError(true);
+                } else {
+                  setConfirmError(false);
+                }
+              }} 
             />
+            {confirmPassword.length > 0 && !confirmError && (
+              <div className="check-icon-box">
+                ✓
+              </div>
+            )}
           </div>
+          {confirmError && <span className="signup-error-text">비밀번호가 일치하지 않습니다</span>}
         </div>
 
         {/* 회원가입 버튼 */}
-        <button className="signup-submit-btn" onClick={handleSignUp}>
+        <button 
+          className={`signup-submit-btn ${!isFormValid ? "disabled" : ""}`} 
+          onClick={handleSignUp}
+          disabled={!isFormValid}
+        >
           회원가입
         </button>
 
         {/* 하단 링크 */}
         <div className="signup-footer-link">
-          이용약관 및
-          <span onClick={() => navigate("/")}>로그인</span>
+          이용약관 및&nbsp;
+          <span className="login-link" onClick={() => navigate("/")}>
+            로그인
+          </span>
         </div>
       </div>
     </div>
   );
 }
-

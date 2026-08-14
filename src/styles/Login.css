@@ -1,0 +1,163 @@
+.login-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 40px 20px;
+  overflow: hidden;
+}
+
+/* 타이틀 영역 */
+.login-title-area h2 {
+  margin: 0 0 40px 0;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #2C3E50;
+}
+
+/* 전체 폼 컨테이너를 중앙 정렬 및 너비 고정 */
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 내부 요소들을 가로 가운데 정렬 */
+  width: 100%;
+  max-width: 20rem;
+  margin: 0 auto;
+}
+
+/* 각 입력 그룹 */
+.login-input-group {
+  margin-bottom: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+/* 라벨 스타일 */
+.login-input-group label {
+  width: 100%;
+  max-width: 18rem;
+  text-align: left;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #2C3E50;
+}
+
+/* 입력 필드 공통 스타일 */
+.login-input-group input {
+  width: 17rem; 
+  margin: 0 auto;
+  padding: 15px;
+  border: 1.5px solid #D2D0D0;
+  border-radius: 12px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+  background-color: #fff;
+}
+
+.login-input-group input:focus {
+  outline: none;
+  border-color: #7B61FF;
+}
+
+/* 로그인 버튼 */
+.login-submit-btn {
+  display: block;
+  width: 18rem;
+  margin-top: 20px;
+  padding: 18px;
+  background-color: #D2D0D0;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: not-allowed;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.login-submit-btn:not(:disabled) {
+  background-color: #7B61FF;
+  cursor: pointer;
+  box-shadow: 0px 4px 10px rgba(123, 97, 255, 0.3);
+}
+
+.login-submit-btn:not(:disabled):hover {
+  background-color: #6a55e0;
+}
+
+/* 하단 링크 영역 */
+.login-footer-link {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #757575;
+}
+
+.signup-link {
+  color: #7B61FF;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* ================= 아이디/비밀번호 불일치 토스트 팝업 애니메이션 ================= */
+.login-toast-popup {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85%;
+  max-width: 320px;
+  padding: 18px 20px;
+  background-color: #D9D9D9;
+  border: none;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  
+  animation: slideUp 0.4s ease-out forwards;
+  z-index: 100;
+}
+
+.login-toast-popup p {
+  margin: 0;
+  color: #000000;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.login-toast-popup.fade-out {
+  animation: fadeOut 0.6s ease-out forwards;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translate(-50%, 50px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
