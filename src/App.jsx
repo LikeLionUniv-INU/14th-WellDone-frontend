@@ -16,7 +16,7 @@ function AppContent(){
   ];
   const showNavBar =
   ! excludePaths.includes(location.pathname) &&
-  !location.pathname.startsWith("");
+  !location.pathname.startsWith("/post/");
 
   return (
     <>
@@ -24,10 +24,10 @@ function AppContent(){
           {/* 모바일 레이아웃 적용*/}
           <Routes>
             <Route
-              path="/"
+              path="/home"
               element={<Home />}
             />
-            <Route path="challenge" element={<DutyLounge/>}/>
+            <Route path="/challenge" element={<DutyLounge/>}/>
           </Routes>
           {/* 💡 네비게이션 바가 존재하는 창에서는 네비게이션을 보여주기*/}
         {showNavBar && <NavigationBar />}

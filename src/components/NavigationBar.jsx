@@ -6,7 +6,7 @@ import React from "react";
 const NAV_ITEMS = [ // 네비게이션 바 props정보 ( mapping용)
   {
     name: "home",
-    path: "/",
+    path: "/home",
     activeSrc: "/assets/icons/home-active.png",   // 테두리/배경 있는 활성 이미지
     inactiveSrc: "/assets/icons/home.png",         // 기본 집 이미지
   },

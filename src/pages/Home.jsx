@@ -1,6 +1,5 @@
 import "../styles/Home.css";
 import Header from "../components/Header";
-import NavigationBar from "../components/NavigationBar";
 import { getMonthWeek } from "../function/getMonthWeek";
 import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,6 +7,7 @@ import { Navigation } from "swiper/modules";
 import { ChevronLeft, ChevronRight, Pencil, Share2 } from "lucide-react";
 import SettingsModal from "../components/SettingsModal";
 import "swiper/css";
+import RoutineList from "../components/RoutineList";
 
 
 // 💡 1. 백엔드 연동 시 사용할 더미 데이터 (임시 데이터)
@@ -69,7 +69,7 @@ export default function Home() {
           <span>{getMonthWeek()} </span>
         </div>
         <div className="nowbar">
-          <div className="nowbox">now</div>
+          <div className="nowbox">NOW</div>
           <h2>나이트 근무 중 식사후 3시간 경과</h2>
         </div>
 
@@ -177,7 +177,8 @@ export default function Home() {
           onClose={() => setIsSettingsOpen(false)}
         />
 
-       <NavigationBar/>
+        {/* ----------------------루틴 리스트--------------------- */}
+        <RoutineList/>
       </div>
     </>
   );

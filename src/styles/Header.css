@@ -3,7 +3,8 @@
   width: 100%;
 
   max-width: 100vw;
-  height: 8vh;
+  min-height: 8vh;
+  max-height: 8vh;
   display: flex;
   margin: 0;
   position: relative; /* 💡 로고의 기준점이 됩니다. */
