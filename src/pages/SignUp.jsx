@@ -18,9 +18,10 @@ export default function Signup() {
   const [isIdChecked, setIsIdChecked] = useState(false);
 
   const validatePassword = (pwd) => {
-    const hasLength = pwd.length >= 6;
-    const hasSpecialChar = /[~!@#$%^&*(),.?":{}|<>]/.test(pwd);
-    return hasLength && hasSpecialChar;
+    // 일단 백엔드 요청에 따른 아무 제한 없는 비밀번호
+    const hasLength = pwd.length >= 0;
+    //const hasSpecialChar = /[~!@#$%^&*(),.?":{}|<>]/.test(pwd);
+    return hasLength /*&& hasSpecialChar*/;
   };
 
   // 중복 확인 버튼 클릭 시
@@ -47,9 +48,8 @@ export default function Signup() {
   //  최종 회원가입 핸들러 함수
   const handleSignUp = () => {
     if (!isFormValid) return;
-
     alert("회원가입 요청 성공!"); //임시 로그
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -101,7 +101,7 @@ export default function Signup() {
           <label>비밀번호</label>
           <input 
             type="password" 
-            placeholder="6자리 이상, 특수문자 포함"
+            placeholder="비밀번호 입력"
             value={password} 
             onChange={(e) => {
               const value = e.target.value;
