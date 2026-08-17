@@ -1,0 +1,578 @@
+.schedule-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 480px; /* 모바일 웹/앱 비율 기준 */
+  height: 100vh;
+  margin: 0 auto;
+  padding: 24px;
+  box-sizing: border-box;
+  background-color: #FFFFFF;
+  position: relative;
+}
+
+/* 프로그레스 바 스타일 */
+.progress-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  margin-bottom: 24px;
+}
+
+.progress-bar-bg {
+  flex: 1;
+  height: 6px;
+  background-color: #F0EEFF;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #7B61FF;
+  border-radius: 3px;
+}
+
+.progress-text {
+  font-size: 12px;
+  color: #8E8E93;
+  font-weight: 500;
+}
+
+/* 타이틀 스타일 */
+.step-titles {
+  margin-bottom: 24px;
+}
+
+.step-indicator {
+  font-size: 12px;
+  font-weight: bold;
+  color: #7B61FF;
+  letter-spacing: 0.5px;
+}
+
+.step-titles h2 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #1C1C1E;
+  margin: 4px 0 8px 0;
+}
+
+.step-titles p {
+  font-size: 14px;
+  color: #8E8E93;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* 입력 그룹 (드롭다운) */
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #3A3A3C;
+  margin-bottom: 8px;
+}
+
+.required {
+  color: #FF3B30;
+}
+
+.type-select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #E5E5EA;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #1C1C1E;
+  background-color: #FAFAFC;
+  outline: none;
+  cursor: pointer;
+}
+
+/* 이미지 업로드 박스 */
+/* 기존 upload-box를 확실하게 고정 */
+.upload-box {
+  width: 100%;
+  height: 200px; /* 적절한 높이 고정 */
+  border: 2px dashed #ccc;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden; /* ★ 이 설정이 이미지가 튀어나가는 걸 막아줍니다 */
+  position: relative;
+  background-color: #f9f9f9;
+}
+
+/* 튀어나가는 이미지 강제 사이즈 조정 */
+.preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* 이미지를 잘리지 않고 박스 안에 다 보이게 함 */
+  /* 혹은 꽉 채우고 싶으면 'cover'로 바꾸세요 */
+}
+
+.upload-box:hover {
+  border-color: #7B61FF;
+}
+
+.upload-content {
+  text-align: center;
+}
+
+.upload-icon {
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 8px;
+}
+
+.upload-main-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #3A3A3C;
+  margin: 0 0 4px 0;
+}
+
+.upload-sub-text {
+  font-size: 12px;
+  color: #8E8E93;
+  margin: 0;
+}
+
+/* 서브 액션 버튼 3개 (사진촬영, 갤러리, 스케줄표 제작) */
+.sub-action-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: auto; /* 하단 네비게이션을 바닥으로 밀어내기 위함 */
+}
+
+.sub-btn {
+  flex: 1;
+  padding: 10px 0;
+  border: 1px solid #E5E5EA;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 500;
+  color: #3A3A3C;
+  cursor: pointer;
+}
+
+.highlight-sub {
+  border-color: #7B61FF;
+  color: #7B61FF;
+  background-color: #F5F3FF;
+}
+
+
+
+
+/* STEP 2: 웰니스 카테고리 그리드 레이아웃 (2열) */
+.wellness-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+}
+
+/* 개별 카드 기본 스타일 */
+.wellness-card {
+  border: 1.5px solid #e0e0e0;
+  border-radius: 14px;
+  padding: 18px 12px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #ffffff;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SVG 아이콘 크기 고정 (가로 세로 2rem) */
+.card-svg-icon {
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 8px;
+  object-fit: contain;
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 2px;
+}
+
+.card-sub {
+  font-size: 12px;
+  color: #888;
+}
+
+/* 카드가 선택되었을 때(Selected) 스타일 */
+.wellness-card.selected {
+  border-color: #6366f1; /* 보라/인디고 계열 포인트 컬러 */
+  background-color: #f5f3ff; /* 연한 보라빛 배경 */
+}
+
+.wellness-card.selected .card-title {
+  color: #4f46e5;
+}
+
+
+/* ==================== STEP 3 ==================== */
+.question-section {
+  margin-bottom: 28px;
+  text-align: left;
+}
+
+.question-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+/* 태그 묶음 레이아웃 */
+.tag-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* 알약(Pill) 태그 기본 스타일 */
+.pill-tag {
+  padding: 8px 16px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #666;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* 알약 태그 선택 상태 */
+.pill-tag.selected {
+  border-color: #4f46e5;
+  color: #4f46e5;
+  background-color: #f5f3ff;
+  font-weight: 600;
+}
+
+/* 텍스트 에어리어 래퍼 */
+.textarea-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.request-textarea {
+  width: 100%;
+  height: 120px;
+  padding: 14px;
+  padding-bottom: 30px; /* 카운터 공간 확보 */
+  border: 1.5px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 13px;
+  color: #333;
+  resize: none;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.request-textarea::placeholder {
+  color: #aaa;
+  line-height: 1.5;
+}
+
+.request-textarea:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+
+/* 글자 수 카운터 */
+.char-counter {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  font-size: 12px;
+  color: #888;
+}
+
+
+/* ==================== STEP 4 ==================== */
+.step4-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+  box-sizing: border-box;
+  text-align: center;
+  z-index: 10;
+  
+  background: linear-gradient(
+    to top,
+    #A5A2FF 3%,
+    #CDCBFD 16%,
+    #E4E3FB 26%,
+    #E9E9FC 30%,
+    #FFFFFF 100%
+  );
+}
+
+.step4-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 20px;
+}
+
+/* CSS로 이미지 영역 크기 제어 (3.5rem) */
+.step4-image-slot {
+  width: 10rem;
+  height: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step4-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.step4-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #222;
+  line-height: 1.4;
+}
+
+/* 하단 웰던 로고 영역 */
+.step4-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.step4-welldone-img {
+  width: 7rem;
+  height: 7rem; /* 필요에 따라 높이 조절 */
+  object-fit: contain;
+}
+
+
+
+/* 하단 고정 네비게이션 버튼 (취소 / 다음 단계) */
+.bottom-nav-buttons {
+  display: flex;
+  gap: 12px;
+  padding: 16px 0;
+  background-color: #FFFFFF;
+}
+
+.nav-btn {
+  flex: 1;
+  padding: 16px 0;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background-color: #F2F2F7;
+  color: #8E8E93;
+}
+
+.next-btn {
+  background: linear-gradient(90deg, #7B61FF 0%, #4F45FF 100%);
+  color: #FFFFFF;
+}
+
+
+
+
+/* ==================== STEP 5 & STEP 6 공통 스타일 ==================== */
+/* 상단 탭 스위치 */
+.schedule-toggle-group {
+  display: flex;
+  background-color: #dbe2ff;
+  border-radius: 25px;
+  padding: 3px;
+  margin-bottom: 8px;
+}
+
+.toggle-btn {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  background: transparent;
+  border-radius: 22px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #5d50fe;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-btn.active {
+  background-color: #5d50fe;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(93, 80, 254, 0.3);
+}
+
+/* 테두리 추가 버튼 (+ 스케줄 추가 / + 직접 일정 추가) */
+.outline-add-btn {
+  width: 100%;
+  padding: 12px 0;
+  border: 1px solid #5d50fe;
+  background-color: #ffffff;
+  color: #5d50fe;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ==================== STEP 5 (주간 직접 입력) ==================== */
+.weekly-schedule-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.weekly-header {
+  font-size: 14px;
+  font-weight: 700;
+  color: #6c5ce7;
+}
+
+.weekly-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e2e2e8;
+}
+
+.weekly-table th,
+.weekly-table td {
+  border: 1px solid #e8e8ee;
+  text-align: center;
+  height: 32px;
+  font-size: 12px;
+}
+
+.weekly-table th {
+  background-color: #f0f0fe;
+  color: #71717a;
+  font-weight: 600;
+}
+
+.weekly-table .hour-cell {
+  background-color: #ffffff;
+  color: #52525b;
+  font-weight: 600;
+  width: 32px;
+}
+
+/* ==================== STEP 6 (교대 근무표 입력) ==================== */
+.monthly-schedule-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.cal-nav-btn {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  color: #52525b;
+  cursor: pointer;
+}
+
+.cal-month {
+  font-size: 16px;
+  font-weight: 700;
+  color: #27272a;
+}
+
+.calendar-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #e4e4e7;
+}
+
+.calendar-table td {
+  border: 1px solid #e4e4e7;
+  height: 52px;
+  vertical-align: top;
+  padding: 4px;
+  width: 14.28%;
+}
+
+.cal-date-mock {
+  width: 100%;
+  height: 100%;
+}
+
+/* 교대근무 범례 (D / E / N / OFF) */
+.calendar-legend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #3f3f46;
+}
+
+.legend-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  font-size: 9px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.legend-dot.d-day { background-color: #93c5fd; }
+.legend-dot.evening { background-color: #a78bfa; }
+.legend-dot.night { background-color: #4338ca; }
+.legend-dot.off { background-color: #d1d5db; color: #4b5563; }
