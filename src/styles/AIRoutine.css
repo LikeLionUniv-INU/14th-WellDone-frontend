@@ -1,6 +1,7 @@
 .schedule-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
   max-width: 480px; /* 모바일 웹/앱 비율 기준 */
   height: 100vh;
@@ -11,18 +12,19 @@
   position: relative;
 }
 
-/* 프로그레스 바 스타일 */
+/* 진행도 바 스타일 */
 .progress-header {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-top: 20px;
   margin-bottom: 24px;
+  padding: 0 20px;
 }
 
 .progress-bar-bg {
   flex: 1;
-  height: 6px;
+  height: 0.5rem;
   background-color: #F0EEFF;
   border-radius: 3px;
   overflow: hidden;
@@ -36,32 +38,35 @@
 
 .progress-text {
   font-size: 12px;
-  color: #8E8E93;
+  color: #6E6E73;
   font-weight: 500;
+  
+  
 }
 
 /* 타이틀 스타일 */
 .step-titles {
   margin-bottom: 24px;
+  padding: 0 20px;
 }
 
 .step-indicator {
-  font-size: 12px;
+  font-size: 17px;
   font-weight: bold;
-  color: #7B61FF;
+  color: #6F6A86;
   letter-spacing: 0.5px;
 }
 
 .step-titles h2 {
   font-size: 22px;
   font-weight: bold;
-  color: #1C1C1E;
+  color: #2B3143;
   margin: 4px 0 8px 0;
 }
 
 .step-titles p {
   font-size: 14px;
-  color: #8E8E93;
+  color: #6E6E73;
   line-height: 1.4;
   margin: 0;
 }
@@ -69,13 +74,15 @@
 /* 입력 그룹 (드롭다운) */
 .input-group {
   margin-bottom: 20px;
+  margin: 0px 20px;
+  margin-bottom: 10px;
 }
 
 .input-group label {
   display: block;
   font-size: 13px;
   font-weight: 600;
-  color: #3A3A3C;
+  color: #6E6E73;
   margin-bottom: 8px;
 }
 
@@ -86,37 +93,42 @@
 .type-select {
   width: 100%;
   padding: 14px 16px;
-  border: 1px solid #E5E5EA;
+  border: 1.5px solid #D2D0D0; 
   border-radius: 12px;
   font-size: 14px;
   color: #1C1C1E;
-  background-color: #FAFAFC;
+  background-color: #FFFFFF;
   outline: none;
   cursor: pointer;
 }
 
 /* 이미지 업로드 박스 */
-/* 기존 upload-box를 확실하게 고정 */
 .upload-box {
-  width: 100%;
-  height: 200px; /* 적절한 높이 고정 */
+  /* 너비를 컨테이너에서 좌우 패딩(20px + 20px = 40px)을 뺀 만큼 설정 */
+  width: calc(100% - 40px); 
+  
+  /* 중앙 정렬 핵심 */
+  margin: 0 auto; 
+  
+  height: 13rem;
   border: 2px dashed #ccc;
   border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  overflow: hidden; /* ★ 이 설정이 이미지가 튀어나가는 걸 막아줍니다 */
+  overflow: hidden;
   position: relative;
   background-color: #f9f9f9;
+  margin-bottom: 8px;
+  
 }
 
-/* 튀어나가는 이미지 강제 사이즈 조정 */
+/* 튀어나가는 이미지 사이즈 조정 */
 .preview-image {
   width: 100%;
   height: 100%;
   object-fit: contain; /* 이미지를 잘리지 않고 박스 안에 다 보이게 함 */
-  /* 혹은 꽉 채우고 싶으면 'cover'로 바꾸세요 */
 }
 
 .upload-box:hover {
@@ -151,12 +163,13 @@
   display: flex;
   gap: 8px;
   margin-bottom: auto; /* 하단 네비게이션을 바닥으로 밀어내기 위함 */
+  padding: 0 20px;
 }
 
 .sub-btn {
   flex: 1;
   padding: 10px 0;
-  border: 1px solid #E5E5EA;
+  border: 1px solid #D2D0D0;
   border-radius: 8px;
   background-color: #FFFFFF;
   font-size: 12px;
@@ -164,11 +177,16 @@
   color: #3A3A3C;
   cursor: pointer;
 }
-
+/*어... 굳이 하이라이트 만들 필요 없었는데 실수로 분리해버림*/
 .highlight-sub {
-  border-color: #7B61FF;
-  color: #7B61FF;
-  background-color: #F5F3FF;
+  border-color: #D2D0D0;
+  color: #3A3A3C;
+}
+
+.sub-btn:active {
+  background-color: #7B61FF; 
+  border-color: #D2D0D0;
+  color: #FFFFFF;
 }
 
 
@@ -180,11 +198,12 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   margin: 20px 0;
+  padding: 0 20px;
 }
 
 /* 개별 카드 기본 스타일 */
 .wellness-card {
-  border: 1.5px solid #e0e0e0;
+  border: 1px solid #D2D0D0;
   border-radius: 14px;
   padding: 18px 12px;
   text-align: center;
@@ -208,23 +227,23 @@
 .card-title {
   font-size: 15px;
   font-weight: 600;
-  color: #333;
+  color: #2B3143;
   margin-bottom: 2px;
 }
 
 .card-sub {
-  font-size: 12px;
-  color: #888;
+  font-size: 13px;
+  color: #6E6E73;
 }
 
-/* 카드가 선택되었을 때(Selected) 스타일 */
+/* 카드가 선택되었을 때 스타일 */
 .wellness-card.selected {
-  border-color: #6366f1; /* 보라/인디고 계열 포인트 컬러 */
-  background-color: #f5f3ff; /* 연한 보라빛 배경 */
+  background-color: #EEF0FF; 
+  border: 2px solid #7B61FF;
 }
 
 .wellness-card.selected .card-title {
-  color: #4f46e5;
+  color: #7B61FF;
 }
 
 
@@ -232,6 +251,7 @@
 .question-section {
   margin-bottom: 28px;
   text-align: left;
+  padding: 0 20px;
 }
 
 .question-title {
@@ -250,21 +270,21 @@
 
 /* 알약(Pill) 태그 기본 스타일 */
 .pill-tag {
-  padding: 8px 16px;
-  border: 1.5px solid #e0e0e0;
+  padding: 4px 16px;
+  border: 1px solid #D2D0D0;
   border-radius: 20px;
   font-size: 13px;
-  color: #666;
-  background-color: #fff;
+  color: #6E6E73;
+  background-color: #ffffff;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 /* 알약 태그 선택 상태 */
 .pill-tag.selected {
-  border-color: #4f46e5;
-  color: #4f46e5;
-  background-color: #f5f3ff;
+  border-color: #6F6AF8;
+  color: #6F6AF8;
+  background-color: #EEF0FF;
   font-weight: 600;
 }
 
@@ -384,18 +404,20 @@
 .bottom-nav-buttons {
   display: flex;
   gap: 12px;
-  padding: 16px 0;
+  padding: 16px 20px;
   background-color: #FFFFFF;
+  
 }
 
 .nav-btn {
   flex: 1;
-  padding: 16px 0;
+  padding: 1rem 0;
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
+  
 }
 
 .cancel-btn {
@@ -415,10 +437,11 @@
 /* 상단 탭 스위치 */
 .schedule-toggle-group {
   display: flex;
-  background-color: #dbe2ff;
+  background-color: #D4D9FF;
   border-radius: 25px;
   padding: 3px;
-  margin-bottom: 8px;
+  margin: 16px 20px 16px 20px;
+  
 }
 
 .toggle-btn {
@@ -429,21 +452,23 @@
   border-radius: 22px;
   font-size: 13px;
   font-weight: 700;
-  color: #5d50fe;
+  color: #6E6E73;
   cursor: pointer;
-  transition: all 0.2s ease;
+
 }
 
 .toggle-btn.active {
-  background-color: #5d50fe;
+  background: linear-gradient(90deg, #7B61FF 0%, #4F45FF 100%);
   color: #ffffff;
   box-shadow: 0 2px 6px rgba(93, 80, 254, 0.3);
 }
 
-/* 테두리 추가 버튼 (+ 스케줄 추가 / + 직접 일정 추가) */
+/* 테두리 버튼 (+ 스케줄 추가 / + 직접 일정 추가) */
 .outline-add-btn {
-  width: 100%;
-  padding: 12px 0;
+  width: calc(100% - 40px);
+  margin: 0 20px;
+  padding: 12px 0px;
+  margin-top: 20px;
   border: 1px solid #5d50fe;
   background-color: #ffffff;
   color: #5d50fe;
@@ -464,6 +489,7 @@
   font-size: 14px;
   font-weight: 700;
   color: #6c5ce7;
+  margin: 0 20px;
 }
 
 .weekly-table {
@@ -479,7 +505,7 @@
 .weekly-table td {
   border: 1px solid #e8e8ee;
   text-align: center;
-  height: 32px;
+  height: 40px;
   font-size: 12px;
   overflow: hidden;
   word-break: break-all;

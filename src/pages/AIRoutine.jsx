@@ -452,7 +452,7 @@ export default function AIRoutine() {
               <div className="textarea-wrapper">
                 <textarea 
                   className="request-textarea"
-                  placeholder={`구체적으로 희망하는 바를 30자 이내로 입력해주세요.\n입력한 내용은 맞춤형 웰니스 루틴 형성에 참고됩니다.`}
+                  placeholder={`구체적으로 희망하는 바를 200자 이내로 \n입력해주세요.\n입력한 내용은 맞춤형 웰니스 루틴 형성에 참고됩니다.`}
                   maxLength={200}
                   value={requestText}
                   onChange={(e) => setRequestText(e.target.value)}
