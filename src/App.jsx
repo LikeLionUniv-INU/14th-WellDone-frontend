@@ -6,6 +6,7 @@ import Login from './pages/Login'
 import Singup from './pages/SignUp'
 import Home from './pages/Home'
 import AIRoutine from './pages/AIRoutine'
+import AIResult from './pages/AIResult'
 import {GlobalStyle} from './GlobalStyle'
 import {MobileLayout} from './components/MobileLayout'
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/signup" element={<Singup />} />
         <Route path="/home" element={<Home />} />
         <Route path="/routine" element={<AIRoutine />} />
+        <Route path="/result" element={<AIResult />} />
   
       </Routes>
       </MobileLayout>

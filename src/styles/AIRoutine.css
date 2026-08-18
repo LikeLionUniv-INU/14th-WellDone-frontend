@@ -467,6 +467,7 @@
 }
 
 .weekly-table {
+  table-layout: fixed;
   width: 100%;
   border-collapse: collapse;
   border-radius: 10px;
@@ -480,6 +481,9 @@
   text-align: center;
   height: 32px;
   font-size: 12px;
+  overflow: hidden;
+  word-break: break-all;
+  text-overflow: ellipsis;
 }
 
 .weekly-table th {
@@ -493,6 +497,49 @@
   color: #52525b;
   font-weight: 600;
   width: 32px;
+}
+
+/* ==================== STEP 5 주간 스케줄표 추가 CSS ==================== */
+
+/* 스케줄이 등록된 셀 스타일 */
+.weekly-table td.filled-cell {
+  background-color: #f0f1ff; /* 일정 블록 배경색 */
+  position: relative;
+  vertical-align: middle;
+  padding: 2px 4px;
+}
+
+/* 셀 내부 일정 블록 레이아웃 */
+.schedule-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 11px;
+  line-height: 1.25;
+  word-break: break-all;
+  text-align: center;
+}
+
+/* 일정명 스타일 */
+.sched-title {
+  font-weight: 700;
+  color: #312e81;
+}
+
+/* 근무장소 스타일 */
+.sched-location {
+  font-size: 10px;
+  color: #6366f1;
+  margin-top: 1px;
+}
+
+/* 시간표 좌측 시간(7~14) 표시 셀 */
+.hour-cell {
+  width: 32px;
+  text-align: center;
+  font-weight: 500;
+  color: #8e8e93;
 }
 
 /* ==================== STEP 6 (교대 근무표 입력) ==================== */
@@ -509,6 +556,14 @@
   gap: 16px;
 }
 
+.calendar-memo {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 11px;
+  color: #666;
+}
 .cal-nav-btn {
   border: none;
   background: transparent;
@@ -576,3 +631,37 @@
 .legend-dot.evening { background-color: #a78bfa; }
 .legend-dot.night { background-color: #4338ca; }
 .legend-dot.off { background-color: #d1d5db; color: #4b5563; }
+/* 달력 현재 달 / 다른 달 날짜 색상 구분 */
+.calendar-table .other-month .date-number {
+  color: #ccc; /* 이전/다음 달 날짜는 회색 처리 */
+}
+
+.cal-date-mock {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  padding-top: 5px;
+}
+
+/* 날짜 밑에 달릴 D, E, N, O 뱃지 스타일 */
+.shift-badge {
+  margin-top: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+}
+
+/* 각 타입별 색상 (디자인에 맞춰 수정하세요) */
+.shift-badge.type-D { background-color: #A3B9FF; } /* DAY */
+.shift-badge.type-E { background-color: #8A9CFF; } /* Evening */
+.shift-badge.type-N { background-color: #5C6FFF; } /* Night */
+.shift-badge.type-O { background-color: #D3D3D3; color: #555; } /* OFF */
