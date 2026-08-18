@@ -6,6 +6,7 @@ import { GlobalStyle } from "./GlobalStyle";
 import { MobileLayout } from "./components/MobileLayout";
 import NavigationBar from "./components/NavigationBar";
 import DutyLounge from "./pages/DutyLounge";
+import MyPage from "./pages/MyPage";
 
 function AppContent(){
   const location = useLocation();
@@ -23,11 +24,9 @@ function AppContent(){
      <MobileLayout>
           {/* 모바일 레이아웃 적용*/}
           <Routes>
-            <Route
-              path="/home"
-              element={<Home />}
-            />
+            <Route path="/home" element={<Home />}/>
             <Route path="/challenge" element={<DutyLounge/>}/>
+            <Route path= "/mypage" element ={ <MyPage/>}/> 
           </Routes>
           {/* 💡 네비게이션 바가 존재하는 창에서는 네비게이션을 보여주기*/}
         {showNavBar && <NavigationBar />}

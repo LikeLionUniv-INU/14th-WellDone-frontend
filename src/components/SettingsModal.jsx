@@ -6,40 +6,39 @@ import {
   MessageSquare,
   User,
   ChevronRight,
-} from "lucide-react";
-import * as S from "../styles/SettingsModal.styles";
+} from "lucide-react"; //  루시드 리엑트 라이브러리 에서 아이콘 가져오기 
+import * as S  from "../styles/SettingsModal.styles";
 
 export default function SettingsModal({ isOpen, onClose }) {
   const [dragY, setDragY] = useState(0);
-  const [isDragging, setIsDragging] = useState(false); // 💡 드래그 중인지 상태 추가
-  const touchStartY = useRef(0);
-  // 💡 처음 등장 키프레임 애니메이션 완료 여부
-  const [isAnimateDone, setIsAnimateDone] = useState(false);
+  const [isDragging, setIsDragging] = useState(false); // 드래그 중인지 상태 추가
+  const touchStartY = useRef(0); // useref로 touchStartY 변수를 만들고 변수에 0 넣기
+  const [isAnimateDone, setIsAnimateDone] = useState(false); // 처음 등장 키프레임 애니메이션 완료 여부
 
-  // 💡 모달이 열려있을 때 홈 화면 배경 스크롤 방지
+  // 모달이 열려있을 때 홈 화면 배경 스크롤 방지
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
+    if (isOpen) {  
+      document.body.style.overflow = "hidden"; // body 태그의/ style을 /바꾸는 css 코드(overflow = hidden)를 써주기
     } else {
-      document.body.style.overflow = "unset";
-      setIsAnimateDone(false);
-      setDragY(0);
+       // isopen이 false일때( 모달 창이 닫힌 상황에서) 
+      setIsAnimateDone(false);// 애니메이션 상태를 초기화하고
+      setDragY(0);// 드래그 위치를 초기화한다.
     }
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "unset"; // isopen이 false가 되는 순간에 화면 스크롤을 허용한다.
     };
   }, [isOpen]);
 
-  // 💡 밑으로 슬라이드해서 닫는 터치 이벤트 핸들러
+  //  밑으로 슬라이드해서 닫는 터치 이벤트 핸들러
   const handleTouchStart = (e) => {
     setIsAnimateDone(true); // 터치하는 순간 키프레임을 끄고 드래그 제어로 전환
-    touchStartY.current = e.touches[0].clientY;
-    setIsDragging(true); // 💡 드래그 시작
+    touchStartY.current = e.touches[0].clientY; //  터치 시작지점의 y 좌표값을 touchStartY에 저장
+    setIsDragging(true); // 드래그 시작
   };
 
   const handleTouchMove = (e) => {
-    if (!isDragging) return;
-    const currentY = e.touches[0].clientY;
+    if (!isDragging) return; // 드래깅 상태가 아닐 때 함수를 실행하지 않음
+    const currentY = e.touches[0].clientY; // currentY에 현재 터치 된 부분의 y 값을 저장 
     const diff = currentY - touchStartY.current;
 
     // 아래로 내릴 때만 dragY 값 업데이트 (양수일 때만)
@@ -49,7 +48,7 @@ export default function SettingsModal({ isOpen, onClose }) {
   };
 
   const handleTouchEnd = () => {
-    setIsDragging(false); // 💡 드래그 끝
+    setIsDragging(false); //  드래그 끝
 
     if (dragY > 100) {
       // 100px 이상 내렸으면 모달 닫기
@@ -60,41 +59,44 @@ export default function SettingsModal({ isOpen, onClose }) {
     setDragY(0);
   };
 
-  if (!isOpen) return null;
+  if (!isOpen) return null; // 모달 열림 isopen이 true가 아니면 창을 아무것도 보내지 않는다(닫는다)
 
   // 설정 메뉴 더미 목록 데이터
   const menuItems = [
     {
       id: 1,
-      icon: <Hand size={22} />,
+      icon: <S.Icon src="front_hand.svg"/>,
       title: "PRO UPGRADE",
       subtitle: "광고 제거 및 기능 잠금 해제",
     },
     {
       id: 2,
-      icon: <Clock size={22} />,
+      icon:  <S.Icon src="schedule.svg"/>,
       title: "스케줄표 업데이트 및 갱신",
       subtitle: "최근 업데이트 : 8월 2일",
     },
-    {
+    { 
       id: 3,
-      icon: <Bell size={22} />,
+      icon:  <S.Icon src="notifications.svg"/>,
       title: "시스템 알림",
       subtitle: "푸시 알림 설정",
     },
     {
       id: 4,
-      icon: <MessageSquare size={22} />,
+      icon: <S.Icon src="comment.svg"/> ,
       title: "도움말",
       subtitle: "자주 묻는 질문과 이용 가이드",
     },
     {
       id: 5,
-      icon: <User size={22} />,
+      icon:  <S.Icon src="settings.svg"/>,
       title: "계정 관리",
       subtitle: "회원 정보 및 로그아웃",
     },
   ];
+
+
+ // ---------------메인 함수 리턴문 시작--------------------------
 
   return (
     // 배경 클릭 시 닫기 (오버레이) 삭제
@@ -111,7 +113,8 @@ export default function SettingsModal({ isOpen, onClose }) {
         style={{ transform: `translateY(${dragY}px)` }}
       >
         {/* 모달 상단 드래그 핸들 바 */}
-        <S.DragHandle />
+        
+        <S.DragHandle></S.DragHandle>
 
         <S.Title>설정</S.Title>
 
@@ -130,7 +133,7 @@ export default function SettingsModal({ isOpen, onClose }) {
                 </S.TextGroup>
               </S.ItemLeft>
               <S.ArrowWrapper>
-                <ChevronRight size={18} />
+                <ChevronRight size={22} />
               </S.ArrowWrapper>
             </S.MenuItemButton>
           ))}

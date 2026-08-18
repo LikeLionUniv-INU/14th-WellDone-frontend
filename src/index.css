@@ -1,19 +1,16 @@
-/* 모든 요소의 여백 초기화 및 테두리 기준 크기 계산 
-* {
+html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-/* 폰트 및 기본 배경/글자색 세팅 
-body {
-  font-family: 'Pretendard', sans-serif; /* 사용할 폰트로 변경 
+  font-family: "Inter", "Pretendard", "Noto Sans KR", sans-serif;
   background-color: #ffffff;
   color: #333333;
 }
 
-/* 자주 쓰는 색상 변수화 (선택 사항) 
+* {
+  box-sizing: border-box;
+}
+
 :root {
   --primary-color: #3b82f6;
 }
-*/

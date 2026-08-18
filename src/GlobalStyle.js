@@ -1,12 +1,16 @@
 import { createGlobalStyle } from "styled-components";
 
+
 export const GlobalStyle = createGlobalStyle`
   /* 기본 여백 제거 및 커스텀 */
   * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: "Inter", "Pretendard", "Noto Sans KR", sans-serif;
+    font-optical-sizing: auto;
   }
+  
 
   /* 바깥 바탕 배경 (데스크톱 등 큰 화면에서 보일 영역) */
   body {

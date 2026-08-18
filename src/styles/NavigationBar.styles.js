@@ -8,15 +8,15 @@ export const Bar = styled.nav`
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 480px;
-  height: 64px;
+  max-width: 430px;
+  height: 74px;
   background-color: #f2f2f2; /* 연한 회색 배경 */
   border-radius: 28px 28px 0 0;
 
   display: flex;
   justify-content: space-around;
   align-items: center;
-  z-index: 1000;
+  z-index: 990;
   box-sizing: border-box;
 `;
 

@@ -27,7 +27,7 @@ export const Overlay = styled.div`
 // 2. 모달 컨테이너 (화면 하단 50% 차지)
 export const ModalContainer = styled.div`
   width: 100%;
-  max-width: 480px; // 모바일 웹 최적화 가로폭
+  max-width: 430px; // 모바일 웹 최적화 가로폭
   height: 50dvh; // 전체 화면 높이의 50%
   background-color: #ffffff;
   border-radius: 1.5rem 1.5rem 0 0; // 상단 라운드 처리
@@ -56,9 +56,10 @@ export const ModalContainer = styled.div`
 
 // 3. 하단으로 슬라이드 제스처 안내용 핸들바
 export const DragHandle = styled.div`
-  width: 3rem;
-  height: 0.25rem;
-  background-color: #e2e8f0;
+  flex-shrink: 0; /* 💡 부모가 flex여도 크기가 0으로 찌그러지지 않게 방지! 이게 없으면 flex가 내용이 없는것을 넓이를 맘댇로 줄여서 없애 버림 */ 
+  width:   4rem;
+  height: 0.4rem;
+  background-color: #F2F2F2;
   border-radius: 1rem;
   margin: 0 auto 1.25rem auto;
   cursor: grab;
@@ -66,18 +67,19 @@ export const DragHandle = styled.div`
 
 // 4. 모달 타이틀
 export const Title = styled.h2`
-  font-size: 1.35rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: #1e293b;
-  margin-bottom: 1.25rem;
+  margin-bottom: 2.5rem;
 `;
 
 // 5. 메뉴 목록 리스트
 export const MenuList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.1rem;
 `;
+
 
 // 6. 설정 항목 개별 버튼
 export const MenuItemButton = styled.button`
@@ -85,10 +87,11 @@ export const MenuItemButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.25rem;
+  padding: 0.6rem 1rem;
   background-color: #ffffff;
   border: 0.0625rem solid #e2e8f0;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
+  margin: 0;
   cursor: pointer;
   transition: background-color 0.2s ease;
 
@@ -117,23 +120,31 @@ export const TextGroup = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.25rem;
+  gap: 0.15rem;
 `;
 
 export const ItemTitle = styled.span`
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #1e293b;
 `;
 
 export const ItemSubtitle = styled.span`
   font-size: 0.8rem;
-  color: #64748b;
+   font-weight: 500;
+  color: #6E6E73;
 `;
 
 // 10. 우측 화살표 안내용 아이콘
 export const ArrowWrapper = styled.div`
   display: flex;
   align-items: center;
-  color: #94a3b8;
+  color: #6E6E73;
+`;
+
+
+// 11. 아이콘 크기
+export const Icon = styled.img`
+ width: 2rem;
+ height: 2rem;
 `;
