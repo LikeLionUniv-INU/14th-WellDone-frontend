@@ -1,0 +1,129 @@
+/* 모달 배경 (어둡게) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* 모달 본체 */
+.modal-content {
+  background-color: #ffffff;
+  width: 280px; /* 첨부해주신 이미지 비율에 맞춘 너비 */
+  padding: 32px 24px 28px 24px;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 입력 폼 라인 인풋 */
+.modal-input-group {
+  margin-bottom: 20px;
+}
+
+.modal-line-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1.5px solid #e0e0e0;
+  padding: 8px 0;
+  font-size: 15px;
+  color: #333333;
+  outline: none;
+  background: transparent;
+}
+
+.modal-line-input::placeholder {
+  color: #cccccc;
+  font-weight: 500;
+}
+
+.modal-line-input:focus {
+  border-bottom-color: #7b61ff;
+}
+
+/* 하단 요일 및 시간 선택 영역 */
+.modal-select-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+  margin-bottom: 32px;
+}
+
+/* 드롭다운 (Select) 공통 스타일 */
+.modal-select {
+  border: none;
+  background: transparent;
+  font-size: 15px;
+  color: #9284ff; /* 이미지와 동일한 연보라색 텍스트 */
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  /* 커스텀 보라색 화살표 (v) */
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%239284ff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 14px;
+}
+
+.day-select {
+  width: 65px;
+}
+
+/* 시간 범위 영역 */
+.time-range-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.time-select {
+  width: 50px;
+}
+
+/* 시작 시간의 경우 드롭다운 화살표(v)를 숨겨서 하나의 세트처럼 보이게 함 */
+.time-select.start-time {
+  background-image: none;
+  padding-right: 0;
+}
+
+.time-dash {
+  color: #cccccc;
+  font-size: 15px;
+}
+
+/* 추가 버튼 영역 */
+.modal-submit-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.modal-submit-btn {
+  width: 160px;
+  padding: 6px 0;
+  background-color: #7b61ff;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.modal-submit-btn:hover {
+  background-color: #6a52e0;
+}

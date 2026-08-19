@@ -1,0 +1,139 @@
+.onboard-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  transition: background 0.5s ease-in-out;
+}
+
+/* 단계별 배경 색상 */
+.onboard-box.step-1 { background-color: #5B45E0; }
+.onboard-box.step-2 { background-color: #FFFFFF; }
+.onboard-box.step-3 { 
+  background: linear-gradient(155deg, #7B61FF 0%,#E5E0FF 75%, #FFFFFF 100%);
+  position: relative; /* 3단계 내부 absolute 정렬을 위한 기준점 */
+}
+
+/* 로고 섹션 (스플래시 화면용) */
+.splash-content {
+  position: relative; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* 로고 이미지 박스 (크기 및 배경 설정) */
+.onboard-logo-img {
+  width: 10rem; 
+  height: 7rem; 
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* 웰던 텍스트 이미지 */
+.onboard-brand-text {
+  position: absolute;
+  bottom: 50px;
+  width: 5rem; 
+  height: 2rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* 불필요한 margin-top: auto 제거 완료 */
+}
+
+/* 1단계(보라색 배경): 'Well Done' 흰색 이미지 경로 */
+.onboard-brand-text.step-1 {
+  background-image: url('../images/welldone_white.svg'); 
+}
+
+/* 2단계(흰색 배경): 'Well Done' 보라색 이미지 경로 */
+.onboard-brand-text.step-2 {
+  background-image: url('../images/welldone_colored.svg'); 
+}
+
+/* 3단계 콘텐츠 및 로그인 박스 */
+.main-content {
+  position: relative; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+@keyframes floatText {
+  0% {
+    transform: translate(-50%, -50%) translateY(0px);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-15px); /* 위로 10px 이동 */
+  }
+  100% {
+    transform: translate(-50%, -50%) translateY(0px);
+  }
+}
+
+/* 중앙 인트로 텍스트 */
+.intro-text {
+  position: absolute;
+  top: 40%; 
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 27px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.5px;
+  width: 100%; 
+
+  animation: floatText 3.5s ease-in-out infinite;
+}
+
+/* 3단계 로그인 버튼 및 링크 그룹 (바닥 고정) */
+.button-group {
+  position: absolute;
+  bottom: 50px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.login-btn {
+  width: 90%;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #7B61FF 0%, #4F45FF 100%);
+  color: #FFFFFF;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.sub-links {
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  color:#6B6B6B;
+}
+
+.highlight-group {
+  color: #7B61FF; 
+}
+
+.highlight {
+  text-decoration: underline;
+  cursor: pointer;
+}

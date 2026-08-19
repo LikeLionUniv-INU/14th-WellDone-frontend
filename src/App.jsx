@@ -8,11 +8,16 @@ import NavigationBar from "./components/NavigationBar";
 import DutyLounge from "./pages/DutyLounge";
 import MyPage from "./pages/MyPage";
 import ScrollToTop from "./components/ScrollToTop";
+import Onboarding from "./pages/Onboard";
+import Login from "./pages/Login";
+import Singup from "./pages/SignUp";
+import AIRoutine from "./pages/AIRoutine";
+import AIResult from "./pages/AIResult";
 
 function AppContent() {
   const location = useLocation();
 
-  const excludePaths = [];
+  const excludePaths = ["/", "/login", "/signup","/result","/routine"];
   const showNavBar =
     !excludePaths.includes(location.pathname) &&
     !location.pathname.startsWith("/post/");
@@ -33,6 +38,32 @@ function AppContent() {
           <Route
             path="/mypage"
             element={<MyPage />}
+          />
+          <Route
+            path="/"
+            element={<Onboarding />}
+          />
+          {" "}
+          <Route
+            path="/login"
+            element={<Login />}
+          />
+          
+          <Route
+            path="/signup"
+            element={<Singup />}
+          />
+         
+         
+          
+          <Route
+            path="/routine"
+            element={<AIRoutine />}
+          />
+          {" "}
+          <Route
+            path="/result"
+            element={<AIResult />}
           />
         </Routes>
         {/* 💡 네비게이션 바가 존재하는 창에서는 네비게이션을 보여주기*/}
