@@ -3,12 +3,12 @@ import * as S from "../styles/TeamChallengeCard.style";
 import { ChevronRight, Users, Gift } from "lucide-react"; // lucide-react 아이콘 사용
 
 function TeamChallengeCard({
-  teamName ,
-  type ,
+  teamName,
+  type,
   percentage,
-  remainingPercent ,
-  participantCount ,
-  rewardInfo ,
+  remainingPercent,
+  participantCount,
+  rewardInfo,
   onMoreClick,
 }) {
   return (
@@ -45,14 +45,20 @@ function TeamChallengeCard({
         {/* 6. 하단 참여자 수 & 보상 정보 */}
         <S.BottomInfoLayout>
           <S.InfoItem>
-            <Users size={18} color="#4E46E5" />
+            <Users
+              size={18}
+              color="#4E46E5"
+            />
             <span>{participantCount}명 참여 중</span>
           </S.InfoItem>
 
           <S.VerticalDivider />
 
           <S.InfoItem>
-            <Gift size={18} color="#4E46E5" />
+            <Gift
+              size={18}
+              color="#4E46E5"
+            />
             <span>{rewardInfo}</span>
           </S.InfoItem>
         </S.BottomInfoLayout>

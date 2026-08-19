@@ -6,14 +6,14 @@ export const CardContainer = styled.div`
   /* 📌 [참고 조건 7] 높이 계산 시 rem 반응형 단위 사용 */
   min-height: 8.5rem;
   height: auto;
-  
+
   background-color: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 16px;
   padding: 16px;
   margin-bottom: 12px;
   box-sizing: border-box;
-  
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;

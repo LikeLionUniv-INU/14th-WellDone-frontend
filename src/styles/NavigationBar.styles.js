@@ -38,7 +38,6 @@ export const IconImg = styled.img`
   margin-bottom: 4px;
 `;
 
-
 /*  초기 와이어 프레임 구조물
 
 // 💡 아이콘을 감싸는 원 (선택 시 위로 올라오는 애니메이션)

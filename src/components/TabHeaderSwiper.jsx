@@ -4,16 +4,13 @@ import { motion } from "framer-motion";
 import "swiper/css"; // Swiper 필수 스타일
 import * as S from "../styles/TabHeaderSwiper.styles";
 import RoutineCard from "./RoutineCard"; // 주간 웰니스 루틴 수행  컴포넌트
-import BoosterCard from "./BoosterCard";// 지난 달 리포트 1번째 박스
-import RoutineSummaryCard from "./RoutineSummaryCard";// 2번째 박스
-import GoldenTimeCard from "./GoldenTimeCard";// 3번째 박스
-import NextMonthCard from "./NextMonthCard";// 4번째 박스
-
-
+import BoosterCard from "./BoosterCard"; // 지난 달 리포트 1번째 박스
+import RoutineSummaryCard from "./RoutineSummaryCard"; // 2번째 박스
+import GoldenTimeCard from "./GoldenTimeCard"; // 3번째 박스
+import NextMonthCard from "./NextMonthCard"; // 4번째 박스
 
 // 탭 목록 데이터
-const TABS = [ "주간 기록", "지난 달 리포트"];
-
+const TABS = ["주간 기록", "지난 달 리포트"];
 
 const MOCK_ROUTINE_DATA = {
   isSuccess: true,
@@ -68,11 +65,10 @@ const MOCK_REPORT_DATA = {
   nextMonthPoint: {
     subTitle: "다음 달 회복 포인트",
     title: "7월 2주차 야간근무",
-    description: "야간 근무가 이어지는 기간이에요.\n회복 부담을 줄인 루틴을 추천해드릴게요.",
+    description:
+      "야간 근무가 이어지는 기간이에요.\n회복 부담을 줄인 루틴을 추천해드릴게요.",
   },
 };
-
-
 
 export default function TabHeaderSwiper() {
   // 현재 선택된 탭 인덱스 (기본값: 1번 '주간')
@@ -127,21 +123,19 @@ export default function TabHeaderSwiper() {
         }}
         style={{ width: "100%" }}
       >
-       
-
         <SwiperSlide>
           <S.SlideContentArea>
             <h2> 주간 웰니스 루틴 수행 내역</h2>
             {/* 여기에 주간 데이터 리스트 배치 */}
             {/* 더미 데이터의 routines 배열을 map으로 돌려 각 카드를 생성 */}
-          {MOCK_ROUTINE_DATA.result.routines.map((routine, index) => (
-            <RoutineCard
-              key={index}
-              routineName={routine.routineName}
-              cycle={routine.cycle}
-              initialChecks={routine.checks}
-            />
-          ))}
+            {MOCK_ROUTINE_DATA.result.routines.map((routine, index) => (
+              <RoutineCard
+                key={index}
+                routineName={routine.routineName}
+                cycle={routine.cycle}
+                initialChecks={routine.checks}
+              />
+            ))}
           </S.SlideContentArea>
         </SwiperSlide>
 
@@ -149,31 +143,29 @@ export default function TabHeaderSwiper() {
           <S.SlideContentArea>
             <h3>6월 웰니스 리포트</h3>
 
-
             {/* 1. 부스터 모드 일수 컴포넌트 */}
-          <BoosterCard
-            days={data.booster.days}
-            rate={data.booster.rate}
-            subText={data.booster.subText}
-          />
+            <BoosterCard
+              days={data.booster.days}
+              rate={data.booster.rate}
+              subText={data.booster.subText}
+            />
 
-          {/* 2. 루틴 영역별 달성 요약 컴포넌트 */}
-          <RoutineSummaryCard
-            categories={data.routineCategories}
-            bestCategory={data.bestCategory}
-            worstCategory={data.worstCategory}
-          />
+            {/* 2. 루틴 영역별 달성 요약 컴포넌트 */}
+            <RoutineSummaryCard
+              categories={data.routineCategories}
+              bestCategory={data.bestCategory}
+              worstCategory={data.worstCategory}
+            />
 
-          {/* 3. 골든 타임 회복률 컴포넌트 */}
-          <GoldenTimeCard rate={data.goldenTimeRate} />
+            {/* 3. 골든 타임 회복률 컴포넌트 */}
+            <GoldenTimeCard rate={data.goldenTimeRate} />
 
-          {/* 4. 다음 달 회복 포인트 컴포넌트 */}
-          <NextMonthCard
-            subTitle={data.nextMonthPoint.subTitle}
-            title={data.nextMonthPoint.title}
-            description={data.nextMonthPoint.description}
-          />
-          
+            {/* 4. 다음 달 회복 포인트 컴포넌트 */}
+            <NextMonthCard
+              subTitle={data.nextMonthPoint.subTitle}
+              title={data.nextMonthPoint.title}
+              description={data.nextMonthPoint.description}
+            />
           </S.SlideContentArea>
         </SwiperSlide>
       </Swiper>

@@ -84,7 +84,9 @@ export const CardItemWrapper = styled.div`
   background: #f4f4f5;
   border: 0.07rem solid #e5e7eb;
   border-radius: 1.15rem;
-  padding: 1rem
+  padding: 1rem 1.25rem;
+  box-sizing: border-box;
+  box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.04);
 
   /* 펼쳐지거나 접힐 때의 부드러운 위치/크기 전환 애니메이션 */
   transition:
@@ -169,8 +171,6 @@ export const ItemTitle = styled.span`
   font-weight: 600;
   color: #222222;
 `;
-
-
 
 export const ItemTime = styled.span`
   font-size: 0.85rem;
