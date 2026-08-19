@@ -15,7 +15,7 @@ body {
   padding: 0;
 }
 .menu-icon {
-  width: 8%;
+  width: 9%;
   height: auto;
   margin-left: 6vw;
   cursor: pointer;
@@ -31,5 +31,5 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 23%;
+  width: 25%;
 }
