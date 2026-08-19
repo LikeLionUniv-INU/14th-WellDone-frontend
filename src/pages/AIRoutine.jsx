@@ -657,63 +657,78 @@ export default function AIRoutine() {
           </div>
         )}
 
-        {/* ==================== STEP 7 (교대 근무 및 메모 직접 입력 Form) ==================== */}
-        {currentStep === 7 && (
-          <div className="step-wrapper fade-in no-progress">
-            <div className="step-titles">
-              <h2>직접 일정 추가</h2>
-              <p>선택한 날짜의 근무 유형과 메모를 설정하세요.</p>
+  {/* ==================== STEP 7 (교대 근무 및 메모 직접 입력) ==================== */}
+{currentStep === 7 && (
+          <div className="step-wrapper fade-in no-progress" ref={monthlyCaptureRef}>
+            {/* 상단 토글 바 */}
+            <div className="schedule-toggle-group">
+              <button className="toggle-btn active" onClick={() => setCurrentStep(6)}>교대 근무표 입력</button>
+              <button className="toggle-btn" onClick={() => setCurrentStep(5)}>주간 직접 입력</button>
             </div>
 
-            <div className="input-group">
-              <label>날짜 선택</label>
+            {/* 타이틀 영역 */}
+            <div className="step-titles mt-20">
+              <h2>스케줄표 제작</h2>
+              <p>근무 일정을 확인하여 스케줄을 입력하세요</p>
+            </div>
+
+            {/* 일정 추가 섹션 */}
+            <div className="input-group mt-20">
+              <label>일정추가</label>
+              <div className="sub-label mt-10">날짜 선택</div>
               <input 
                 type="date" 
                 value={inputDate} 
                 onChange={(e) => setInputDate(e.target.value)}
-                className="type-select"
-                style={{ padding: '10px', width: '100%', boxSizing: 'border-box' }}
+                className="type-select date-input-field mt-8"
               />
             </div>
 
-            <div className="input-group" style={{ marginTop: '20px' }}>
+            <div className="input-group mt-20">
               <label>근무 유형 선택</label>
-              <div style={{ display: 'flex', gap: '10px', marginTop: '8px' }}>
-                {['D', 'E', 'N', 'O'].map((type) => (
-                  <button
-                    key={type}
-                    type="button"
-                    onClick={() => setSelectedShiftType(type)}
-                    style={{
-                      flex: 1,
-                      padding: '12px 0',
-                      borderRadius: '8px',
-                      border: selectedShiftType === type ? '2px solid #5A45FF' : '1px solid #ddd',
-                      backgroundColor: selectedShiftType === type ? '#F0EEFF' : '#fff',
-                      fontWeight: 'bold',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    {type}
-                  </button>
+              <div className="shift-type-container mt-8">
+                {[
+                  { type: 'D', label: 'DAY', className: 'type-d' },
+                  { type: 'E', label: 'Evening', className: 'type-e' },
+                  { type: 'N', label: 'Night', className: 'type-n' },
+                  { type: 'O', label: 'OFF', className: 'type-o' }
+                ].map((item) => (
+                  <div key={item.type} className="shift-type-item">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedShiftType(item.type)}
+                      className={`shift-type-btn ${item.className} ${selectedShiftType === item.type ? 'selected' : ''}`}
+                    >
+                      {item.type}
+                    </button>
+                    <span className="shift-label">{item.label}</span>
+                  </div>
                 ))}
               </div>
             </div>
 
-            <div className="input-group" style={{ marginTop: '20px' }}>
+            {/* 메모 입력창 (글자 수 제한 0/30 포함) */}
+            <div className="input-group mt-20">
               <label>메모 (선택)</label>
-              <textarea 
-                value={inputMemo} 
-                onChange={(e) => setInputMemo(e.target.value)} 
-                placeholder="특이사항이나 메모를 입력하세요"
-                className="request-textarea"
-                style={{ width: '100%', height: '100px', marginTop: '8px', boxSizing: 'border-box' }}
-              />
+              <div className="memo-input-wrap mt-8">
+                <input 
+                  type="text"
+                  value={inputMemo} 
+                  onChange={(e) => {
+                    if (e.target.value.length <= 30) {
+                      setInputMemo(e.target.value);
+                    }
+                  }} 
+                  placeholder=""
+                  className="memo-text-input"
+                />
+                <span className="memo-counter">{inputMemo.length}/30</span>
+              </div>
             </div>
 
-            <div className="bottom-nav-buttons" style={{ marginTop: '30px' }}>
-              <button className="nav-btn cancel-btn" onClick={() => setCurrentStep(6)}>취소</button>
-              <button className="nav-btn next-btn" onClick={handleSaveStep7}>저장하기</button>
+            {/* 하단 단일 버튼 */}
+            <div className="bottom-nav-buttons mt-30">
+              <button className="nav-btn next-btn full-width-btn" onClick={handleSaveStep7}>추가하기</button>
             </div>
           </div>
         )}
