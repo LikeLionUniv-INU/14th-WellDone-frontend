@@ -41,7 +41,7 @@ export const TeamName = styled.div`
 
 export const Type = styled.div`
   color: #7f78ff;
-  background-color: #D3D8FF;
+  background-color: #d3d8ff;
   font-size: 0.6rem;
   font-weight: 600;
   padding: 2px 8px;
@@ -80,7 +80,7 @@ export const ProgressBarTrack = styled.div`
 export const ProgressBarFill = styled.div`
   width: ${(props) => props.$percent || 0}%;
   height: 100%;
-  background: linear-gradient(90deg, #7B61FF 0%, #767BF6 42%, #C2D0FF 100%);
+  background: linear-gradient(90deg, #7b61ff 0%, #767bf6 42%, #c2d0ff 100%);
   border-radius: 20px;
   transition: width 0.5s ease-in-out;
 `;
@@ -93,14 +93,14 @@ export const TargetText = styled.div`
   margin-bottom: 16px;
 
   span {
-    color: #5C58D5;
+    color: #5c58d5;
     font-weight: 700;
   }
 `;
 
 // 구분선
 export const Divider = styled.div`
-  background-color: #D2D0D0;
+  background-color: #d2d0d0;
   height: 1px;
   width: 100%;
   margin-bottom: 14px;
@@ -127,5 +127,5 @@ export const InfoItem = styled.div`
 export const VerticalDivider = styled.div`
   width: 1px;
   height: 30px;
-  background-color: #D2D0D0;
+  background-color: #d2d0d0;
 `;

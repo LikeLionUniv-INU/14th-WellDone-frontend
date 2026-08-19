@@ -8,7 +8,7 @@
   margin: 0 auto;
   padding: 24px;
   box-sizing: border-box;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   position: relative;
 }
 
@@ -25,23 +25,21 @@
 .progress-bar-bg {
   flex: 1;
   height: 0.5rem;
-  background-color: #F0EEFF;
+  background-color: #f0eeff;
   border-radius: 3px;
   overflow: hidden;
 }
 
 .progress-bar-fill {
   height: 100%;
-  background-color: #7B61FF;
+  background-color: #7b61ff;
   border-radius: 3px;
 }
 
 .progress-text {
   font-size: 12px;
-  color: #6E6E73;
+  color: #6e6e73;
   font-weight: 500;
-  
-  
 }
 
 /* 타이틀 스타일 */
@@ -53,20 +51,20 @@
 .step-indicator {
   font-size: 17px;
   font-weight: bold;
-  color: #6F6A86;
+  color: #6f6a86;
   letter-spacing: 0.5px;
 }
 
 .step-titles h2 {
   font-size: 22px;
   font-weight: bold;
-  color: #2B3143;
+  color: #2b3143;
   margin: 4px 0 8px 0;
 }
 
 .step-titles p {
   font-size: 14px;
-  color: #6E6E73;
+  color: #6e6e73;
   line-height: 1.4;
   margin: 0;
 }
@@ -82,22 +80,22 @@
   display: block;
   font-size: 13px;
   font-weight: 600;
-  color: #6E6E73;
+  color: #6e6e73;
   margin-bottom: 8px;
 }
 
 .required {
-  color: #FF3B30;
+  color: #ff3b30;
 }
 
 .type-select {
   width: 100%;
   padding: 14px 16px;
-  border: 1.5px solid #D2D0D0; 
+  border: 1.5px solid #d2d0d0;
   border-radius: 12px;
   font-size: 14px;
-  color: #1C1C1E;
-  background-color: #FFFFFF;
+  color: #1c1c1e;
+  background-color: #ffffff;
   outline: none;
   cursor: pointer;
 }
@@ -105,11 +103,11 @@
 /* 이미지 업로드 박스 */
 .upload-box {
   /* 너비를 컨테이너에서 좌우 패딩(20px + 20px = 40px)을 뺀 만큼 설정 */
-  width: calc(100% - 40px); 
-  
+  width: calc(100% - 40px);
+
   /* 중앙 정렬 핵심 */
-  margin: 0 auto; 
-  
+  margin: 0 auto;
+
   height: 13rem;
   border: 2px dashed #ccc;
   border-radius: 14px;
@@ -121,7 +119,6 @@
   position: relative;
   background-color: #f9f9f9;
   margin-bottom: 8px;
-  
 }
 
 /* 튀어나가는 이미지 사이즈 조정 */
@@ -132,7 +129,7 @@
 }
 
 .upload-box:hover {
-  border-color: #7B61FF;
+  border-color: #7b61ff;
 }
 
 .upload-content {
@@ -148,13 +145,13 @@
 .upload-main-text {
   font-size: 14px;
   font-weight: 600;
-  color: #3A3A3C;
+  color: #3a3a3c;
   margin: 0 0 4px 0;
 }
 
 .upload-sub-text {
   font-size: 12px;
-  color: #8E8E93;
+  color: #8e8e93;
   margin: 0;
 }
 
@@ -169,28 +166,25 @@
 .sub-btn {
   flex: 1;
   padding: 10px 0;
-  border: 1px solid #D2D0D0;
+  border: 1px solid #d2d0d0;
   border-radius: 8px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   font-size: 12px;
   font-weight: 500;
-  color: #3A3A3C;
+  color: #3a3a3c;
   cursor: pointer;
 }
 /*어... 굳이 하이라이트 만들 필요 없었는데 실수로 분리해버림*/
 .highlight-sub {
-  border-color: #D2D0D0;
-  color: #3A3A3C;
+  border-color: #d2d0d0;
+  color: #3a3a3c;
 }
 
 .sub-btn:active {
-  background-color: #7B61FF; 
-  border-color: #D2D0D0;
-  color: #FFFFFF;
+  background-color: #7b61ff;
+  border-color: #d2d0d0;
+  color: #ffffff;
 }
-
-
-
 
 /* STEP 2: 웰니스 카테고리 그리드 레이아웃 (2열) */
 .wellness-grid {
@@ -203,7 +197,7 @@
 
 /* 개별 카드 기본 스타일 */
 .wellness-card {
-  border: 1px solid #D2D0D0;
+  border: 1px solid #d2d0d0;
   border-radius: 14px;
   padding: 18px 12px;
   text-align: center;
@@ -227,25 +221,24 @@
 .card-title {
   font-size: 15px;
   font-weight: 600;
-  color: #2B3143;
+  color: #2b3143;
   margin-bottom: 2px;
 }
 
 .card-sub {
   font-size: 13px;
-  color: #6E6E73;
+  color: #6e6e73;
 }
 
 /* 카드가 선택되었을 때 스타일 */
 .wellness-card.selected {
-  background-color: #EEF0FF; 
-  border: 2px solid #7B61FF;
+  background-color: #eef0ff;
+  border: 2px solid #7b61ff;
 }
 
 .wellness-card.selected .card-title {
-  color: #7B61FF;
+  color: #7b61ff;
 }
-
 
 /* ==================== STEP 3 ==================== */
 .question-section {
@@ -271,10 +264,10 @@
 /* 알약(Pill) 태그 기본 스타일 */
 .pill-tag {
   padding: 4px 16px;
-  border: 1px solid #D2D0D0;
+  border: 1px solid #d2d0d0;
   border-radius: 20px;
   font-size: 13px;
-  color: #6E6E73;
+  color: #6e6e73;
   background-color: #ffffff;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -282,9 +275,9 @@
 
 /* 알약 태그 선택 상태 */
 .pill-tag.selected {
-  border-color: #6F6AF8;
-  color: #6F6AF8;
-  background-color: #EEF0FF;
+  border-color: #6f6af8;
+  color: #6f6af8;
+  background-color: #eef0ff;
   font-weight: 600;
 }
 
@@ -327,7 +320,6 @@
   color: #888;
 }
 
-
 /* ==================== STEP 4 ==================== */
 .step4-container {
   position: absolute;
@@ -342,14 +334,14 @@
   box-sizing: border-box;
   text-align: center;
   z-index: 10;
-  
+
   background: linear-gradient(
     to top,
-    #A5A2FF 3%,
-    #CDCBFD 16%,
-    #E4E3FB 26%,
-    #E9E9FC 30%,
-    #FFFFFF 100%
+    #a5a2ff 3%,
+    #cdcbfd 16%,
+    #e4e3fb 26%,
+    #e9e9fc 30%,
+    #ffffff 100%
   );
 }
 
@@ -398,15 +390,12 @@
   object-fit: contain;
 }
 
-
-
 /* 하단 고정 네비게이션 버튼 (취소 / 다음 단계) */
 .bottom-nav-buttons {
   display: flex;
   gap: 12px;
   padding: 16px 20px;
-  background-color: #FFFFFF;
-  
+  background-color: #ffffff;
 }
 
 .nav-btn {
@@ -417,31 +406,26 @@
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  
 }
 
 .cancel-btn {
-  background-color: #F2F2F7;
-  color: #8E8E93;
+  background-color: #f2f2f7;
+  color: #8e8e93;
 }
 
 .next-btn {
-  background: linear-gradient(90deg, #7B61FF 0%, #4F45FF 100%);
-  color: #FFFFFF;
+  background: linear-gradient(90deg, #7b61ff 0%, #4f45ff 100%);
+  color: #ffffff;
 }
-
-
-
 
 /* ==================== STEP 5 & STEP 6 공통 스타일 ==================== */
 /* 상단 탭 스위치 */
 .schedule-toggle-group {
   display: flex;
-  background-color: #D4D9FF;
+  background-color: #d4d9ff;
   border-radius: 25px;
   padding: 3px;
   margin: 16px 20px 16px 20px;
-  
 }
 
 .toggle-btn {
@@ -452,13 +436,12 @@
   border-radius: 22px;
   font-size: 13px;
   font-weight: 700;
-  color: #6E6E73;
+  color: #6e6e73;
   cursor: pointer;
-
 }
 
 .toggle-btn.active {
-  background: linear-gradient(90deg, #7B61FF 0%, #4F45FF 100%);
+  background: linear-gradient(90deg, #7b61ff 0%, #4f45ff 100%);
   color: #ffffff;
   box-shadow: 0 2px 6px rgba(93, 80, 254, 0.3);
 }
@@ -601,7 +584,7 @@
 .cal-month {
   font-size: 16px;
   font-weight: 700;
-  color: #6E6E73;
+  color: #6e6e73;
 }
 
 .calendar-table {
@@ -654,10 +637,22 @@
   color: #ffffff;
 }
 
-.legend-dot.d-day { background-color: #C2D0FF; color: #767BF6 }
-.legend-dot.evening { background-color: #A5A2FF; color: #FFFFFF  }
-.legend-dot.night { background-color: #5C58D5; color: #FFFFFF  }
-.legend-dot.off {  background-color: #D9D9D9; color: #6E6E73; }
+.legend-dot.d-day {
+  background-color: #c2d0ff;
+  color: #767bf6;
+}
+.legend-dot.evening {
+  background-color: #a5a2ff;
+  color: #ffffff;
+}
+.legend-dot.night {
+  background-color: #5c58d5;
+  color: #ffffff;
+}
+.legend-dot.off {
+  background-color: #d9d9d9;
+  color: #6e6e73;
+}
 /* 달력 현재 달 / 다른 달 날짜 색상 구분 */
 .calendar-table .other-month .date-number {
   color: #ccc; /* 이전/다음 달 날짜는 회색 처리 */
@@ -688,17 +683,22 @@
 }
 
 /* 각 타입별 색상 */
-.shift-badge.type-D { background-color: #C2D0FF; color: #767BF6  } /* DAY */
-.shift-badge.type-E { background-color: #A5A2FF; color: #FFFFFF } /* Evening */
-.shift-badge.type-N { background-color: #5C58D5; color: #FFFFFF } /* Night */
-.shift-badge.type-O { background-color: #D9D9D9; color: #6E6E73; } /* OFF */
-
-
-
-
-
-
-
+.shift-badge.type-D {
+  background-color: #c2d0ff;
+  color: #767bf6;
+} /* DAY */
+.shift-badge.type-E {
+  background-color: #a5a2ff;
+  color: #ffffff;
+} /* Evening */
+.shift-badge.type-N {
+  background-color: #5c58d5;
+  color: #ffffff;
+} /* Night */
+.shift-badge.type-O {
+  background-color: #d9d9d9;
+  color: #6e6e73;
+} /* OFF */
 
 /* ==================== STEP 7 전용 전체 스타일 ==================== */
 
@@ -745,7 +745,7 @@
   height: 4rem;
   padding: 14px 0;
   border-radius: 8px;
-  border: 2px solid transparent; 
+  border: 2px solid transparent;
   font-size: 25px;
   font-weight: bold;
   cursor: pointer;
@@ -754,38 +754,38 @@
 
 /* D (DAY) */
 .shift-type-btn.type-d {
-  background-color: #C2D0FF;
-  color: #767BF6;
+  background-color: #c2d0ff;
+  color: #767bf6;
 }
 
 /* E (Evening) */
 .shift-type-btn.type-e {
-  background-color: #5C58D5;
-  color: #FFFFFF;
+  background-color: #5c58d5;
+  color: #ffffff;
 }
 
 /* N (Night) */
 .shift-type-btn.type-n {
-  background-color: #5C58D5;
-  color: #FFFFFF;
+  background-color: #5c58d5;
+  color: #ffffff;
 }
 
 /* O (OFF) */
 .shift-type-btn.type-o {
-  background-color: #D9D9D9;
-  color: #6E6E73;
+  background-color: #d9d9d9;
+  color: #6e6e73;
 }
 
 /* 선택(Active)되었을 때 바깥에 진한 보라색 테두리 강조 */
 .shift-type-btn.selected {
-  border-color: #2C2C2E !important;
-  box-shadow: 0 0 0 1px #2C2C2E;
+  border-color: #2c2c2e !important;
+  box-shadow: 0 0 0 1px #2c2c2e;
 }
 
 .shift-label {
   font-size: 12px;
   font-weight: 600;
-  color: #71717A;
+  color: #71717a;
 }
 
 /* 한 줄 메모 입력창 및 글자 수 카운터 스타일 */
@@ -799,7 +799,7 @@
   width: 100%;
   padding: 12px 14px;
   padding-right: 50px; /* 글자 수(0/30)가 들어갈 공간 확보 */
-  border: 1px solid #E4E4E7;
+  border: 1px solid #e4e4e7;
   border-radius: 8px;
   font-size: 14px;
   box-sizing: border-box;
@@ -807,21 +807,21 @@
 }
 
 .memo-text-input:focus {
-  border-color: #5A45FF;
+  border-color: #5a45ff;
 }
 
 .memo-counter {
   position: absolute;
   right: 14px;
   font-size: 12px;
-  color: #A1A1AA;
+  color: #a1a1aa;
   pointer-events: none;
 }
 
 /* 하단 풀사이즈 추가하기 버튼 스타일 */
 .full-width-btn {
   width: 100%;
-  background: linear-gradient(90deg, #7B61FF 0%, #4F45FF 100%);
+  background: linear-gradient(90deg, #7b61ff 0%, #4f45ff 100%);
   color: white;
   border: none;
   border-radius: 12px;

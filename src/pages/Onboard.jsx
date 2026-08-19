@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import '../styles/Onboard.css'; 
-import logoWhite from '../images/logo_white.svg';
-import logoColored from '../images/logo_colored.svg';
+import "../styles/Onboard.css";
+import logoWhite from "../images/logo_white.svg";
+import logoColored from "../images/logo_colored.svg";
 
 export default function Onboard() {
   const navigate = useNavigate();
@@ -18,21 +18,21 @@ export default function Onboard() {
       timer = setTimeout(() => setStep(3), 2000);
     }
     // 3번 화면 타이머 미작동
-    
+
     return () => clearTimeout(timer);
   }, [step]);
   const currentLogo = step === 1 ? logoWhite : logoColored;
 
   return (
     <div className={`onboard-box step-${step}`}>
-{/* 1번 & 2번 화면: 로고만 있는 스플래시 */}
+      {/* 1번 & 2번 화면: 로고만 있는 스플래시 */}
       {(step === 1 || step === 2) && (
         <div className="splash-content">
-          <div 
-            className="onboard-logo-img" 
+          <div
+            className="onboard-logo-img"
             style={{ backgroundImage: `url(${currentLogo})` }}
           />
-         <div className={`onboard-brand-text step-${step}`}></div>
+          <div className={`onboard-brand-text step-${step}`}></div>
         </div>
       )}
 
@@ -40,18 +40,28 @@ export default function Onboard() {
       {step === 3 && (
         <div className="main-content fade-in">
           <p className="intro-text">
-            나의 근무 스케줄에 맞춰<br />
+            나의 근무 스케줄에 맞춰
+            <br />
             웰니스 루틴을 설계하는 AI
           </p>
-          
+
           <div className="button-group">
-            <button className="login-btn" onClick={() => navigate('/login')}>
+            <button
+              className="login-btn"
+              onClick={() => navigate("/login")}
+            >
               로그인
             </button>
             <div className="sub-links">
               <span>이용약관</span>
               <span className="highlight-group">
-                  및 <span className="highlight" onClick={() => navigate('/signup')}>회원가입</span>
+                및{" "}
+                <span
+                  className="highlight"
+                  onClick={() => navigate("/signup")}
+                >
+                  회원가입
+                </span>
               </span>
             </div>
           </div>
@@ -59,4 +69,4 @@ export default function Onboard() {
       )}
     </div>
   );
-};
+}
