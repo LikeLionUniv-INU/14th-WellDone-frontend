@@ -1,12 +1,25 @@
-import '../styles/Header.css'
+import "../styles/Header.css";
 
-const Header = () => {
-    return(
-        <>
-        <div className = "wrapper">
-        <div className="headerbox">로고</div></div>
-        </>
-    );
-}
+const Header = ({ onOpenSettings }) => {
+  return (
+    <>
+      <div className="headerbox">
+        <img
+          className="menu-icon"
+          onClick={() => {
+            onOpenSettings(); // Home에서 설정 모달 열기
+          }}
+          src="list.svg"
+          alt="메뉴"
+        />
+        <img
+          src="main_icon.svg"
+          alt="well-done"
+          className="logo"
+        ></img>
+      </div>
+    </>
+  );
+};
 
 export default Header;
