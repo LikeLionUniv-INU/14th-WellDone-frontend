@@ -9,18 +9,21 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-`;
+  
+  `;
 
 /* 상단 탭 트랙 (연한 자줏빛/회색 배경) */
 export const TabTrack = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #f0f1fa;
-  border-radius: 1.25rem;
-  padding: 0.35rem;
+  background-color: #D4D9FF;
+  border-radius:  13px;
+  
   width: 100%;
   box-sizing: border-box;
+  margin-top: 30px;
+  height: 4dvh;
 `;
 
 /* 개별 탭 버튼 */
@@ -37,6 +40,7 @@ export const TabButton = styled.button`
   justify-content: center;
   outline: none;
   -webkit-tap-highlight-color: transparent;
+  height: 4dvh ;
 `;
 
 /* 💡 마법의 보라색 슬라이딩 배경 (framer-motion) */
@@ -47,9 +51,10 @@ export const ActiveHighlight = styled(motion.div)`
   right: 0;
   bottom: 0;
   background-color: #7c5cfc; /* 사진 속 보라색 */
-  border-radius: 0.95rem;
+  border-radius: 13px;
   box-shadow: 0 0.25rem 0.75rem rgba(124, 92, 252, 0.3);
   z-index: 1;
+  
 `;
 
 /* 탭 글씨 (활성화 여부에 따라 색상 전환) */
@@ -70,4 +75,7 @@ export const SlideContentArea = styled.div`
   border-radius: 1.5rem;
   padding: 1rem;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;

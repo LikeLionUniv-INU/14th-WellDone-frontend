@@ -56,10 +56,10 @@ export const ModalContainer = styled.div`
 
 // 3. 하단으로 슬라이드 제스처 안내용 핸들바
 export const DragHandle = styled.div`
-  flex-shrink: 0; /* 💡 부모가 flex여도 크기가 0으로 찌그러지지 않게 방지! 이게 없으면 flex가 내용이 없는것을 넓이를 맘댇로 줄여서 없애 버림 */ 
-  width:   4rem;
+  flex-shrink: 0; /* 💡 부모가 flex여도 크기가 0으로 찌그러지지 않게 방지! 이게 없으면 flex가 내용이 없는것을 넓이를 맘댇로 줄여서 없애 버림 */
+  width: 4rem;
   height: 0.4rem;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
   border-radius: 1rem;
   margin: 0 auto 1.25rem auto;
   cursor: grab;
@@ -79,7 +79,6 @@ export const MenuList = styled.div`
   flex-direction: column;
   gap: 0.1rem;
 `;
-
 
 // 6. 설정 항목 개별 버튼
 export const MenuItemButton = styled.button`
@@ -131,20 +130,19 @@ export const ItemTitle = styled.span`
 
 export const ItemSubtitle = styled.span`
   font-size: 0.8rem;
-   font-weight: 500;
-  color: #6E6E73;
+  font-weight: 500;
+  color: #6e6e73;
 `;
 
 // 10. 우측 화살표 안내용 아이콘
 export const ArrowWrapper = styled.div`
   display: flex;
   align-items: center;
-  color: #6E6E73;
+  color: #6e6e73;
 `;
-
 
 // 11. 아이콘 크기
 export const Icon = styled.img`
- width: 2rem;
- height: 2rem;
+  width: 2rem;
+  height: 2rem;
 `;

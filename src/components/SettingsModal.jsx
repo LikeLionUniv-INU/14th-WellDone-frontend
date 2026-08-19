@@ -6,8 +6,8 @@ import {
   MessageSquare,
   User,
   ChevronRight,
-} from "lucide-react"; //  루시드 리엑트 라이브러리 에서 아이콘 가져오기 
-import * as S  from "../styles/SettingsModal.styles";
+} from "lucide-react"; //  루시드 리엑트 라이브러리 에서 아이콘 가져오기
+import * as S from "../styles/SettingsModal.styles";
 
 export default function SettingsModal({ isOpen, onClose }) {
   const [dragY, setDragY] = useState(0);
@@ -17,12 +17,12 @@ export default function SettingsModal({ isOpen, onClose }) {
 
   // 모달이 열려있을 때 홈 화면 배경 스크롤 방지
   useEffect(() => {
-    if (isOpen) {  
+    if (isOpen) {
       document.body.style.overflow = "hidden"; // body 태그의/ style을 /바꾸는 css 코드(overflow = hidden)를 써주기
     } else {
-       // isopen이 false일때( 모달 창이 닫힌 상황에서) 
-      setIsAnimateDone(false);// 애니메이션 상태를 초기화하고
-      setDragY(0);// 드래그 위치를 초기화한다.
+      // isopen이 false일때( 모달 창이 닫힌 상황에서)
+      setIsAnimateDone(false); // 애니메이션 상태를 초기화하고
+      setDragY(0); // 드래그 위치를 초기화한다.
     }
     return () => {
       document.body.style.overflow = "unset"; // isopen이 false가 되는 순간에 화면 스크롤을 허용한다.
@@ -38,7 +38,7 @@ export default function SettingsModal({ isOpen, onClose }) {
 
   const handleTouchMove = (e) => {
     if (!isDragging) return; // 드래깅 상태가 아닐 때 함수를 실행하지 않음
-    const currentY = e.touches[0].clientY; // currentY에 현재 터치 된 부분의 y 값을 저장 
+    const currentY = e.touches[0].clientY; // currentY에 현재 터치 된 부분의 y 값을 저장
     const diff = currentY - touchStartY.current;
 
     // 아래로 내릴 때만 dragY 값 업데이트 (양수일 때만)
@@ -65,38 +65,37 @@ export default function SettingsModal({ isOpen, onClose }) {
   const menuItems = [
     {
       id: 1,
-      icon: <S.Icon src="front_hand.svg"/>,
+      icon: <S.Icon src="front_hand.svg" />,
       title: "PRO UPGRADE",
       subtitle: "광고 제거 및 기능 잠금 해제",
     },
     {
       id: 2,
-      icon:  <S.Icon src="schedule.svg"/>,
+      icon: <S.Icon src="schedule.svg" />,
       title: "스케줄표 업데이트 및 갱신",
       subtitle: "최근 업데이트 : 8월 2일",
     },
-    { 
+    {
       id: 3,
-      icon:  <S.Icon src="notifications.svg"/>,
+      icon: <S.Icon src="notifications.svg" />,
       title: "시스템 알림",
       subtitle: "푸시 알림 설정",
     },
     {
       id: 4,
-      icon: <S.Icon src="comment.svg"/> ,
+      icon: <S.Icon src="comment.svg" />,
       title: "도움말",
       subtitle: "자주 묻는 질문과 이용 가이드",
     },
     {
       id: 5,
-      icon:  <S.Icon src="settings.svg"/>,
+      icon: <S.Icon src="settings.svg" />,
       title: "계정 관리",
       subtitle: "회원 정보 및 로그아웃",
     },
   ];
 
-
- // ---------------메인 함수 리턴문 시작--------------------------
+  // ---------------메인 함수 리턴문 시작--------------------------
 
   return (
     // 배경 클릭 시 닫기 (오버레이) 삭제
@@ -113,7 +112,7 @@ export default function SettingsModal({ isOpen, onClose }) {
         style={{ transform: `translateY(${dragY}px)` }}
       >
         {/* 모달 상단 드래그 핸들 바 */}
-        
+
         <S.DragHandle></S.DragHandle>
 
         <S.Title>설정</S.Title>

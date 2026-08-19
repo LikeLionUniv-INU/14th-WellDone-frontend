@@ -1,6 +1,6 @@
 import "../styles/Home.css"; // 홈의 스타일 가져오기
 import Header from "../components/Header"; // 헤더 컴포넌트 가져오기
-import { getMonthWeek } from "../function/getMonthWeek"; 
+import { getMonthWeek } from "../function/getMonthWeek";
 import React, { useState, useEffect } from "react"; //
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -8,7 +8,6 @@ import { ChevronLeft, ChevronRight, Pencil, Share2 } from "lucide-react";
 import SettingsModal from "../components/SettingsModal";
 import "swiper/css";
 import RoutineList from "../components/RoutineList";
-
 
 // 💡 1. 백엔드 연동 시 사용할 더미 데이터 (임시 데이터)
 const DUMMY_GOALS = [
@@ -51,7 +50,7 @@ export default function Home() {
   }, []);
 
   return (
-    <>  
+    <>
       <div className="wrapper">
         <Header onOpenSettings={() => setIsSettingsOpen(true)} />
         <div
@@ -170,15 +169,14 @@ export default function Home() {
           </button>
         </div>
 
-
         {/* ----------------------설정 모달--------------------- */}
         <SettingsModal
-          isOpen={isSettingsOpen} // 모달 열기 값 true/false 전달 
-          onClose={() => setIsSettingsOpen(false)} // 모달 닫기 
+          isOpen={isSettingsOpen} // 모달 열기 값 true/false 전달
+          onClose={() => setIsSettingsOpen(false)} // 모달 닫기
         />
 
         {/* ----------------------루틴 리스트--------------------- */}
-        <RoutineList/>
+        <RoutineList />
       </div>
     </>
   );

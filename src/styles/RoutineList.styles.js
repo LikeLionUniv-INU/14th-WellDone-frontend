@@ -84,15 +84,14 @@ export const CardItemWrapper = styled.div`
   background: #f4f4f5;
   border: 0.07rem solid #e5e7eb;
   border-radius: 1.15rem;
-  padding: 1rem 1.25rem;
-  box-sizing: border-box;
-  box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.04);
-  
+  padding: 1rem
+
   /* 펼쳐지거나 접힐 때의 부드러운 위치/크기 전환 애니메이션 */
-  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1),
-              margin-top 0.35s cubic-bezier(0.25, 1, 0.5, 1),
-              opacity 0.3s ease,
-              background-color 0.2s ease;
+  transition:
+    transform 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+    margin-top 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 0.3s ease,
+    background-color 0.2s ease;
 
   /* 💡 1. 스크롤을 내려서 화면 안에 들어온 경우 (펼침) */
   ${(props) =>
@@ -170,6 +169,8 @@ export const ItemTitle = styled.span`
   font-weight: 600;
   color: #222222;
 `;
+
+
 
 export const ItemTime = styled.span`
   font-size: 0.85rem;

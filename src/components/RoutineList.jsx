@@ -14,7 +14,7 @@ const ROUTINE_DATA = [
 
 export default function RoutineList() {
   const containerRef = useRef(null);
-  
+
   // 현재 스크롤 위치 기반으로 펼쳐진 아이템 개수 관리
   const [unfoldedCount, setUnfoldedCount] = useState(1);
 
@@ -27,9 +27,11 @@ export default function RoutineList() {
 
     const container = containerRef.current;
     const scrollTop = container.scrollTop; // 이동한 스크롤 양
-    
+
     // 카드 1개가 펼쳐지는 단위 거리를 계산 (반응형 rem 단위에 대응)
-    const remInPx = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    const remInPx = parseFloat(
+      getComputedStyle(document.documentElement).fontSize
+    );
     const stepDistance = 3.5 * remInPx; // 약 3.5rem 간격마다 1개씩 펼쳐짐
 
     // 스크롤 위치에 따라 펼쳐질 카드의 개수 산출 (최소 1개 ~ 최대 전체 개수)
@@ -76,7 +78,7 @@ export default function RoutineList() {
         {ROUTINE_DATA.map((item, index) => {
           // 해당 인덱스가 현재 스크롤 펼침 개수 범위 안인지 확인
           const isUnfolded = index < unfoldedCount;
-          
+
           // 접혀있을 경우, 스택의 몇 번째 카드인지 연산 (0: 맨 위, 1: 1개 걸침, 2+: 대기)
           const stackDepth = index - unfoldedCount + 1;
 
