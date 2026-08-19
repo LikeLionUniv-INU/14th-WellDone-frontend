@@ -13,32 +13,47 @@ export const CardContainer = styled.div`
   margin-bottom: 12px;
 `;
 
-// CSS conic-gradient를 활용한 반응형 도넛 차트
-export const CircleProgress = styled.div`
-  width: 5.5rem;
-  height: 5.5rem;
-  border-radius: 50%;
-  background: conic-gradient(
-    #6f6af8 0% ${(props) => props.$rate || 0}%,
-    #e8e8ff ${(props) => props.$rate || 0}% 100%
-  );
+/* 💡 SVG 기반의 둥근 끝처리 도넛 차트 래퍼 */
+export const CircleWrapper = styled.div`
+  position: relative;
+  width: 6rem;
+  height: 6rem;
+  flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0;
 `;
 
-export const InnerCircle = styled.div`
-  width: 4.1rem;
-  height: 4.1rem;
-  background-color: #ffffff;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1rem; /* 📌 [참고 8] 가장 큰 글자 1rem */
+export const StyledSvg = styled.svg`
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg); /* 12시 방향부터 시작하도록 회전 */
+`;
+
+export const BackgroundTrack = styled.circle`
+  fill: none;
+  stroke: #e8e8ff; /* 배경 연한 원 색상 */
+  stroke-width: 8;  /* 선 두께 */
+`;
+
+export const ProgressCircle = styled.circle`
+  fill: none;
+  stroke: #6f6af8; /* 보라색 진행 바 색상 */
+  stroke-width: 8;
+  stroke-linecap: round; /* ✨ 핵심: 선의 양 끝을 동글동글하게 처리 */
+  stroke-dasharray: 251.2; /* 반지름 40 기준 원의 둘레 (2 * π * 40 ≈ 251.2) */
+  stroke-dashoffset: ${(props) => {
+    const rate = props.$rate || 0;
+    return 251.2 - (251.2 * rate) / 100;
+  }};
+  transition: stroke-dashoffset 0.6s ease;
+`;
+
+export const InnerText = styled.div`
+  position: absolute;
+  font-size: 1rem;
   font-weight: 800;
-  color: #1f2937;
+  color: #2B3143;
 `;
 
 export const InfoArea = styled.div`
@@ -48,16 +63,16 @@ export const InfoArea = styled.div`
 `;
 
 export const Title = styled.h4`
-  font-size: 1rem; /* 📌 [참고 8] 가장 큰 글자 1rem */
-  font-weight: 800;
-  color: #1f2937;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2B3143;
   margin: 0;
   line-height: 1.3;
 `;
 
 export const SubText = styled.p`
   font-size: 0.78rem;
-  color: #8e95a3;
+  color: #6E6E73;
   margin: 0;
   line-height: 1.35;
   white-space: pre-line;

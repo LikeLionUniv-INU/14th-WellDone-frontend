@@ -4,10 +4,12 @@ import { motion } from "framer-motion";
 import "swiper/css"; // Swiper 필수 스타일
 import * as S from "../styles/TabHeaderSwiper.styles";
 import RoutineCard from "./RoutineCard"; // 주간 웰니스 루틴 수행  컴포넌트
-import BoosterCard from "./BoosterCard"; // 지난 달 리포트 1번째 박스
-import RoutineSummaryCard from "./RoutineSummaryCard"; // 2번째 박스
-import GoldenTimeCard from "./GoldenTimeCard"; // 3번째 박스
-import NextMonthCard from "./NextMonthCard"; // 4번째 박스
+import BoosterCard from "./BoosterCard";// 지난 달 리포트 1번째 박스
+import RoutineSummaryCard from "./RoutineSummaryCard";// 2번째 박스
+import GoldenTimeCard from "./GoldenTimeCard";// 3번째 박스
+import NextMonthCard from "./NextMonthCard";// 4번째 박스
+import { PageWrapper } from "../styles/TabHeaderSwiper.styles";
+
 
 // 탭 목록 데이터
 const TABS = ["주간 기록", "지난 달 리포트"];
@@ -87,6 +89,7 @@ export default function TabHeaderSwiper() {
   };
 
   return (
+  <PageWrapper>
     <S.Container>
       {/* 1. 상단 커스텀 탭 버튼 영역 */}
       <S.TabTrack>
@@ -125,7 +128,7 @@ export default function TabHeaderSwiper() {
       >
         <SwiperSlide>
           <S.SlideContentArea>
-            <h2> 주간 웰니스 루틴 수행 내역</h2>
+           <S.ReportTitle>주간 웰니스 루틴 수행 내역</S.ReportTitle>
             {/* 여기에 주간 데이터 리스트 배치 */}
             {/* 더미 데이터의 routines 배열을 map으로 돌려 각 카드를 생성 */}
             {MOCK_ROUTINE_DATA.result.routines.map((routine, index) => (
@@ -141,7 +144,7 @@ export default function TabHeaderSwiper() {
 
         <SwiperSlide>
           <S.SlideContentArea>
-            <h3>6월 웰니스 리포트</h3>
+            <S.ReportTitle>6월 웰니스 리포트</S.ReportTitle>
 
             {/* 1. 부스터 모드 일수 컴포넌트 */}
             <BoosterCard
@@ -170,5 +173,6 @@ export default function TabHeaderSwiper() {
         </SwiperSlide>
       </Swiper>
     </S.Container>
+  </PageWrapper>
   );
 }

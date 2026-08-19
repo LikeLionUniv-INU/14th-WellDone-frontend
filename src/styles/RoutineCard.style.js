@@ -8,12 +8,13 @@ export const CardContainer = styled.div`
   height: auto;
 
   background-color: #ffffff;
-  border: 1px solid #e5e7eb;
+  border: 1.5px solid #D2D0D0;
   border-radius: 16px;
   padding: 16px;
   margin-bottom: 12px;
   box-sizing: border-box;
-
+  margin-bottom: 20px;
+  
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -37,13 +38,13 @@ export const RoutineTitle = styled.h4`
 // 루틴 주기 (매일)
 export const CycleText = styled.span`
   font-size: 0.85rem;
-  color: #8e95a3;
+  color: #6E6E73;
   font-weight: 500;
 `;
 
 // 📌 [참고 조건 2] height: 1px 가로 구분선
 export const HorizontalLine = styled.div`
-  height: 1px;
+  height: 0.15rem;
   width: 100%;
   background-color: #f0f1f5;
   margin: 10px 0 12px 0;
@@ -70,7 +71,7 @@ export const DayColumn = styled.div`
 // 요일 텍스트 (M, T, W, T, F, S, S)
 export const DayLabel = styled.span`
   font-size: 0.75rem;
-  color: #4b5563;
+  color: #000000;
   font-weight: 600;
 `;
 

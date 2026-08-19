@@ -12,14 +12,14 @@ export const CardContainer = styled.div`
 
 export const Title = styled.h4`
   font-size: 1rem; /* 📌 [참고 8] 가장 큰 글자 1rem */
-  font-weight: 800;
-  color: #1f2937;
+  font-weight: 600;
+  color: #2B3143;
   margin: 0 0 4px 0;
 `;
 
 export const SubTitle = styled.p`
   font-size: 0.78rem;
-  color: #8e95a3;
+  color: #6E6E73;
   margin: 0 0 20px 0;
 `;
 
@@ -63,21 +63,22 @@ export const BarFill = styled.div`
   transition: height 0.4s ease;
 `;
 
-export const BarLabel = styled.span`
+//막대 그래프 아래 붙는 글자
+export const BarLabel = styled.span` 
   font-size: 0.75rem;
-  color: #4b5563;
+  color: #6E6E73;
   text-align: center;
-  font-weight: 600;
+  font-weight: 430;
 `;
-
+// 최하단의 설명글
 export const BottomDesc = styled.p`
   font-size: 0.78rem;
-  color: #4b5563;
+  color: #6E6E73;
   line-height: 1.5;
   margin: 0;
 
   .purple {
-    color: #6f6af8;
-    font-weight: 700;
+    color: #6F6AF8;
+    font-weight: 600;
   }
 `;
