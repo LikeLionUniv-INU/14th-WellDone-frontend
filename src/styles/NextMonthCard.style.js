@@ -17,7 +17,7 @@ export const IconWrapper = styled.div`
   width: 3.2rem;
   height: 3.2rem;
   border-radius: 50%;
-  background-color: #eef0ff;
+  background-color: #EEF0FF;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,20 +32,20 @@ export const InfoArea = styled.div`
 
 export const SubTitle = styled.span`
   font-size: 0.75rem;
-  color: #8e95a3;
+  color: #6E6E73;
   font-weight: 600;
 `;
 
 export const Title = styled.h4`
   font-size: 1rem; /* 📌 [참고 8] 가장 큰 글자 1rem */
-  font-weight: 800;
-  color: #1f2937;
+  font-weight: 750;
+  color: #2B3143;
   margin: 0;
 `;
 
 export const Description = styled.p`
   font-size: 0.78rem;
-  color: #6b7280;
+  color: #6E6E73;
   margin: 4px 0 0 0;
   line-height: 1.35;
   white-space: pre-line;
