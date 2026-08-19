@@ -23,8 +23,7 @@ export default function AIRoutine() {
 
   const [currentStep, setCurrentStep] = useState(1);
 
-  // --- STEP 1 상태 ---
-  const [scheduleType, setScheduleType] = useState('근무 일정표');
+  // --- STEP 1 상태 (드롭박스 상태 삭제됨) ---
   const [previewImage, setPreviewImage] = useState(null); 
   const galleryRef = useRef(null);
   const cameraRef = useRef(null);
@@ -301,18 +300,6 @@ export default function AIRoutine() {
               <span className="step-indicator">STEP 1</span>
               <h2>스케줄표 업로드</h2>
               <p>근무 일정을 올려주시면<br />AI가 최적의 회복 루틴을 설계해드려요</p>
-            </div>
-
-            <div className="input-group">
-              <label>스케줄표 유형 <span className="required">*</span></label>
-              <select 
-                value={scheduleType} 
-                onChange={(e) => setScheduleType(e.target.value)}
-                className="type-select"
-              >
-                <option value="근무 일정표">근무 일정표</option>
-                <option value="기타 일정">기타 일정</option>
-              </select>
             </div>
 
             <div className="upload-box" onClick={() => galleryRef.current.click()}>
@@ -657,8 +644,8 @@ export default function AIRoutine() {
           </div>
         )}
 
-  {/* ==================== STEP 7 (교대 근무 및 메모 직접 입력) ==================== */}
-{currentStep === 7 && (
+        {/* ==================== STEP 7 (교대 근무 및 메모 직접 입력) ==================== */}
+        {currentStep === 7 && (
           <div className="step-wrapper fade-in no-progress" ref={monthlyCaptureRef}>
             {/* 상단 토글 바 */}
             <div className="schedule-toggle-group">
