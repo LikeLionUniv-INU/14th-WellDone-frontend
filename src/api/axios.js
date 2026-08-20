@@ -1,6 +1,6 @@
 import axios from "axios";
 
-console.log("현재 API 주소:", import.meta.env.VITE_API_URL); // 👈 이 콘솔을 추가해 보세요!
+// console.log("현재 API 주소:", import.meta.env.VITE_API_URL); // 주석 처리: 개발 중 불필요한 로그
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
