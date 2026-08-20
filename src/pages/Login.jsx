@@ -28,17 +28,17 @@ export default function Login() {
       // 성공 시 (200 OK)
       if (response.data.isSuccess) {
         const { accessToken, refreshToken, isOnboardingComplete } = response.data.result;
+        console.log("응답 전체 데이터:", response.data);
+console.log("온보딩 완료 여부:", isOnboardingComplete);
+console.log("result 내부 전체:", response.data.result);
 
         // 로컬 스토리지에 토큰 저장
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
 
-        // 온보딩 완료 여부에 따른 페이지 이동 분기
-        if (isOnboardingComplete) {
+
           navigate("/home"); 
-        } else {
-    
-        }
+
       }
     } catch (error) {
       console.log("지금 보내려는 값 -> id:", id, "password:", password);
