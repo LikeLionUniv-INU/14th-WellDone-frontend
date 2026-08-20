@@ -108,21 +108,29 @@ export const ChallengBox = styled.div`
 export const ChSrcLayout = styled.div`
   //  가운데로 만들기
   width: 88%;
-  flex: none;
-  height: fit-content;
+  min-height: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  
 `;
 
 export const TalkBox = styled.div`
   // 채팅방 박스
   width: 100%;
+  min-height:  30dvh;
   height: fit-content;
   background-color: #ffffff;
   border-radius: 10px;
   flex: none;
   display: flex;
-  justify-content: center;
-  margin-bottom: 35px;
+  flex-direction: column;
+  align-items: center;
+ 
+  margin-bottom: 15px;
   margin-top: 10px;
+  gap: 17px;
 `;
 
 export const TalkTitle = styled.div`
@@ -143,7 +151,7 @@ export const ChatInputContainer = styled.form`
   width: 100%;
   height: 34px;
   padding: 0 7px;
-  margin-top: 17px;
+  margin-top: auto;
   margin-bottom: 19px;
 
   background-color: #ffffff;
@@ -171,7 +179,7 @@ export const ChatInput = styled.input`
   }
 `;
 
-export const MoveLoutin = styled.button`
+export const MoveLoutin = styled.button` //루틴으로 이동하기
   width: 100%;
   height: fit-content;
   padding: 14px 20px;
@@ -181,6 +189,7 @@ export const MoveLoutin = styled.button`
   border: 0;
   font-weight: bold;
   background: linear-gradient(90deg, #7b61ff 0%, #4f45ff 100%);
+  margin-top: 20px;
   margin-bottom: 30px;
 `;
 
@@ -212,4 +221,5 @@ export const ShopBox = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 46px;
+  padding:0px  15px;
 `;

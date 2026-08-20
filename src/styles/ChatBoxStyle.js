@@ -46,5 +46,7 @@ export const ChatLayout = styled.div`
   width: 100%;
   height: fit-content;
   align-items: center;
-  margin-bottom: 14px;
+  margin-bottom: 6px;
 `;
+
+
