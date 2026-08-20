@@ -25,25 +25,26 @@
 
 ## 기술 스택
 
-### Backend
+### Frontend
+### Frontend
 | 분류 | 기술 |
 |---|---|
-| Language | Java 21 |
-| Framework | Spring Boot 4.0 (spring-boot-starter-webmvc) |
-| Build Tool | Gradle |
-| JSON | Jackson 3.x (`tools.jackson`) |
-| Database | PostgreSQL (Supabase, Session Pooler) |
-| AI |Gemini API |
+| Language | JavaScript (JSX) |
+| Framework / Library | React |
+| Build Tool | Vite |
+| Routing | React Router DOM (`useNavigate`) |
+| Network | Axios |
+| Styling | CSS, Inline Styles |
+| UI & Animation | Swiper, Framer Motion, Lucide React |
+| Utility | Day.js, html2canvas |
+
+
 
 ### Infra / DevOps
 | 분류 | 기술 |
 |---|---|
-| Server | Gabia g-cloud (Ubuntu 22.04) |
-| Reverse Proxy | Nginx |
-| SSL | Let's Encrypt (Certbot) + sslip.io |
-| Deploy | `nohup ./gradlew bootRun` |
-| API 문서 | Notion |
-| 협업 | GitHub, Notion, Postman |
+| Hosting & Deploy | Vercel (GitHub 연동 자동 배포) |
+| 협업 | GitHub, Notion|
 
 ---
 
@@ -76,7 +77,27 @@
 | Settings | 스케줄표 갱신 요청 |
 
 ---
+## 📱 주요 화면 및 기능 (Key Features)
 
+- **🌱 온보딩 (Onboarding)**
+  - 내 실제 근무 스케줄(Day/Evening/Night/Off) 입력 및 맞춤형 취향 선택
+  - 입력한 데이터를 바탕으로 AI 웰니스 루틴 생성 요청 및 적용
+
+- **🏠 홈 탭 (Home)**
+  - 출근 전 / 퇴근 후 / 취침 전 컨텍스트별 오늘의 루틴 및 일정 확인
+  - 웰니스 게이지 실시간 확인 및 루틴 시작·일시정지·완료 처리
+  - 인증 사진 업로드 기능
+
+- **📊 마이 페이지 (My)**
+  - 주간 기록 및 달성률 시각화
+  - 월간 AI 리포트(달성률, 카테고리 분석, 골든타임, 다음 달 예측) 확인
+  - **html2canvas**를 활용한 나만의 스케줄표 이미지 캡처 및 저장 기능
+
+- **💬 듀티 라운지 (Lounge)**
+  - 같은 근무조끼리 소통할 수 있는 듀티톡 조회 및 작성
+  - 리워드샵 기능
+
+---
 ## 팀 구성
 
 | Backend | jeon1105 |
