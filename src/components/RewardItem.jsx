@@ -1,7 +1,7 @@
 import React from "react";
 import * as S from "../styles/RewardItem.style";
 
-function RewardItem({ imageUrl, name, description, points, onClick }) {
+function RewardItem({ imageUrl, name, description, points ,onClick}) {
   // points가 숫자만 들어올 수도 있으므로 P 단위를 붙여서 깔끔하게 포맷팅
   const formattedPoints =
     typeof points === "number" ? `${points.toLocaleString()}P` : points;
@@ -18,7 +18,7 @@ function RewardItem({ imageUrl, name, description, points, onClick }) {
       <S.InfoContainer>
         <S.ProductName>{name}</S.ProductName>
         <S.ProductDescription>{description}</S.ProductDescription>
-        <S.ProductPoints>{formattedPoints}</S.ProductPoints>
+        <S.ProductPoints>{points}</S.ProductPoints>
       </S.InfoContainer>
     </S.CardButton>
   );

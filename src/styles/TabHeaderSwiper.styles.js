@@ -4,13 +4,12 @@ import { motion } from "framer-motion";
 export const PageWrapper = styled.div`
   width: 100%;
   min-height: 100vh; /* 모바일/PC 상관없이 화면 전체 높이를 덮도록 설정 */
-  background-color: #F5F6FF; /* 👉 원하시는 배경색으로 변경하세요 */
+  background-color: #f5f6ff; /* 👉 원하시는 배경색으로 변경하세요 */
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
   margin-bottom: 10dvh;
 `;
-
 
 export const Container = styled.div`
   width: 100%;
@@ -21,18 +20,17 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 1.5rem;
   padding: 0 20px;
-  
-  `;
+`;
 
 /* 상단 탭 트랙 (연한 자줏빛/회색 배경) */
 export const TabTrack = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #D4D9FF;
-  border-radius:  13px;
-  
-  width: calc(100%); 
+  background-color: #d4d9ff;
+  border-radius: 13px;
+
+  width: calc(100%);
   box-sizing: border-box;
   margin-top: 30px;
   height: 4.5dvh;
@@ -52,7 +50,7 @@ export const TabButton = styled.button`
   justify-content: center;
   outline: none;
   -webkit-tap-highlight-color: transparent;
-  height: 4.5dvh ;
+  height: 4.5dvh;
 `;
 
 /* 💡 마법의 보라색 슬라이딩 배경 (framer-motion) */
@@ -62,7 +60,11 @@ export const ActiveHighlight = styled(motion.div)`
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(90deg, #7B61FF 0%, #4F45FF 100%); /* 사진 속 보라색 */
+  background: linear-gradient(
+    90deg,
+    #7b61ff 0%,
+    #4f45ff 100%
+  ); /* 사진 속 보라색 */
   border-radius: 13px;
   box-shadow: 0 0.25rem 0.75rem rgba(124, 92, 252, 0.3);
   z-index: 1;
@@ -88,7 +90,7 @@ export const TabText = styled.span`
 export const SlideContentArea = styled.div`
   width: 100%;
   min-height: 50dvh;
-  background: #F5F6FF;
+  background: #f5f6ff;
   border-radius: 1.5rem;
   padding: 1rem;
   box-sizing: border-box;

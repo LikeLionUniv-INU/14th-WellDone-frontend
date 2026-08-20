@@ -20,20 +20,20 @@ export const Header = styled.div`
 export const Title = styled.h4`
   font-size: 1rem; /* 📌 [참고 8] 가장 큰 글자 1rem */
   font-weight: 800;
-  color: #2B3143;
+  color: #2b3143;
   margin: 0;
 `;
 
 export const RateText = styled.span`
   font-size: 1rem; /* 📌 [참고 8] 가장 큰 글자 1rem */
   font-weight: 600;
-  color: #2B3143;
+  color: #2b3143;
 `;
 
 export const ProgressBarTrack = styled.div`
   width: 100%;
   height: 0.6rem;
-  background-color: #EEF0FF;
+  background-color: #eef0ff;
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 12px;
@@ -42,13 +42,13 @@ export const ProgressBarTrack = styled.div`
 export const ProgressBarFill = styled.div`
   width: ${(props) => props.$rate || 0}%;
   height: 100%;
-  background: linear-gradient(90deg, #7B61FF 0%, #767BF6 42%, #C2D0FF 100%);
+  background: linear-gradient(90deg, #7b61ff 0%, #767bf6 42%, #c2d0ff 100%);
   border-radius: 10px;
   transition: width 0.4s ease;
 `;
 
 export const SubText = styled.p`
   font-size: 0.8rem;
-  color: #6E6E73;
+  color: #6e6e73;
   margin: 0;
 `;

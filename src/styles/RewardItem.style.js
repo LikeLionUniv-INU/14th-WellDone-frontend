@@ -57,6 +57,10 @@ export const InfoContainer = styled.div`
   flex: 1;
   overflow: hidden;
   flex: none;
+  /* 💡 수정 포인트 1: 너비 제한 지정 및 Flex 자식의 기본 min-width 해제 */
+  width: 100%;
+  min-width: 0; /* 👈 필수: Flex 레이아웃에서 ellipsis 작성을 위한 핵심 속성 */
+
 `;
 
 // 상품명
@@ -70,6 +74,10 @@ export const ProductName = styled.h4`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  /* 💡 수정 포인트 2: 너비 100% 지정 및 중앙 정렬 */
+  width: 100%;
+  text-align: center;
 `;
 
 // 상품 상세 설명
@@ -82,7 +90,12 @@ export const ProductDescription = styled.p`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  /* 💡 수정 포인트 2: 너비 100% 지정 및 중앙 정렬 */
+  width: 100%;
+  text-align: center;
 `;
+
 
 // 상품 포인트
 export const ProductPoints = styled.span`
