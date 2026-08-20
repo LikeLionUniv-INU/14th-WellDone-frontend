@@ -19,7 +19,7 @@ export default function Login() {
 // 1. 컴포넌트 마운트 시 환경변수 상태 즉시 점검
   useEffect(() => {
     console.log("==========================================");
-    console.log("🔍 [1. 마운트] VITE_API_URL 값:", import.meta.env.VITE_API_URL);
+    
     if (!import.meta.env.VITE_API_URL) {
       console.error("❌ [경고] VITE_API_URL이 undefined입니다! 배포 대시보드 환경변수를 확인하세요.");
     }
@@ -33,7 +33,7 @@ export default function Login() {
 
   const handleLogin = async () => {
     console.log("🚀 [2. 버튼 클릭] handleLogin 실행됨");
-    console.log("   - 입력값:", { id, password });
+   
     console.log("   - 유효성 통과 여부(isFormValid):", isFormValid);
 
     
@@ -42,8 +42,8 @@ export default function Login() {
       return;
     }
 
-    const targetUrl = `${import.meta.env.VITE_API_URL}/auth/login`;
-    console.log("📡 [3. API 요청 생성] 최종 전송 URL:", targetUrl);
+
+
 
     try {
       // API 요청 (Vite 환경 변수 사용 가정)
