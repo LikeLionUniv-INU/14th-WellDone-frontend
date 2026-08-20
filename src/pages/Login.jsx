@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState ,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"; 
 import "../styles/Login.css";
@@ -15,8 +15,35 @@ export default function Login() {
 
   const isFormValid = id.trim() !== "" && password.trim() !== "";
 
+
+// 1. 컴포넌트 마운트 시 환경변수 상태 즉시 점검
+  useEffect(() => {
+    console.log("==========================================");
+    
+    if (!import.meta.env.VITE_API_URL) {
+      console.error("❌ [경고] VITE_API_URL이 undefined입니다! 배포 대시보드 환경변수를 확인하세요.");
+    }
+    console.log("==========================================");
+  }, []);
+
+
+
+
+
+
   const handleLogin = async () => {
-    if (!isFormValid) return;
+    console.log("🚀 [2. 버튼 클릭] handleLogin 실행됨");
+   
+    console.log("   - 유효성 통과 여부(isFormValid):", isFormValid);
+
+    
+    if (!isFormValid) {
+      console.warn("⚠️ [유효성 실패] 아이디 또는 비밀번호가 비어있어 함수를 종료합니다.");
+      return;
+    }
+
+
+
 
     try {
       // API 요청 (Vite 환경 변수 사용 가정)
@@ -24,7 +51,7 @@ export default function Login() {
         loginId: id,
         password: password,
       });
-
+console.log("✅ [4. API 응답 완료] 전체 Response:", response);
       // 성공 시 (200 OK)
       if (response.data.isSuccess) {
         const { accessToken, refreshToken, isOnboardingComplete } = response.data.result;
