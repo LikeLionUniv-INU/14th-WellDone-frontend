@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Signup.css"; 
+import axios from "axios";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -45,11 +46,28 @@ export default function Signup() {
     confirmPassword.trim() !== "" && 
     !confirmError;
 
-  //  최종 회원가입 핸들러 함수
-  const handleSignUp = () => {
+// 최종 회원가입 핸들러 함수
+  const handleSignUp = async () => {
     if (!isFormValid) return;
-    alert("회원가입 요청 성공!"); //임시 로그
-    navigate("/");
+
+    try {
+      // 백엔드 명세서 엔드포인트 및 요청 바디 매칭
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/signup`, {
+        loginId: id,
+        password: password,
+        passwordCheck: confirmPassword,
+      });
+
+      // 성공 시 (200 OK 등)
+      if (response.data.isSuccess) {
+        alert(response.data.message || "회원가입에 성공했습니다!");
+        navigate("/"); // 성공 시 로그인 페이지로 이동
+      }
+    } catch (error) {
+      console.error("회원가입 실패:", error);
+      const errorMsg = error.response?.data?.message || "회원가입 중 오류가 발생했습니다.";
+      alert(errorMsg);
+    }
   };
 
   return (
