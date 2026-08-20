@@ -26,7 +26,6 @@
 ## 기술 스택
 
 ### Frontend
-### Frontend
 | 분류 | 기술 |
 |---|---|
 | Language | JavaScript (JSX) |
@@ -77,7 +76,16 @@
 | Settings | 스케줄표 갱신 요청 |
 
 ---
-## 📱 주요 화면 및 기능 (Key Features)
+
+## 팀 구성
+
+| Frontend | cy123-coder |
+
+| Frontend | Slys0820 |
+
+---
+
+##  주요 화면 및 기능 
 
 - **🌱 온보딩 (Onboarding)**
   - 내 실제 근무 스케줄(Day/Evening/Night/Off) 입력 및 맞춤형 취향 선택
@@ -98,30 +106,10 @@
   - 리워드샵 기능
 
 ---
-## 팀 구성
-
-| Backend | jeon1105 |
-
-| Backend | sujincyan |
-
----
-
-## 실행 방법
-
-```bash
-git clone https://github.com/LikeLionUniv-INU/14th-welldone-backend.git
-cd 14th-welldone-backend
-
-# application-local.yaml에 DB/AI API 키 등 개인 설정 추가 (gitignore 처리됨)
-
-./gradlew bootRun
-```
-
----
 
 ## 📌 프로젝트 배경
 
-해커톤이라는 시간 제약 속에서, **완성도보다 "핵심 가치를 명확히 전달하는 것"**에 집중했습니다.
-- 로그인/회원가입은 마스터 계정 방식으로 단순화
-- 실시간 기능(듀티톡)은 웹소켓 대신 REST 폴링으로 우선 구현 (추후 확장 가능하도록 설계)
-- AI가 필요한 두 영역(루틴 생성, 월간 리포트)은 각각 특성에 맞게 **온디맨드 생성**과 **배치 생성** 방식을 구분해서 적용
+해커톤이라는 제한된 시간 속에서, **교대 근무자의 사용자 경험(UX)을 직관적으로 전달하는 것**에 집중했습니다.
+- 복잡한 3교대 스케줄과 캘린더 UI를 빠르고 안정적으로 구현하기 위해 **React와 Vite** 환경을 신속하게 구축
+- 교대 근무자의 가독성과 몰입도를 높이기 위해 **Swiper**와 **Framer Motion**을 활용한 모바일 최적화 UI 및 애니메이션 적용
+- 날짜 계산(`Day.js`)과 스케줄표 이미지 캡처/저장(`html2canvas`) 등 사용자 편의 기능을 실속 있게 구현하여 완성도 보완
