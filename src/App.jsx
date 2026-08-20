@@ -17,7 +17,7 @@ import AIResult from "./pages/AIResult";
 function AppContent() {
   const location = useLocation();
 
-  const excludePaths = ["/", "/login", "/signup","/result","/routine"];
+  const excludePaths = ["/", "/login", "/signup", "/result", "/routine"];
   const showNavBar =
     !excludePaths.includes(location.pathname) &&
     !location.pathname.startsWith("/post/");
@@ -42,25 +42,19 @@ function AppContent() {
           <Route
             path="/"
             element={<Onboarding />}
-          />
-          {" "}
+          />{" "}
           <Route
             path="/login"
             element={<Login />}
           />
-          
           <Route
             path="/signup"
             element={<Singup />}
           />
-         
-         
-          
           <Route
             path="/routine"
             element={<AIRoutine />}
-          />
-          {" "}
+          />{" "}
           <Route
             path="/result"
             element={<AIResult />}

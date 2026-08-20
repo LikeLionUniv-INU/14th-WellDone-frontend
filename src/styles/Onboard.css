@@ -6,22 +6,26 @@
   width: 100%;
   min-height: 100%; /* 팀원 코드의 min-height 방식과 일치시킴 */
   position: relative;
-  overflow-y: auto;  /* 내용이 길어져도 스크롤되도록 방어 */
+  overflow-y: auto; /* 내용이 길어져도 스크롤되도록 방어 */
   transition: background 0.5s ease-in-out;
 }
 
 /* 단계별 배경 색상 */
-.onboard-box.step-1 { background-color: #5B45E0; }
-.onboard-box.step-2 { background-color: #FFFFFF; }
-.onboard-box.step-3 { 
-  background: linear-gradient(155deg, #7B61FF 0%, #E5E0FF 75%, #FFFFFF 100%);
+.onboard-box.step-1 {
+  background-color: #5b45e0;
+}
+.onboard-box.step-2 {
+  background-color: #ffffff;
+}
+.onboard-box.step-3 {
+  background: linear-gradient(155deg, #7b61ff 0%, #e5e0ff 75%, #ffffff 100%);
 }
 
 /* 로고 섹션 (스플래시 화면용) */
 .splash-content {
   display: flex;
   flex-direction: column;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   width: 100%;
   min-height: 100vh; /* 화면 전체 중앙 정렬 유지 */
@@ -31,8 +35,8 @@
 
 /* 로고 이미지 박스 */
 .onboard-logo-img {
-  width: 12rem; 
-  height: 9rem; 
+  width: 12rem;
+  height: 9rem;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -43,7 +47,7 @@
 .onboard-brand-text {
   position: absolute;
   bottom: 40px;
-  width: 7rem; 
+  width: 7rem;
   height: 2.5rem;
   background-size: contain;
   background-repeat: no-repeat;
@@ -52,12 +56,12 @@
 
 /* 1단계: 흰색 이미지 */
 .onboard-brand-text.step-1 {
-  background-image: url('../images/welldone_white.svg'); 
+  background-image: url("../images/welldone_white.svg");
 }
 
 /* 2단계: 보라색 이미지 */
 .onboard-brand-text.step-2 {
-  background-image: url('../images/welldone_colored.svg'); 
+  background-image: url("../images/welldone_colored.svg");
 }
 
 /* 3단계 콘텐츠 및 로그인 박스 */
@@ -74,20 +78,26 @@
 }
 
 @keyframes floatText {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 /* 중앙 인트로 텍스트 (absolute 제거하고 flex 내부 배치로 변경하여 찌그러짐 방지) */
 .intro-text {
-  color: #FFFFFF;
+  color: #ffffff;
   text-align: center;
   font-size: 24px;
   font-weight: 600;
   line-height: 1.5;
   letter-spacing: -0.5px;
-  width: 90%; 
+  width: 90%;
   margin-bottom: 40px;
   animation: floatText 3.5s ease-in-out infinite;
 }
@@ -110,8 +120,8 @@
   padding: 16px;
   border: none;
   border-radius: 12px;
-  background: linear-gradient(90deg, #7B61FF 0%, #4F45FF 100%);
-  color: #FFFFFF;
+  background: linear-gradient(90deg, #7b61ff 0%, #4f45ff 100%);
+  color: #ffffff;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
@@ -121,11 +131,11 @@
   text-align: center;
   font-size: 15px;
   font-weight: bold;
-  color: #6B6B6B;
+  color: #6b6b6b;
 }
 
 .highlight-group {
-  color: #7B61FF; 
+  color: #7b61ff;
 }
 
 .highlight {
@@ -134,10 +144,14 @@
 }
 
 /* 단계별 배경 색상 */
-.onboard-box.step-1 { background-color: #5B45E0; }
-.onboard-box.step-2 { background-color: #FFFFFF; }
-.onboard-box.step-3 { 
-  background: linear-gradient(155deg, #7B61FF 0%, #E5E0FF 75%, #FFFFFF 100%);
+.onboard-box.step-1 {
+  background-color: #5b45e0;
+}
+.onboard-box.step-2 {
+  background-color: #ffffff;
+}
+.onboard-box.step-3 {
+  background: linear-gradient(155deg, #7b61ff 0%, #e5e0ff 75%, #ffffff 100%);
 }
 
 /* 로고 섹션 (스플래시 화면용) */
@@ -154,8 +168,8 @@
 
 /* 로고 이미지 박스 크기 비율 조정 */
 .onboard-logo-img {
-  width: 12rem; 
-  height: 9rem; 
+  width: 12rem;
+  height: 9rem;
   max-width: 40vw;
   max-height: 30vh;
   background-size: contain;
@@ -168,7 +182,7 @@
 .onboard-brand-text {
   position: absolute;
   bottom: 8vh; /* 화면 높이 기준 하단 배치 */
-  width: 7rem; 
+  width: 7rem;
   height: 2.5rem;
   background-size: contain;
   background-repeat: no-repeat;
@@ -221,7 +235,7 @@
   font-weight: 600;
   line-height: 1.5;
   letter-spacing: -0.5px;
-  width: 90%; 
+  width: 90%;
 
   animation: floatText 3.5s ease-in-out infinite;
 }
@@ -243,8 +257,8 @@
   padding: 16px;
   border: none;
   border-radius: 12px;
-  background: linear-gradient(90deg, #7B61FF 0%, #4F45FF 100%);
-  color: #FFFFFF;
+  background: linear-gradient(90deg, #7b61ff 0%, #4f45ff 100%);
+  color: #ffffff;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
@@ -254,7 +268,7 @@
   text-align: center;
   font-size: 15px;
   font-weight: bold;
-  color: #6B6B6B;
+  color: #6b6b6b;
 }
 
 .highlight-group {

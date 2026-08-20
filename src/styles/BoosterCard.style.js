@@ -33,7 +33,7 @@ export const StyledSvg = styled.svg`
 export const BackgroundTrack = styled.circle`
   fill: none;
   stroke: #e8e8ff; /* 배경 연한 원 색상 */
-  stroke-width: 8;  /* 선 두께 */
+  stroke-width: 8; /* 선 두께 */
 `;
 
 export const ProgressCircle = styled.circle`
@@ -53,7 +53,7 @@ export const InnerText = styled.div`
   position: absolute;
   font-size: 1rem;
   font-weight: 800;
-  color: #2B3143;
+  color: #2b3143;
 `;
 
 export const InfoArea = styled.div`
@@ -65,14 +65,14 @@ export const InfoArea = styled.div`
 export const Title = styled.h4`
   font-size: 1rem;
   font-weight: 600;
-  color: #2B3143;
+  color: #2b3143;
   margin: 0;
   line-height: 1.3;
 `;
 
 export const SubText = styled.p`
   font-size: 0.78rem;
-  color: #6E6E73;
+  color: #6e6e73;
   margin: 0;
   line-height: 1.35;
   white-space: pre-line;
