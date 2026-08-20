@@ -1,7 +1,9 @@
 .signup-box {
   display: flex;
-  flex-direction: column; /* 세로 정렬 방향 설정 */
-  align-items: center; /* 내부 요소들 가로 중앙 정렬 */
+  flex-direction: column; 
+  align-items: center;    
+  justify-content: center;
+
   width: 100%;
   box-sizing: border-box;
   padding: 1rem 1rem;
@@ -9,13 +11,12 @@
 
 /* 타이틀 영역 */
 .signup-title-area h2 {
-  margin: 0 0 50px 0;
+  margin-bottom: 30px; 
   text-align: center;
   font-size: 1.8rem;
   font-weight: bold;
   color: #2c3e50;
 }
-
 /* 각 입력 그룹 (너비 고정 및 중앙 정렬) */
 .signup-input-group {
   width: 100%;
