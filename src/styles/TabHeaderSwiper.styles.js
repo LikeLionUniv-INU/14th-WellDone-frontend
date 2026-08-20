@@ -14,7 +14,7 @@ export const PageWrapper = styled.div`
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 90dvw;
+  max-width: 98dvw;
   margin: 0 auto;
   margin-top: 10%;
   display: flex;
@@ -35,7 +35,7 @@ export const TabTrack = styled.div`
   width: calc(100%); 
   box-sizing: border-box;
   margin-top: 30px;
-  height: 8dvh;
+  height: 4.5dvh;
 `;
 
 /* 개별 탭 버튼 */
@@ -52,7 +52,7 @@ export const TabButton = styled.button`
   justify-content: center;
   outline: none;
   -webkit-tap-highlight-color: transparent;
-  height: 8dvh ;
+  height: 4.5dvh ;
 `;
 
 /* 💡 마법의 보라색 슬라이딩 배경 (framer-motion) */
@@ -66,11 +66,11 @@ export const ActiveHighlight = styled(motion.div)`
   border-radius: 13px;
   box-shadow: 0 0.25rem 0.75rem rgba(124, 92, 252, 0.3);
   z-index: 1;
-  
 `;
 //상단 n월 웰니스 리포트, 주간 웰니스 루틴 수행 내역
 export const ReportTitle = styled.h3`
   margin-bottom: 35px;
+  font-size: 1.5rem;
   /* 만약 글자 크기나 색상 등도 같이 맞추고 싶다면 여기에 추가하세요 */
 `;
 

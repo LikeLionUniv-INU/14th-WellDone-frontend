@@ -7,7 +7,7 @@ import { Navigation } from "swiper/modules";
 import { ChevronLeft, ChevronRight, Pencil, Share2 } from "lucide-react";
 import SettingsModal from "../components/SettingsModal";
 import "swiper/css";
-import RoutineList from "../components/RoutineList";
+
 
 // 💡 1. 백엔드 연동 시 사용할 더미 데이터 (임시 데이터)
 const DUMMY_GOALS = [
@@ -53,6 +53,7 @@ export default function Home() {
     <>
       <div className="wrapper">
         <Header onOpenSettings={() => setIsSettingsOpen(true)} />
+          <div className=" array">
         <div
           style={{
             display: "flex",
@@ -61,15 +62,16 @@ export default function Home() {
           }}
         ></div>
         <div className="weekbox">
-          <img
+          <img style={ { width :"23px" }}
             src="today.svg"
             alt="달력"
           />
           <span>{getMonthWeek()} </span>
         </div>
         <div className="nowbar">
-          <div className="nowbox">NOW</div>
+          <div className="nowbox"><span className="text">NOW</span></div>
           <h2>나이트 근무 중 식사후 3시간 경과</h2>
+        </div>
         </div>
 
         {/* ----------------------슬라이더 와 원형 그래프 76~ 173 --------------------- */}
@@ -104,7 +106,18 @@ export default function Home() {
                       <svg
                         className="circle-chart"
                         viewBox="0 0 220 220"
+
+                        
                       >
+
+                        <defs>
+    {/* x1, y1, x2, y2로 그라데이션 방향 지정 (90deg = 왼쪽에서 오른쪽) */}
+    <linearGradient id="purpleGradient" x1="100%" y1="100%" x2="0%" y2="0%">
+      <stop offset="40%" stopColor="#7b61ff" />
+      <stop offset="60%" stopColor="#767bf6" />
+      <stop offset="100%" stopColor="#c2d0ff" />
+    </linearGradient>
+  </defs>
                         {/* 배경 원 (연한 보라색 트랙) */}
                         <circle
                           className="circle-bg"
@@ -176,7 +189,7 @@ export default function Home() {
         />
 
         {/* ----------------------루틴 리스트--------------------- */}
-        <RoutineList />
+        
       </div>
     </>
   );

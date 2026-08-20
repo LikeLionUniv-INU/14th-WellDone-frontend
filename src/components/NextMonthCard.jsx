@@ -10,7 +10,10 @@ function NextMonthCard({
   return (
     <S.CardContainer>
       <S.IconWrapper>
-        <Calendar size={22} color="#6F6AF8" />
+        <Calendar
+          size={22}
+          color="#6F6AF8"
+        />
       </S.IconWrapper>
 
       <S.InfoArea>

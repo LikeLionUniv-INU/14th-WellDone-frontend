@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Signup.css"; 
 import axios from "axios";
 
+
 export default function Signup() {
   const navigate = useNavigate();
 
@@ -22,7 +23,7 @@ export default function Signup() {
     // 일단 백엔드 요청에 따른 아무 제한 없는 비밀번호
     const hasLength = pwd.length >= 0;
     //const hasSpecialChar = /[~!@#$%^&*(),.?":{}|<>]/.test(pwd);
-    return hasLength /*&& hasSpecialChar*/;
+    return hasLength; /*&& hasSpecialChar*/
   };
 
   // 중복 확인 버튼 클릭 시
@@ -32,18 +33,18 @@ export default function Signup() {
       return;
     }
     alert("사용 가능한 아이디입니다!");
-    setIsIdChecked(true); 
+    setIsIdChecked(true);
     setIdError(false);
   };
 
   // 모든 조건이 완벽히 충족되었는지 확인하는 활성화 조건 변수
-  const isFormValid = 
-    name.trim() !== "" && 
-    id.trim() !== "" && 
-    isIdChecked && 
-    password.trim() !== "" && 
-    !passwordError && 
-    confirmPassword.trim() !== "" && 
+  const isFormValid =
+    name.trim() !== "" &&
+    id.trim() !== "" &&
+    isIdChecked &&
+    password.trim() !== "" &&
+    !passwordError &&
+    confirmPassword.trim() !== "" &&
     !confirmError;
 
 // 최종 회원가입 핸들러 함수
@@ -80,11 +81,11 @@ export default function Signup() {
         {/* 이름 */}
         <div className="signup-input-group">
           <label>이름</label>
-          <input 
-            type="text" 
-            placeholder="홍길동" 
-            value={name} 
-            onChange={(e) => setName(e.target.value)} 
+          <input
+            type="text"
+            placeholder="홍길동"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
 
@@ -92,35 +93,39 @@ export default function Signup() {
         <div className="signup-input-group">
           <label>아이디</label>
           <div className={`signup-input-wrapper ${idError ? "has-error" : ""}`}>
-            <input 
-              type="text" 
-              placeholder="아이디를 입력하세요" 
-              value={id} 
+            <input
+              type="text"
+              placeholder="아이디를 입력하세요"
+              value={id}
               onChange={(e) => {
                 setId(e.target.value);
                 setIdError(false);
-                setIsIdChecked(false); 
-              }} 
+                setIsIdChecked(false);
+              }}
             />
-            <button 
-              type="button" 
-              className={`inner-duplicate-btn ${isIdChecked ? "disabled" : ""}`} 
+            <button
+              type="button"
+              className={`inner-duplicate-btn ${isIdChecked ? "disabled" : ""}`}
               onClick={handleDuplicateCheck}
-              disabled={isIdChecked} 
+              disabled={isIdChecked}
             >
               중복 확인
             </button>
           </div>
-          {idError && <span className="signup-error-text">사용할 수 없는 아이디입니다</span>}
+          {idError && (
+            <span className="signup-error-text">
+              사용할 수 없는 아이디입니다
+            </span>
+          )}
         </div>
 
         {/* 비밀번호 */}
         <div className="signup-input-group">
           <label>비밀번호</label>
-          <input 
-            type="password" 
+          <input
+            type="password"
             placeholder="비밀번호 입력"
-            value={password} 
+            value={password}
             onChange={(e) => {
               const value = e.target.value;
               setPassword(value);
@@ -136,18 +141,24 @@ export default function Signup() {
               } else {
                 setConfirmError(false);
               }
-            }} 
+            }}
           />
-          {passwordError && <span className="signup-error-text">올바른 비밀번호를 입력해주세요</span>}
+          {passwordError && (
+            <span className="signup-error-text">
+              올바른 비밀번호를 입력해주세요
+            </span>
+          )}
         </div>
 
         {/* 비밀번호 확인 */}
         <div className="signup-input-group password-confirm-group">
-          <div className={`signup-input-wrapper ${confirmError ? "has-error" : ""}`}>
-            <input 
-              type="password" 
-              placeholder="비밀번호 확인" 
-              value={confirmPassword} 
+          <div
+            className={`signup-input-wrapper ${confirmError ? "has-error" : ""}`}
+          >
+            <input
+              type="password"
+              placeholder="비밀번호 확인"
+              value={confirmPassword}
               onChange={(e) => {
                 const value = e.target.value;
                 setConfirmPassword(value);
@@ -157,20 +168,22 @@ export default function Signup() {
                 } else {
                   setConfirmError(false);
                 }
-              }} 
+              }}
             />
             {confirmPassword.length > 0 && !confirmError && (
-              <div className="check-icon-box">
-                ✓
-              </div>
+              <div className="check-icon-box">✓</div>
             )}
           </div>
-          {confirmError && <span className="signup-error-text">비밀번호가 일치하지 않습니다</span>}
+          {confirmError && (
+            <span className="signup-error-text">
+              비밀번호가 일치하지 않습니다
+            </span>
+          )}
         </div>
 
         {/* 회원가입 버튼 */}
-        <button 
-          className={`signup-submit-btn ${!isFormValid ? "disabled" : ""}`} 
+        <button
+          className={`signup-submit-btn ${!isFormValid ? "disabled" : ""}`}
           onClick={handleSignUp}
           disabled={!isFormValid}
         >
@@ -180,7 +193,10 @@ export default function Signup() {
         {/* 하단 링크 */}
         <div className="signup-footer-link">
           이용약관 및&nbsp;
-          <span className="login-link" onClick={() => navigate("/")}>
+          <span
+            className="login-link"
+            onClick={() => navigate("/")}
+          >
             로그인
           </span>
         </div>

@@ -15,9 +15,12 @@ export const GlobalStyle = createGlobalStyle`
   /* 바깥 바탕 배경 (데스크톱 등 큰 화면에서 보일 영역) */
   body {
     background-color: #f0f2f5; /* 약간 어두운 연회색 배경 */
-    display: block;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
     min-height: 100vh;
-    overflow-x: hidden;
+    
   }
 
   html, body {
@@ -26,7 +29,7 @@ export const GlobalStyle = createGlobalStyle`
     min-height: 100%;
     height: auto;
     overflow-x: hidden;
-    overflow-y: auto;
+  
   }
 
   /* 💡 화면 폭이 430px 이하(모바일 환경)일 때 적용되는 스타일 */

@@ -142,10 +142,10 @@
 
 /* 로고 섹션 (스플래시 화면용) */
 .splash-content {
-  position: relative; 
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
@@ -177,17 +177,17 @@
 
 /* 1단계(보라색 배경): 'Well Done' 흰색 이미지 경로 */
 .onboard-brand-text.step-1 {
-  background-image: url('../images/welldone_white.svg'); 
+  background-image: url("../images/welldone_white.svg");
 }
 
 /* 2단계(흰색 배경): 'Well Done' 보라색 이미지 경로 */
 .onboard-brand-text.step-2 {
-  background-image: url('../images/welldone_colored.svg'); 
+  background-image: url("../images/welldone_colored.svg");
 }
 
 /* 3단계 콘텐츠 및 로그인 박스 */
 .main-content {
-  position: relative; 
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -212,10 +212,10 @@
 /* 중앙 인트로 텍스트 */
 .intro-text {
   position: absolute;
-  top: 40%; 
+  top: 40%;
   left: 50%;
-  transform: translate(-50%, -50%); 
-  color: #FFFFFF;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
   text-align: center;
   font-size: clamp(20px, 4vw, 27px); /* 화면 크기에 따라 유연하게 조절 */
   font-weight: 600;
@@ -258,7 +258,7 @@
 }
 
 .highlight-group {
-  color: #7B61FF; 
+  color: #7b61ff;
 }
 
 .highlight {

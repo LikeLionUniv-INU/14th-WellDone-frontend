@@ -45,43 +45,43 @@ const MOCK_DATA = {
 };
 
 const itemList = [
-    {
-      id: 1,
-      name: "온열 수면 안대",
-      description: "따뜻한 수면 안대",
-      points: 1200,
-      imageUrl: "https://example.com/eye-mask.jpg",
-    },
-    {
-      id: 2,
-      name: "아메리카노",
-      description: "스타벅스 기프티콘",
-      points: 100,
-      imageUrl: "https://example.com/americano.jpg",
-    },
-     {
-      id: 3,
-      name: "비타민 음료",
-      description: "비타민 음료",
-      points: 100,
-      imageUrl: "https://example.com/americano.jpg",
-    },
-  ];
+  {
+    id: 1,
+    name: "온열 수면 안대",
+    description: "따뜻한 수면 안대",
+    points: 1200,
+    imageUrl: "https://example.com/eye-mask.jpg",
+  },
+  {
+    id: 2,
+    name: "아메리카노",
+    description: "스타벅스 기프티콘",
+    points: 100,
+    imageUrl: "https://example.com/americano.jpg",
+  },
+  {
+    id: 3,
+    name: "비타민 음료",
+    description: "비타민 음료",
+    points: 100,
+    imageUrl: "https://example.com/americano.jpg",
+  },
+];
 
 function DutyLounge() {
   // 1. API에서 받아온 talks 배열 상태값 관리
   const [talks, setTalks] = useState(MOCK_DATA.result.talks);
   const [text, setText] = useState("");
-const handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault(); // 페이지 뒤로가기/새로고침 방지
     if (!text.trim()) return; // 빈 값 전송 방지
 
     console.log("전송할 메시지:", text);
-    
+
     // 전송 후 입력창 비워주기
     setText("");
   };
- const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <>
       <S.MainLayout>
@@ -98,16 +98,14 @@ const handleSubmit = (e) => {
           </S.FirstLayout>
 
           <TeamChallengeCard
-        teamName="Team NIGHT"
-        type="NIGHT"
-        percentage={68}
-        remainingPercent={12}
-        participantCount="1,240"
-        rewardInfo="80 % 달성시 + 100P"
-        onMoreClick={() => alert("상세보기 클릭!")}
-      />
-
-
+            teamName="Team NIGHT"
+            type="NIGHT"
+            percentage={68}
+            remainingPercent={12}
+            participantCount="1,240"
+            rewardInfo="80 % 달성시 + 100P"
+            onMoreClick={() => alert("상세보기 클릭!")}
+          />
 
           {/* <S.ChallengBox>
             <S.ChSrcLayout>
@@ -151,63 +149,46 @@ const handleSubmit = (e) => {
                 />
               ))}
 
-
-
               <S.ChatInputContainer onSubmit={handleSubmit}>
-      <S.ChatInput 
-        type="text" 
-        
-        value={text}                             // 1. 현재 text 상태값을 보여줌
-        onChange={(e) => setText(e.target.value)} // 2. 글자를 칠 때마다 setText로 text 값 변경
-      />
-      <S.SendButton type="submit"><ChevronRight size = {24}  /></S.SendButton>
-    </S.ChatInputContainer>
+                <S.ChatInput
+                  type="text"
 
-
+                  value={text} // 1. 현재 text 상태값을 보여줌
+                  onChange={(e) => setText(e.target.value)} // 2. 글자를 칠 때마다 setText로 text 값 변경
+                />
+                <S.SendButton type="submit">
+                  <ChevronRight size={24} />
+                </S.SendButton>
+              </S.ChatInputContainer>
             </S.ChSrcLayout>
           </S.TalkBox>
 
           <S.MoveLoutin onClick={() => navigate("/home")}>
             내 루틴 완료하고 게이지 채우기
-
-
           </S.MoveLoutin>
-
-
 
           <S.ShopBox>
             <S.ChSrcLayout>
-            <S.TeamLayout>
+              <S.TeamLayout>
                 <S.ShopName>웰니스 Reward Shop</S.ShopName>
-                  
-                
 
                 <S.MoreBtn>
                   전체 보기 <ChevronRight size={16} />{" "}
                 </S.MoreBtn>
-            </S.TeamLayout>
+              </S.TeamLayout>
 
-
-            <div style={{display: "flex" , gap : "10px"}}>
-
-
-            {itemList.map((item) => (
-        <RewardItem
-          key={item.id}
-          imageUrl={item.imageUrl}
-          name={item.name}
-          description={item.description}
-          points={item.points}
-          
-        />
-      ))}
-      </div>
-
-
-
+              <div style={{ display: "flex", gap: "10px" }}>
+                {itemList.map((item) => (
+                  <RewardItem
+                    key={item.id}
+                    imageUrl={item.imageUrl}
+                    name={item.name}
+                    description={item.description}
+                    points={item.points}
+                  />
+                ))}
+              </div>
             </S.ChSrcLayout>
-
-
           </S.ShopBox>
         </S.SrcLayout>
       </S.MainLayout>
