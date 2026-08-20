@@ -291,7 +291,7 @@ export default function Home() {
 
 
 {/* ----------------------현재 할일--------------------- */}
-        <div style={{ width: "89%", margin: "0 auto", paddingTop: "16px" }}>
+        <div style={{ width: "87%", margin: "0 auto", paddingTop: "16px" }}>
       
       {hasRoutine && currentRoutineData ? (
         <CurrentRoutine

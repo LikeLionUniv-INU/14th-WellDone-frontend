@@ -2,13 +2,13 @@ import styled, { css } from "styled-components";
 
 export const RoutineContainer = styled.div`
   width: 100%;
-  padding: 20px;
+  padding: 15px;
   border-radius: 16px;
   box-sizing: border-box;
 
   /* 1-8, 1-12. 기본 배경색 및 테두리 */
   background-color: ${(props) => (props.$isCompleted ? "#F3F4F6" : "#EEE9FF")};
-  border: 1px solid ${(props) => (props.$isCompleted ? "#D1D5DB" : "#BAB7FF")};
+  border: 2px solid ${(props) => (props.$isCompleted ? "#D1D5DB" : "#BAB7FF")};
   transition: all 0.3s ease;
 `;
 
@@ -19,7 +19,7 @@ export const RoutineContentWrapper = styled.div`
   gap: 16px;
   /* 2-3. 비디오 타입인 경우 클릭 가능 커서 표시 */
   cursor: ${(props) => (props.$isVideo ? "pointer" : "default")};
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 `;
 
 export const RoutineInfoArea = styled.div`
@@ -93,9 +93,9 @@ export const ButtonGroup = styled.div`
 
 export const BaseButton = styled.button`
   border: none;
-  border-radius: 12px;
-  padding: 14px 0;
-  font-size: 0.95rem;
+  border-radius: 10px;
+  padding: 7px 0;
+  font-size: 0.7rem;
   font-weight: 600;
   display: flex;
   align-items: center;
