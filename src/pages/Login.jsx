@@ -28,9 +28,7 @@ export default function Login() {
       // 성공 시 (200 OK)
       if (response.data.isSuccess) {
         const { accessToken, refreshToken, isOnboardingComplete } = response.data.result;
-        console.log("응답 전체 데이터:", response.data);
-console.log("온보딩 완료 여부:", isOnboardingComplete);
-console.log("result 내부 전체:", response.data.result);
+
 
         // 로컬 스토리지에 토큰 저장
         localStorage.setItem("accessToken", accessToken);
@@ -41,7 +39,6 @@ console.log("result 내부 전체:", response.data.result);
 
       }
     } catch (error) {
-      console.log("지금 보내려는 값 -> id:", id, "password:", password);
       // 실패 시 (401 Unauthorized 등)
       console.error("로그인 실패:", error);
       
