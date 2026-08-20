@@ -94,7 +94,7 @@ export const ButtonGroup = styled.div`
 export const BaseButton = styled.button`
   border: none;
   border-radius: 10px;
-  padding: 7px 0;
+  padding: 9px 0;
   font-size: 0.7rem;
   font-weight: 600;
   display: flex;
