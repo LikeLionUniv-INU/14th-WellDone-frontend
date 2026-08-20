@@ -1,0 +1,82 @@
+import { useState } from "react";
+import "./App.css";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import Home from "./pages/Home";
+import { GlobalStyle } from "./GlobalStyle";
+import { MobileLayout } from "./components/MobileLayout";
+import NavigationBar from "./components/NavigationBar";
+import DutyLounge from "./pages/DutyLounge";
+import MyPage from "./pages/MyPage";
+import ScrollToTop from "./components/ScrollToTop";
+import Onboarding from "./pages/Onboard";
+import Login from "./pages/Login";
+import Singup from "./pages/SignUp";
+import AIRoutine from "./pages/AIRoutine";
+import AIResult from "./pages/AIResult";
+
+function AppContent() {
+  const location = useLocation();
+
+  const excludePaths = ["/", "/login", "/signup", "/result", "/routine"];
+  const showNavBar =
+    !excludePaths.includes(location.pathname) &&
+    !location.pathname.startsWith("/post/");
+
+  return (
+    <>
+      <MobileLayout>
+        {/* 모바일 레이아웃 적용*/}
+        <Routes>
+          <Route
+            path="/home"
+            element={<Home />}
+          />
+          <Route
+            path="/challenge"
+            element={<DutyLounge />}
+          />
+          <Route
+            path="/mypage"
+            element={<MyPage />}
+          />
+          <Route
+            path="/"
+            element={<Onboarding />}
+          />{" "}
+          <Route
+            path="/login"
+            element={<Login />}
+          />
+          <Route
+            path="/signup"
+            element={<Singup />}
+          />
+          <Route
+            path="/routine"
+            element={<AIRoutine />}
+          />{" "}
+          <Route
+            path="/result"
+            element={<AIResult />}
+          />
+        </Routes>
+        {/* 💡 네비게이션 바가 존재하는 창에서는 네비게이션을 보여주기*/}
+        {showNavBar && <NavigationBar />}
+      </MobileLayout>
+    </>
+  );
+}
+function App() {
+  return (
+    <>
+      <BrowserRouter>
+        {/* 상단바나 네비게이션 바처럼 모든 페이지에 공통으로 떠있어야 하는 컴포넌트가 있다면 여기에 위치 시킵니다. */}
+        <GlobalStyle /> {/*전역스타일 적용*/}
+        <ScrollToTop />
+        <AppContent />
+      </BrowserRouter>
+    </>
+  );
+}
+
+export default App;

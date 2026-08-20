@@ -1,0 +1,834 @@
+.schedule-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 480px; /* 모바일 웹/앱 비율 기준 */
+  height: 100vh;
+  margin: 0 auto;
+  padding: 24px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  position: relative;
+}
+
+/* 진행도 바 스타일 */
+.progress-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  margin-bottom: 24px;
+  padding: 0 20px;
+}
+
+.progress-bar-bg {
+  flex: 1;
+  height: 0.5rem;
+  background-color: #f0eeff;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #7b61ff;
+  border-radius: 3px;
+}
+
+.progress-text {
+  font-size: 12px;
+  color: #6e6e73;
+  font-weight: 500;
+}
+
+/* 타이틀 스타일 */
+.step-titles {
+  margin-bottom: 24px;
+  padding: 0 20px;
+}
+
+.step-indicator {
+  font-size: 17px;
+  font-weight: bold;
+  color: #6f6a86;
+  letter-spacing: 0.5px;
+}
+
+.step-titles h2 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #2b3143;
+  margin: 4% 0 8% 0;
+}
+
+.step-titles p {
+  font-size: 14px;
+  color: #6e6e73;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* 입력 그룹 (드롭다운) */
+.input-group {
+  margin-bottom: 20px;
+  margin: 0px 20px;
+  margin-bottom: 10px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6e6e73;
+  margin-bottom: 8px;
+}
+
+.required {
+  color: #ff3b30;
+}
+
+.type-select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid #d2d0d0;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #1c1c1e;
+  background-color: #ffffff;
+  outline: none;
+  cursor: pointer;
+}
+
+/* 이미지 업로드 박스 */
+.upload-box {
+  /* 너비를 컨테이너에서 좌우 패딩(20px + 20px = 40px)을 뺀 만큼 설정 */
+  width: calc(100% - 40px);
+
+  /* 중앙 정렬 핵심 */
+  margin: 0 auto;
+  margin-top: 20%;
+  height: 13rem;
+  border: 2px dashed #ccc;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  background-color: #f9f9f9;
+  margin-bottom: 8px;
+}
+
+/* 튀어나가는 이미지 사이즈 조정 */
+.preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* 이미지를 잘리지 않고 박스 안에 다 보이게 함 */
+}
+
+.upload-box:hover {
+  border-color: #7b61ff;
+}
+
+.upload-content {
+  text-align: center;
+}
+
+.upload-icon {
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 8px;
+}
+
+.upload-main-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #3a3a3c;
+  margin: 0 0 4px 0;
+}
+
+.upload-sub-text {
+  font-size: 12px;
+  color: #8e8e93;
+  margin: 0;
+}
+
+/* 서브 액션 버튼 3개 (사진촬영, 갤러리, 스케줄표 제작) */
+.sub-action-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 7%;
+  margin-bottom: 50%; /* 하단 네비게이션을 바닥으로 밀어내기 위함 */
+  padding: 0 20px;
+}
+
+.sub-btn {
+  flex: 1;
+  padding: 10px 0;
+  border: 1px solid #d2d0d0;
+  border-radius: 8px;
+  background-color: #ffffff;
+  font-size: 12px;
+  font-weight: 500;
+  color: #3a3a3c;
+  cursor: pointer;
+}
+/*어... 굳이 하이라이트 만들 필요 없었는데 실수로 분리해버림*/
+.highlight-sub {
+  border-color: #d2d0d0;
+  color: #3a3a3c;
+}
+
+.sub-btn:active {
+  background-color: #7b61ff;
+  border-color: #d2d0d0;
+  color: #ffffff;
+}
+
+/* STEP 2: 웰니스 카테고리 그리드 레이아웃 (2열) */
+.wellness-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+  margin-bottom: 35%;
+  padding: 0 20px;
+}
+
+/* 개별 카드 기본 스타일 */
+.wellness-card {
+  border: 1px solid #d2d0d0;
+  border-radius: 14px;
+  padding: 18px 12px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #ffffff;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SVG 아이콘 크기 고정 (가로 세로 2rem) */
+.card-svg-icon {
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 8px;
+  object-fit: contain;
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2b3143;
+  margin-bottom: 2px;
+}
+
+.card-sub {
+  font-size: 13px;
+  color: #6e6e73;
+}
+
+/* 카드가 선택되었을 때 스타일 */
+.wellness-card.selected {
+  background-color: #eef0ff;
+  border: 2px solid #7b61ff;
+}
+
+.wellness-card.selected .card-title {
+  color: #7b61ff;
+}
+
+/* ==================== STEP 3 ==================== */
+.question-section {
+  margin-bottom: 28px;
+  text-align: left;
+  padding: 0 20px;
+}
+
+.question-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+/* 태그 묶음 레이아웃 */
+.tag-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* 알약(Pill) 태그 기본 스타일 */
+.pill-tag {
+  padding: 4px 16px;
+  border: 1px solid #d2d0d0;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #6e6e73;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* 알약 태그 선택 상태 */
+.pill-tag.selected {
+  border-color: #6f6af8;
+  color: #6f6af8;
+  background-color: #eef0ff;
+  font-weight: 600;
+}
+
+/* 텍스트 에어리어 래퍼 */
+.textarea-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.request-textarea {
+  width: 100%;
+  height: 120px;
+  padding: 14px;
+  padding-bottom: 30px; /* 카운터 공간 확보 */
+  border: 1.5px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 13px;
+  color: #333;
+  resize: none;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.request-textarea::placeholder {
+  color: #aaa;
+  line-height: 1.5;
+}
+
+.request-textarea:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+
+/* 글자 수 카운터 */
+.char-counter {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  font-size: 12px;
+  color: #888;
+}
+
+/* ==================== STEP 4 ==================== */
+.step4-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+  box-sizing: border-box;
+  text-align: center;
+  z-index: 10;
+
+  background: linear-gradient(
+    to top,
+    #a5a2ff 3%,
+    #cdcbfd 16%,
+    #e4e3fb 26%,
+    #e9e9fc 30%,
+    #ffffff 100%
+  );
+}
+
+.step4-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 20px;
+}
+
+/* CSS로 이미지 영역 크기 제어 (3.5rem) */
+.step4-image-slot {
+  width: 10rem;
+  height: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step4-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.step4-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #222;
+  line-height: 1.4;
+}
+
+/* 하단 웰던 로고 영역 */
+.step4-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.step4-welldone-img {
+  width: 7rem;
+  height: 7rem; /* 필요에 따라 높이 조절 */
+  object-fit: contain;
+}
+
+/* 하단 고정 네비게이션 버튼 (취소 / 다음 단계) */
+.bottom-nav-buttons {
+  display: flex;
+  gap: 12px;
+  padding: 16px 20px;
+  background-color: #ffffff;
+}
+
+.nav-btn {
+  flex: 1;
+  padding: 1rem 0;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background-color: #f2f2f7;
+  color: #8e8e93;
+}
+
+.next-btn {
+  background: linear-gradient(90deg, #7b61ff 0%, #4f45ff 100%);
+  color: #ffffff;
+}
+
+/* ==================== STEP 5 & STEP 6 공통 스타일 ==================== */
+/* 상단 탭 스위치 */
+.schedule-toggle-group {
+  display: flex;
+  background-color: #d4d9ff;
+  border-radius: 25px;
+  padding: 3px;
+  margin: 16px 20px 16px 20px;
+}
+
+.toggle-btn {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  background: transparent;
+  border-radius: 22px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #6e6e73;
+  cursor: pointer;
+}
+
+.toggle-btn.active {
+  background: linear-gradient(90deg, #7b61ff 0%, #4f45ff 100%);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(93, 80, 254, 0.3);
+}
+
+/* 테두리 버튼 (+ 스케줄 추가 / + 직접 일정 추가) */
+.outline-add-btn {
+  width: calc(100% - 40px);
+  margin: 0 20px;
+  padding: 12px 0px;
+  margin-top: 20px;
+  border: 1px solid #5d50fe;
+  background-color: #ffffff;
+  color: #5d50fe;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ==================== STEP 5 (주간 직접 입력) ==================== */
+.weekly-schedule-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.weekly-header {
+  font-size: 14px;
+  font-weight: 700;
+  color: #6c5ce7;
+  margin: 0 20px;
+}
+
+.weekly-table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e2e2e8;
+}
+
+.weekly-table th,
+.weekly-table td {
+  border: 1px solid #e8e8ee;
+  text-align: center;
+  height: 40px;
+  font-size: 12px;
+  overflow: hidden;
+  word-break: break-all;
+  text-overflow: ellipsis;
+}
+
+.weekly-table th {
+  background-color: #f0f0fe;
+  color: #71717a;
+  font-weight: 600;
+}
+
+.weekly-table .hour-cell {
+  background-color: #ffffff;
+  color: #52525b;
+  font-weight: 600;
+  width: 32px;
+}
+
+/* ==================== STEP 5 주간 스케줄표 추가 CSS ==================== */
+
+/* 스케줄이 등록된 셀 스타일 */
+.weekly-table td.filled-cell {
+  background-color: #f0f1ff; /* 일정 블록 배경색 */
+  position: relative;
+  vertical-align: middle;
+  padding: 2px 4px;
+}
+
+/* 셀 내부 일정 블록 레이아웃 */
+.schedule-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 11px;
+  line-height: 1.25;
+  word-break: break-all;
+  text-align: center;
+}
+
+/* 일정명 스타일 */
+.sched-title {
+  font-weight: 700;
+  color: #312e81;
+}
+
+/* 근무장소 스타일 */
+.sched-location {
+  font-size: 10px;
+  color: #6366f1;
+  margin-top: 1px;
+}
+
+/* 시간표 좌측 시간(7~14) 표시 셀 */
+.hour-cell {
+  width: 32px;
+  text-align: center;
+  font-weight: 500;
+  color: #8e8e93;
+}
+
+/* ==================== STEP 6 (교대 근무표 입력) ==================== */
+.monthly-schedule-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7rem;
+}
+
+.calendar-memo {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 11px;
+  color: #312e81;
+}
+.cal-nav-btn {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  color: #52525b;
+  cursor: pointer;
+}
+
+.cal-month {
+  font-size: 16px;
+  font-weight: 700;
+  color: #6e6e73;
+}
+
+.calendar-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #e4e4e7;
+}
+
+.calendar-table td {
+  border: 1px solid #e4e4e7;
+  height: 52px;
+  vertical-align: top;
+  padding: 4px;
+  width: 14.28%;
+}
+
+.cal-date-mock {
+  font-size: 12px;
+  width: 100%;
+  height: 100%;
+}
+
+/* 교대근무 범례 (D / E / N / OFF) */
+.calendar-legend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #3f3f46;
+}
+
+.legend-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  font-size: 9px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.legend-dot.d-day {
+  background-color: #c2d0ff;
+  color: #767bf6;
+}
+.legend-dot.evening {
+  background-color: #a5a2ff;
+  color: #ffffff;
+}
+.legend-dot.night {
+  background-color: #5c58d5;
+  color: #ffffff;
+}
+.legend-dot.off {
+  background-color: #d9d9d9;
+  color: #6e6e73;
+}
+/* 달력 현재 달 / 다른 달 날짜 색상 구분 */
+.calendar-table .other-month .date-number {
+  color: #ccc; /* 이전/다음 달 날짜는 회색 처리 */
+}
+
+.cal-date-mock {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  padding-top: 5px;
+}
+
+/* 날짜 밑에 달릴 D, E, N, O 뱃지 스타일 */
+.shift-badge {
+  margin-top: 4px;
+  width: 40px;
+  height: 15px;
+  border-radius: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+}
+
+/* 각 타입별 색상 */
+.shift-badge.type-D {
+  background-color: #c2d0ff;
+  color: #767bf6;
+} /* DAY */
+.shift-badge.type-E {
+  background-color: #a5a2ff;
+  color: #ffffff;
+} /* Evening */
+.shift-badge.type-N {
+  background-color: #5c58d5;
+  color: #ffffff;
+} /* Night */
+.shift-badge.type-O {
+  background-color: #d9d9d9;
+  color: #6e6e73;
+} /* OFF */
+
+/* ==================== STEP 7 전용 전체 스타일 ==================== */
+
+/* 간격 조절용 유틸리티 */
+.mt-8 {
+  margin-top: 8px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mt-30 {
+  margin-top: 30px;
+}
+
+/* 날짜 선택 인풋 스타일 */
+.date-input-field {
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 근무 유형 버튼 컨테이너 */
+.shift-type-container {
+  display: flex;
+}
+
+.shift-type-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 개별 버튼 기본 공통 스타일 (뽈롱 방지 투명 테두리 포함) */
+.shift-type-btn {
+  width: 4rem;
+  height: 4rem;
+  padding: 14px 0;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  font-size: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+/* D (DAY) */
+.shift-type-btn.type-d {
+  background-color: #c2d0ff;
+  color: #767bf6;
+}
+
+/* E (Evening) */
+.shift-type-btn.type-e {
+  background-color: #5c58d5;
+  color: #ffffff;
+}
+
+/* N (Night) */
+.shift-type-btn.type-n {
+  background-color: #5c58d5;
+  color: #ffffff;
+}
+
+/* O (OFF) */
+.shift-type-btn.type-o {
+  background-color: #d9d9d9;
+  color: #6e6e73;
+}
+
+/* 선택(Active)되었을 때 바깥에 진한 보라색 테두리 강조 */
+.shift-type-btn.selected {
+  border-color: #2c2c2e !important;
+  box-shadow: 0 0 0 1px #2c2c2e;
+}
+
+.shift-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #71717a;
+}
+
+/* 한 줄 메모 입력창 및 글자 수 카운터 스타일 */
+.memo-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.memo-text-input {
+  width: 100%;
+  padding: 12px 14px;
+  padding-right: 50px; /* 글자 수(0/30)가 들어갈 공간 확보 */
+  border: 1px solid #e4e4e7;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.memo-text-input:focus {
+  border-color: #5a45ff;
+}
+
+.memo-counter {
+  position: absolute;
+  right: 14px;
+  font-size: 12px;
+  color: #a1a1aa;
+  pointer-events: none;
+}
+
+/* 하단 풀사이즈 추가하기 버튼 스타일 */
+.full-width-btn {
+  width: 100%;
+  background: linear-gradient(90deg, #7b61ff 0%, #4f45ff 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}

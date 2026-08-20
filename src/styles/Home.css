@@ -1,0 +1,264 @@
+/* Home.css */
+.weekbox {
+  /* 주차를 보여주는 글 컨테이너*/
+  display: flex;
+  margin-top: 6px;
+  margin-bottom: 22px;
+  padding: 0;
+  
+  width: 100%;
+  font-size: 22px;
+  font-weight: bold;
+  gap: 7px;
+}
+.array {
+  width: 86%;
+}
+.wrapper {
+  /* 전체 컨테이너*/
+  width: 100%;
+ 
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  
+}
+
+.nowbar {
+  /* 현재 상황을 보여주는 바*/
+  background-color: #F2F3FF;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  padding: 0.5rem;
+  gap: 1.5rem;
+  align-items: center;
+  border-radius: 15px;
+  box-shadow:  0 2px 10px #EEF1F7;
+  border: 1px solid #EEF1F7;
+  margin-bottom: 14px;
+
+}
+h2{
+    font-size: 1rem;
+}
+
+.nowbox {
+  /* 바안에 글자 now가 들어가는 흰 박스*/
+  background-color: #ffffff;
+  padding: 0.5rem 0.7rem;
+  margin: 0;
+  border-radius: 12px;
+  
+
+  display: flex;
+  align-items: center;
+}
+
+.text {
+   background: linear-gradient(90deg, #7B61FF 0%, #7B61FF 100%);
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+/* ----------------------슬라이더 와 원형 그래프 스타일--------------------- */
+
+.goal-slider-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  padding: 15px 0;
+  box-sizing: border-box;
+}
+
+.goal-swiper {
+  width: 100%;
+}
+
+/* --- 원그래프 영역 --- */
+.circle-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.circle-chart-container {
+  position: relative;
+  width: 215px;
+  height: 215px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle-chart {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg); /* 12시 방향부터 차오르도록 설정 */
+}
+
+.circle-bg {
+  fill: none;
+  stroke: #eceefe;
+  stroke-width: 12px;
+}
+
+.circle-progress {
+  fill: none;
+  stroke:url(#purpleGradient); /* 💡 정의해둔 SVG 그라데이션 ID 연결 */
+  stroke-width: 12px;
+  stroke-linecap: round; /* 게이지 끝부분 라운드 처리 */
+  transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1); /* 차오르는 애니메이션 */
+}
+
+/* --- 원 중앙 텍스트 스타일 --- */
+.circle-content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  
+}
+
+
+.goal-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2c2c2c;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.goal-subtitle {
+  font-size: 13px;
+  color: #555555;
+  margin-top: 2px;
+  margin-bottom: 8px;
+}
+
+.goal-score {
+  font-size: 42px;
+  font-weight: 600;
+  color: #222222;
+  line-height: 1;
+}
+
+.goal-max-score {
+  font-size: 14px;
+  font-weight: 600;
+  background: linear-gradient(90deg, #7B61FF 0%, #7B61FF 100%);
+  margin-top: 4px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* --- 하단 버튼 (편집/공유) --- */
+.action-button-group {
+  display: flex;
+  gap: 28px;
+ 
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4.5px 18px;
+  border-radius: 20px;
+  border: 1px solid #d2d0d0;
+  background-color: #ffffff;
+  color: #333333;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.action-btn:hover {
+  background-color: #f8fafc;
+}
+
+/* --- 좌우 스와이프 화살표 버튼 --- */
+.custom-swiper-prev,
+.custom-swiper-next {
+  position: absolute;
+  top: 110px; /* 원 그래프 중앙 높이에 맞춤 */
+  transform: translateY(-50%);
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333333;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+  
+}
+
+.custom-swiper-prev {
+  left: 10px;
+}
+
+.custom-swiper-next {
+  right: 10px;
+}
+
+.custom-swiper-prev:hover,
+.custom-swiper-next:hover {
+  background-color: #fdfdfd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Swiper 슬라이드 끝에 도달했을 때 비활성화 스타일 */
+.custom-swiper-prev.swiper-button-disabled,
+.custom-swiper-next.swiper-button-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+
+
+
+
+.loutin-title {
+  margin-top: 30px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+   gap: 10px;
+}
+
+.today-routine-box {
+  margin-top: 15px;
+  margin-bottom: 100px;
+  
+  background-color: #EEE9FF;
+  border-radius: 13px;
+  padding: 26px 25px;
+  width: 86%;
+  flex: none;
+  min-height: 30dvh;
+}
+
+.routine-list-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
