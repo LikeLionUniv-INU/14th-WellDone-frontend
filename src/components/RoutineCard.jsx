@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import * as S from "../styles/RoutineCard.style";
 
-
-
-
 // 요일 헤더 라벨 (월~일)
 const DAYS = ["M", "T", "W", "T", "F", "S", "S"];
 
@@ -39,12 +36,15 @@ function RoutineCard({ routineName, cycle, initialChecks }) {
           const isChecked = checks[index]; // 해당 요일의 true/false 값
 
           return (
-            <S.DayColumn key={index} onClick={() => handleToggleCheck(index)}>
+            <S.DayColumn
+              key={index}
+              onClick={() => handleToggleCheck(index)}
+            >
               <S.DayLabel>{day}</S.DayLabel>
 
               {/* 📌 [참고 조건 1, 6] 삼항 연산자로 활성화 여부에 따라 svg 이미지 분기 */}
               <S.CheckIcon
-                src={isChecked ? "/check.svg" : "/unchecked.svg"} 
+                src={isChecked ? "/check.svg" : "/unchecked.svg"}
                 alt={isChecked ? "체크됨" : "미체크"}
               />
             </S.DayColumn>

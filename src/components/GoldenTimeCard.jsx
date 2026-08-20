@@ -1,7 +1,10 @@
 import React from "react";
 import * as S from "../styles/GoldenTimeCard.style";
 
-function GoldenTimeCard({ rate = 82, subText = "퇴근 후 활동기 전까지 회복 루틴을 꾸준히 지켜냈어요" }) {
+function GoldenTimeCard({
+  rate = 82,
+  subText = "퇴근 후 활동기 전까지 회복 루틴을 꾸준히 지켜냈어요",
+}) {
   return (
     <S.CardContainer>
       <S.Header>

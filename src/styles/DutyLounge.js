@@ -4,11 +4,11 @@ export const MainLayout = styled.div`
   // 전체 배경색 넣는 용도
   width: 100%;
   height: 100%;
-  background-color: #BABED9;
+  background-color: #babed9;
   display: flex;
   justify-content: center;
 
-padding-bottom: 50px;
+  padding-bottom: 50px;
 `;
 
 export const SrcLayout = styled.div`
@@ -51,7 +51,7 @@ export const PointBox = styled.div`
   background-color: #ffffff;
   font-weight: bold;
   font-size: 1.05rem;
-  padding: 7px 14px 7px  12px;
+  padding: 7px 14px 7px 12px;
   color: #6f6af8;
   border-radius: 10px;
   display: flex;
@@ -73,8 +73,6 @@ export const FirstLayout = styled.div`
   width: 100%;
   flex: none;
 `;
-
-
 
 export const MoreBtn = styled.button`
   // 상세보기
@@ -107,14 +105,14 @@ export const ChallengBox = styled.div`
   justify-content: center;
 `;
 
-export const ChSrcLayout = styled.div` 
+export const ChSrcLayout = styled.div`
   //  가운데로 만들기
   width: 88%;
   flex: none;
   height: fit-content;
 `;
 
-export const TalkBox = styled.div` 
+export const TalkBox = styled.div`
   // 채팅방 박스
   width: 100%;
   height: fit-content;
@@ -127,7 +125,7 @@ export const TalkBox = styled.div`
   margin-top: 10px;
 `;
 
-export const TalkTitle = styled.div` 
+export const TalkTitle = styled.div`
   // 채팅방 제목
   margin-top: 9%;
   margin-bottom: 7%;
@@ -150,11 +148,11 @@ export const ChatInputContainer = styled.form`
 
   background-color: #ffffff;
   border: 1.8px solid #e5e7eb; /* 연한 회색 테두리 */
-  border-radius: 10px;        /* 둥근 모서리 */
+  border-radius: 10px; /* 둥근 모서리 */
   box-sizing: border-box;
 
   cursor: pointer;
-  
+
   /* 마우스 호버 시 효과 */
   &:hover {
     border-color: #6f6af8;
@@ -169,22 +167,21 @@ export const ChatInput = styled.input`
   font-size: 0.95rem;
   color: #333333;
   &::placeholder {
-    color: #D9D9D9;
+    color: #d9d9d9;
   }
 `;
 
-
 export const MoveLoutin = styled.button`
-width: 100%;
-height:  fit-content ;
-padding: 14px 20px;
-color: white;
-font-size:  19px;
-border-radius: 10px;
-border: 0;
-font-weight: bold;
-background: linear-gradient(90deg, #7B61FF 0%, #4F45FF 100%);
-margin-bottom: 30px;
+  width: 100%;
+  height: fit-content;
+  padding: 14px 20px;
+  color: white;
+  font-size: 19px;
+  border-radius: 10px;
+  border: 0;
+  font-weight: bold;
+  background: linear-gradient(90deg, #7b61ff 0%, #4f45ff 100%);
+  margin-bottom: 30px;
 `;
 
 // 오른쪽 화살표 전송 버튼
@@ -196,17 +193,16 @@ export const SendButton = styled.button`
   align-items: center;
   justify-content: center;
   padding: 0;
-  color: #6F6AF8;
+  color: #6f6af8;
 `;
 
 export const ShopName = styled.div`
   // 샵 이름
   font-size: 1.15rem;
   font-weight: bold;
-  
 `;
 
-export const ShopBox = styled.div` 
+export const ShopBox = styled.div`
   // 채팅방 박스
   width: 100%;
   height: fit-content;

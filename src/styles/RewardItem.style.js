@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 // 전체 카드 (클릭 가능한 버튼 형태)
 export const CardButton = styled.button`
-  width:  32%;
+  width: 32%;
   height: fit-content;
   min-height: 90px; /* 너무 작아지지 않게 최소 높이 설정 */
 
@@ -16,14 +16,16 @@ export const CardButton = styled.button`
   margin-bottom: 15px;
 
   background-color: #ffffff;
-  border: 1.5px solid #D2D0D0; /* 이미지 속 은은한 연회색 테두리 */
-  border-radius: 8px;         /* 둥근 모서리 */
+  border: 1.5px solid #d2d0d0; /* 이미지 속 은은한 연회색 테두리 */
+  border-radius: 8px; /* 둥근 모서리 */
   box-sizing: border-box;
 
   cursor: pointer;
-  text-align: left;            /* button 기본 중앙정렬 해제 */
+  text-align: left; /* button 기본 중앙정렬 해제 */
   outline: none;
-  transition: border-color 0.2s ease, transform 0.1s ease;
+  transition:
+    border-color 0.2s ease,
+    transform 0.1s ease;
 
   /* 호버 & 클릭 효과 */
   &:hover {
@@ -37,13 +39,12 @@ export const CardButton = styled.button`
 // 좌측 정사각형 이미지
 export const ProductImage = styled.img`
   width: 100%;
-  aspect-ratio: 1 / 1 ;
-  
- margin-top: 4px;
-  object-fit: cover;
-  flex-shrink: 0;              /* 비율 찌그러짐 방지 */
-  background-color: #f3f4f6;   /* 이미지 로딩 시 대체 배경색 */
+  aspect-ratio: 1 / 1;
 
+  margin-top: 4px;
+  object-fit: cover;
+  flex-shrink: 0; /* 비율 찌그러짐 방지 */
+  background-color: #f3f4f6; /* 이미지 로딩 시 대체 배경색 */
 `;
 
 // 우측 정보 컨테이너
@@ -51,15 +52,12 @@ export const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-   align-items : center;
+  align-items: center;
   gap: 4px;
   flex: 1;
   overflow: hidden;
   flex: none;
 `;
-
-
-
 
 // 상품명
 export const ProductName = styled.h4`
@@ -67,8 +65,7 @@ export const ProductName = styled.h4`
   font-size: 0.7rem;
   font-weight: 700;
   color: #1f2937;
-  
-  
+
   /* 넘치는 글자 줄임표(...) 처리 */
   white-space: nowrap;
   overflow: hidden;
@@ -79,8 +76,8 @@ export const ProductName = styled.h4`
 export const ProductDescription = styled.p`
   margin: 0;
   font-size: 0.6rem;
-  color: #6E6E73;
-  
+  color: #6e6e73;
+
   /* 넘치는 글자 줄임표(...) 처리 */
   white-space: nowrap;
   overflow: hidden;

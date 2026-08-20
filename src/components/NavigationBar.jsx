@@ -31,11 +31,19 @@ const NavIcon = ({ item, isActive }) => {
   return (
     <S.NavItem onClick={() => navigate(item.path)}>
       {/* 💡 선택 상태($isActive)에 따라 원 크기, 배경, Y축 위치가 변합니다 */}
-       <S.IconImg
-          src={isActive ? item.activeSrc : item.inactiveSrc}
-          alt={item.name}
-        />
-         <div style={{ color: isActive ? "#6F6AF8" :"black" , fontSize :"0.8rem", fontWeight: "bold"}}>{item.name}</div>
+      <S.IconImg
+        src={isActive ? item.activeSrc : item.inactiveSrc}
+        alt={item.name}
+      />
+      <div
+        style={{
+          color: isActive ? "#6F6AF8" : "black",
+          fontSize: "0.8rem",
+          fontWeight: "bold",
+        }}
+      >
+        {item.name}
+      </div>
     </S.NavItem>
   );
 };

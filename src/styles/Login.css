@@ -17,7 +17,7 @@
   text-align: center;
   font-size: 1.8rem;
   font-weight: bold;
-  color: #2C3E50;
+  color: #2c3e50;
 }
 
 /* 전체 폼 컨테이너를 중앙 정렬 및 너비 고정 */
@@ -36,7 +36,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
 }
 
 /* 라벨 스타일 */
@@ -47,15 +47,15 @@
   margin-bottom: 8px;
   font-size: 0.95rem;
   font-weight: 600;
-  color: #2C3E50;
+  color: #2c3e50;
 }
 
 /* 입력 필드 공통 스타일 */
 .login-input-group input {
-  width: 17rem; 
+  width: 17rem;
   margin: 0 auto;
   padding: 15px;
-  border: 1.5px solid #D2D0D0;
+  border: 1.5px solid #d2d0d0;
   border-radius: 12px;
   font-size: 1rem;
   box-sizing: border-box;
@@ -65,7 +65,7 @@
 
 .login-input-group input:focus {
   outline: none;
-  border-color: #7B61FF;
+  border-color: #7b61ff;
 }
 
 /* 로그인 버튼 */
@@ -74,19 +74,21 @@
   width: 18rem;
   margin-top: 20px;
   padding: 18px;
-  background-color: #D2D0D0;
+  background-color: #d2d0d0;
   color: white;
   border: none;
   border-radius: 15px;
   font-size: 1.1rem;
   font-weight: bold;
   cursor: not-allowed;
-  transition: background-color 0.2s, box-shadow 0.2s;
+  transition:
+    background-color 0.2s,
+    box-shadow 0.2s;
   box-sizing: border-box;
 }
 
 .login-submit-btn:not(:disabled) {
-  background-color: #7B61FF;
+  background-color: #7b61ff;
   cursor: pointer;
   box-shadow: 0px 4px 10px rgba(123, 97, 255, 0.3);
 }
@@ -104,7 +106,7 @@
 }
 
 .signup-link {
-  color: #7B61FF;
+  color: #7b61ff;
   font-weight: 600;
   cursor: pointer;
   text-decoration: underline;
@@ -119,13 +121,13 @@
   width: 85%;
   max-width: 320px;
   padding: 18px 20px;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
   border: none;
   border-radius: 16px;
   text-align: center;
   box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
   box-sizing: border-box;
-  
+
   animation: slideUp 0.4s ease-out forwards;
   z-index: 100;
 }

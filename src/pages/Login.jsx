@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"; 
 import "../styles/Login.css";
 
 export default function Login() {
@@ -14,15 +15,44 @@ export default function Login() {
 
   const isFormValid = id.trim() !== "" && password.trim() !== "";
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!isFormValid) return;
 
-    // 예시: 로그인 실패 상황 가정 (실제 통신 시 틀렸을 때 이 로직을 실행하면 됩니다)
-    // 여기서는 테스트로 틀렸을 때를 가정해 팝업을 띄웁니다.
-    triggerToast();
+    try {
+      // API 요청 (Vite 환경 변수 사용 가정)
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, {
+        loginId: id,
+        password: password,
+      });
+
+      // 성공 시 (200 OK)
+      if (response.data.isSuccess) {
+        const { accessToken, refreshToken, isOnboardingComplete } = response.data.result;
+
+        // 로컬 스토리지에 토큰 저장
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
+
+        // 온보딩 완료 여부에 따른 페이지 이동 분기
+        if (isOnboardingComplete) {
+          navigate("/home"); 
+        } else {
+    
+        }
+      }
+    } catch (error) {
+      console.log("지금 보내려는 값 -> id:", id, "password:", password);
+      // 실패 시 (401 Unauthorized 등)
+      console.error("로그인 실패:", error);
+      
+      // 백엔드가 보내주는 에러 메시지가 있다면 그걸 띄울 수도 있습니다.
+      // const errorMsg = error.response?.data?.message || "아이디 또는 비밀번호가 일치하지 않습니다.";
+      
+      triggerToast();
+    }
   };
 
-  // 토스트 팝업을 띄우고 1초 유지 후 사라지게 하는 함수
+  // 토스트 팝업을 띄우고 1.5초 유지 후 사라지게 하는 함수
   const triggerToast = () => {
     setShowToast(true);
     setIsFadingOut(false);
@@ -30,12 +60,12 @@ export default function Login() {
     // 1.5초 동안 유지되다가 페이드아웃 시작
     setTimeout(() => {
       setIsFadingOut(true); // 사라지는 애니메이션 시작
-      
+
       // 페이드아웃 애니메이션 시간(0.5초) 뒤에 돔에서 완전히 제거
       setTimeout(() => {
         setShowToast(false);
         setIsFadingOut(false);
-      }, 500); 
+      }, 500);
     }, 1500);
   };
 
@@ -49,28 +79,28 @@ export default function Login() {
         {/* 아이디 입력란 */}
         <div className="login-input-group">
           <label>아이디</label>
-          <input 
-            type="text" 
-            placeholder="아이디를 입력하세요" 
-            value={id} 
-            onChange={(e) => setId(e.target.value)} 
+          <input
+            type="text"
+            placeholder="아이디를 입력하세요"
+            value={id}
+            onChange={(e) => setId(e.target.value)}
           />
         </div>
 
         {/* 비밀번호 입력란 */}
         <div className="login-input-group">
           <label>비밀번호</label>
-          <input 
-            type="password" 
-            placeholder="비밀번호를 입력하세요" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
+          <input
+            type="password"
+            placeholder="비밀번호를 입력하세요"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
 
         {/* 로그인 버튼 */}
-        <button 
-          className={`login-submit-btn ${!isFormValid ? "disabled" : ""}`} 
+        <button
+          className={`login-submit-btn ${!isFormValid ? "disabled" : ""}`}
           onClick={handleLogin}
           disabled={!isFormValid}
         >
@@ -80,7 +110,10 @@ export default function Login() {
         {/* 하단 링크 */}
         <div className="login-footer-link">
           이용약관 및&nbsp;
-          <span className="signup-link" onClick={() => navigate("/signup")}>
+          <span
+            className="signup-link"
+            onClick={() => navigate("/signup")}
+          >
             회원가입
           </span>
         </div>
@@ -89,7 +122,11 @@ export default function Login() {
       {/* 슉 올라왔다가 스르륵 사라지는 토스트 팝업 메시지 */}
       {showToast && (
         <div className={`login-toast-popup ${isFadingOut ? "fade-out" : ""}`}>
-          <p>아이디 또는 비밀번호가 일치하지 않습니다.<br />다시 시도해주세요.</p>
+          <p>
+            아이디 또는 비밀번호가 일치하지 않습니다.
+            <br />
+            다시 시도해주세요.
+          </p>
         </div>
       )}
     </div>
