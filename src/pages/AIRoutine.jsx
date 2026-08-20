@@ -24,51 +24,295 @@ export default function AIRoutine() {
 
   const [currentStep, setCurrentStep] = useState(1);
 
-  // --- STEP 1 상태 ---
+  // ==========================================
+  // --- STEP 1 상태 및 핸들러 ---
+  // ==========================================
   const [previewImage, setPreviewImage] = useState(null); 
   const [uploadedFile, setUploadedFile] = useState(null); 
   const galleryRef = useRef(null);
   const cameraRef = useRef(null);
 
-  // --- STEP 2 상태 ---
+  const handleNextStepFrom1 = async () => {
+    if (!uploadedFile && !previewImage) {
+      alert("이미지를 업로드하거나 스케줄표를 제작해 주세요!");
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append("scheduleType", "3교대"); 
+      
+      if (uploadedFile) {
+        formData.append("image", uploadedFile);
+      } else if (previewImage) {
+        const res = await fetch(previewImage);
+        const blob = await res.blob();
+        const file = new File([blob], "schedule.png", { type: "image/png" });
+        formData.append("image", file);
+      }
+
+      await scheduleApi.uploadScheduleImage(formData);
+      setCurrentStep(2);
+    } catch (error) {
+      console.error("업로드 실패:", error);
+      alert("이미지 업로드 중 오류가 발생했습니다.");
+    }
+  };
+
+  // ==========================================
+  // --- STEP 2 상태 및 핸들러 ---
+  // ==========================================
   const [selectedCategories, setSelectedCategories] = useState(["신체적 건강"]);
 
-  // --- STEP 3 상태 ---
+  const handleCategoryClick = (categoryName) => {
+    if (selectedCategories.includes(categoryName)) {
+      setSelectedCategories(
+        selectedCategories.filter((item) => item !== categoryName)
+      );
+    } else {
+      if (selectedCategories.length >= 3) {
+        setSelectedCategories([...selectedCategories.slice(1), categoryName]);
+      } else {
+        setSelectedCategories([...selectedCategories, categoryName]);
+      }
+    }
+  };
+
+  // STEP 2에서 다음 단계로 넘어갈 때 실행하는 함수 (API 연동)
+  const handleNextFromStep2 = async () => {
+    if (selectedCategories.length < 1 || selectedCategories.length > 3) {
+      alert("카테고리는 1~3개까지 선택 가능합니다.");
+      return;
+    }
+
+    try {
+      // 웰니스 카테고리 선택 제출 API 호출
+      await scheduleApi.submitCategories(selectedCategories);
+      setCurrentStep(3);
+    } catch (error) {
+      if (error.response && error.response.data) {
+        alert(error.response.data.message || "카테고리 저장에 실패했습니다.");
+      } else {
+        alert("네트워크 오류가 발생했습니다.");
+      }
+    }
+  };
+
+  // ==========================================
+  // --- STEP 3 상태 및 핸들러 ---
+  // ==========================================
   const [fatigueFactors, setFatigueFactors] = useState([]); 
   const [recoveryPrefs, setRecoveryPrefs] = useState([]); 
   const [requestText, setRequestText] = useState(""); 
 
-  // --- STEP 4 상태 ---
-  const [userName] = useState("홍길동"); // 로그인된 유저 정보가 있다면 대체
+  const toggleFatigueFactor = (factor) => {
+    if (fatigueFactors.includes(factor)) {
+      setFatigueFactors(fatigueFactors.filter((item) => item !== factor));
+    } else {
+      if (fatigueFactors.length >= 3) {
+        setFatigueFactors([...fatigueFactors.slice(1), factor]);
+      } else {
+        setFatigueFactors([...fatigueFactors, factor]);
+      }
+    }
+  };
 
-  // --- STEP 5 상태 (주간 직접 입력) ---
-  const [schedules, setSchedules] = useState([]); // 등록된 일정 목록
+  const toggleRecoveryPref = (pref) => {
+    if (recoveryPrefs.includes(pref)) {
+      setRecoveryPrefs(recoveryPrefs.filter((item) => item !== pref));
+    } else {
+      if (recoveryPrefs.length >= 3) {
+        setRecoveryPrefs([...recoveryPrefs.slice(1), pref]);
+      } else {
+        setRecoveryPrefs([...recoveryPrefs, pref]);
+      }
+    }
+  };
+
+  // STEP 3에서 다음 단계로 넘어갈 때 실행하는 함수 (사전질문 취향 PICK 제출 API 연동)
+const handleNextFromStep3 = async () => {
+    // 1. 유효성 검사
+    if (requestText.length > 200) {
+      alert("자유 텍스트는 200자까지 입력 가능합니다.");
+      return;
+    }
+
+const preferencesData = {
+      q1Tags: fatigueFactors.map(tag => tag.startsWith("#") ? tag : `# ${tag}`),
+      q2Tags: recoveryPrefs.map(pref => pref.startsWith("#") ? pref : `# ${pref}`),
+      q3Text: requestText
+    };
+
+    // 3. API 호출
+    try {
+      console.log("서버로 보내는 데이터 구조:", JSON.stringify(preferencesData, null, 2));
+      await scheduleApi.submitPreferences(preferencesData);
+      setCurrentStep(4);
+    } catch (error) {
+      console.error(error);
+      if (error.response?.data?.message) {
+        alert(error.response.data.message);
+      } else {
+        alert("데이터 저장에 실패했습니다.");
+      }
+    }
+  };
+// STEP 4: AI 루틴 분석 요청 및 상태 조회(폴링) API 연동
+useEffect(() => {
+  let intervalId = null;
+
+  const fetchAIRoutine = async () => {
+    // 현재 스텝이 4번일 때만 실행
+    if (currentStep === 4) {
+      try {
+
+        console.log("🚀 AI 루틴 분석 API 호출 시작...");
+        
+        // 1. 분석 요청 API 호출
+        const response = await scheduleApi.generateAIRoutine();
+        console.log("✨ AI 분석 시작 성공:", response);
+        
+        // 응답 데이터에서 analysisId 추출 (백엔드 응답 구조에 맞춤)
+        const analysisId = response.result?.analysisId;
+
+        if (!analysisId) {
+          throw new Error("분석 ID가 반환되지 않았습니다.");
+        }
+
+        // 2. 비동기 상태 조회를 위한 폴링(Polling) 시작
+        console.log("⏳ AI 분석 상태 확인 중...");
+        intervalId = setInterval(async () => {
+          try {
+            // 상태 조회 API 호출 (스프링 부트 등의 쿼리 파라미터 구조에 맞춤)
+            const statusRes = await scheduleApi.checkRoutineStatus(analysisId);
+            const currentStatus = statusRes.result?.status;
+
+            console.log("📊 현재 분석 상태:", currentStatus);
+
+            if (currentStatus === "DONE") {
+              clearInterval(intervalId);
+              console.log("✅ 분석 완료! 결과 페이지로 이동");
+              navigate('/result', { state: { analysisId: analysisId } });
+            } else if (currentStatus === "FAILED") {
+              clearInterval(intervalId);
+              alert("AI 루틴 분석에 실패했습니다.");
+              setCurrentStep(3);
+            }
+            // "PROCESSING" 상태인 경우는 끝나지 않았으므로 아무것도 하지 않고 대기
+          } catch (statusError) {
+            console.error("🚨 상태 조회 중 오류 발생:", statusError);
+            clearInterval(intervalId);
+            alert("루틴 상태 확인 중 오류가 발생했습니다.");
+            setCurrentStep(3);
+          }
+        }, 1000); // 2초마다 상태 체크
+
+      } catch (error) {
+        console.error("🚨 AI 루틴 생성 요청 실패:", error);
+        // STEP 4 코드에서 이 부분만 잠깐 교체해서 콘솔 확인해보기
+const response = await scheduleApi.generateAIRoutine();
+console.log("📦 generateAIRoutine 전체 응답 데이터:", response); // 👈 이거 꼭 확인!
+        
+const analysisId = response.result?.analysisId;
+console.log("🔑 추출된 analysisId:", analysisId); // 👈 undefined인지 확인!
+        
+        if (error.response?.data?.message) {
+          alert(error.response.data.message);
+        } else {
+          alert("루틴 생성 중 오류가 발생했습니다. 다시 시도해주세요.");
+        }
+        
+        // 실패 시 유저가 다시 시도할 수 있도록 스텝 3 등으로 복귀
+        setCurrentStep(3); 
+      }
+    }
+  };
+
+  fetchAIRoutine();
+
+  // 컴포넌트가 언마운트되거나 스텝이 바뀔 때 무한 요청을 막기 위해 타이머 정리
+  return () => {
+    if (intervalId) clearInterval(intervalId);
+  };
+}, [currentStep, navigate]);
+
+
+
+  // ==========================================
+  // --- STEP 5 상태 및 핸들러 (주간 직접 입력) ---
+  // ==========================================
+  const [schedules, setSchedules] = useState([]);
   const days = ["월", "화", "수", "목", "금", "토", "일"];
   const hours = [7, 8, 9, 10, 11, 12, 13, 14];
 
-  // --- 모달 제어 상태 ---
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalType, setModalType] = useState(null);
+  const handleAddSchedule = (newSchedule) => {
+    setSchedules((prev) => {
+      const filtered = prev.filter((s) => {
+        if (s.day !== newSchedule.day) return true;
+        const isOverlapping = !(
+          newSchedule.endHour <= s.startHour ||
+          newSchedule.startHour >= s.endHour
+        );
+        return !isOverlapping;
+      });
+      return [...filtered, newSchedule];
+    });
+  };
 
-  //--- STEP 6 & 7 관련 상태 ---
-  const [currentDate, setCurrentDate] = useState(new Date(2026, 4, 1)); // Month는 0부터 시작 (4 = 5월)
-  const [shiftData, setShiftData] = useState({}); // 교대 근무 데이터 { '2026-05-01': 'D', ... }
-  const [memoData, setMemoData] = useState({}); // 메모 데이터 { '2026-05-01': '메모내용', ... }
+  const handleSaveImage = async () => {
+    if (!scheduleCaptureRef.current) return;
+    try {
+      const canvas = await html2canvas(scheduleCaptureRef.current, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: "#ffffff",
+      });
+      
+      canvas.toBlob(async (blob) => {
+        const file = new File([blob], "weekly-schedule.png", { type: "image/png" });
+        const formData = new FormData();
+        formData.append("scheduleType", "주간근무");
+        formData.append("image", file);
 
-  const [selectedDateForAction, setSelectedDateForAction] = useState(null); // 선택된 날짜
-  const [inputDate, setInputDate] = useState(""); // STEP 7에서 편집할 날짜
-  const [selectedShiftType, setSelectedShiftType] = useState("D"); // STEP 7 근무 유형 선택 (D, E, N, O)
-  const [inputMemo, setInputMemo] = useState(""); // STEP 7 메모 입력
+        await scheduleApi.uploadScheduleImage(formData);
+        
+        const image = canvas.toDataURL('image/png');
+        setPreviewImage(image); 
+        
+        alert('스케줄표 저장 및 업로드 성공!');
+        setCurrentStep(1); 
+      }, 'image/png');
+
+    } catch (error) {
+      console.error('이미지 저장 중 오류 발생:', error);
+      alert('이미지 저장 및 업로드에 실패했습니다.');
+    }
+  };
+
+  // ==========================================
+  // --- STEP 6 & 7 상태 및 캘린더 로직 ---
+  // ==========================================
+  const today = new Date();
+  const [currentYear, setCurrentYear] = useState(today.getFullYear());
+  const [currentMonth, setCurrentMonth] = useState(today.getMonth() + 1);
+  const [currentDate, setCurrentDate] = useState(() => {
+    const now = new Date();
+    return new Date(now.getFullYear(), now.getMonth(), 1);
+  });
+  
+  const [shiftData, setShiftData] = useState({});
+  const [memoData, setMemoData] = useState({});
+
+  const [selectedDateForAction, setSelectedDateForAction] = useState(null);
+  const [inputDate, setInputDate] = useState("");
+  const [selectedShiftType, setSelectedShiftType] = useState("D");
+  const [inputMemo, setInputMemo] = useState("");
 
   const handlePrevMonth = () => {
-    setCurrentDate(
-      new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1)
-    );
+    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
   };
   const handleNextMonth = () => {
-    setCurrentDate(
-      new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
-    );
+    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
   };
 
   const getCalendarRows = () => {
@@ -122,167 +366,57 @@ export default function AIRoutine() {
 
   const calendarRows = getCalendarRows();
 
-  const handleAddSchedule = (newSchedule) => {
-    setSchedules((prev) => {
-      const filtered = prev.filter((s) => {
-        if (s.day !== newSchedule.day) return true;
-        const isOverlapping = !(
-          newSchedule.endHour <= s.startHour ||
-          newSchedule.startHour >= s.endHour
-        );
-        return !isOverlapping;
-      });
-      return [...filtered, newSchedule];
-    });
-  };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setUploadedFile(file);
-      const imageUrl = URL.createObjectURL(file);
-      setPreviewImage(imageUrl);
-    }
-  };
-
-  const handleCategoryClick = (categoryName) => {
-    if (selectedCategories.includes(categoryName)) {
-      setSelectedCategories(
-        selectedCategories.filter((item) => item !== categoryName)
-      );
-    } else {
-      if (selectedCategories.length >= 3) {
-        setSelectedCategories([...selectedCategories.slice(1), categoryName]);
-      } else {
-        setSelectedCategories([...selectedCategories, categoryName]);
-      }
-    }
-  };
-
-  const toggleFatigueFactor = (factor) => {
-    if (fatigueFactors.includes(factor)) {
-      setFatigueFactors(fatigueFactors.filter((item) => item !== factor));
-    } else {
-      if (fatigueFactors.length >= 3) {
-        setFatigueFactors([...fatigueFactors.slice(1), factor]);
-      } else {
-        setFatigueFactors([...fatigueFactors, factor]);
-      }
-    }
-  };
-
-  const toggleRecoveryPref = (pref) => {
-    if (recoveryPrefs.includes(pref)) {
-      setRecoveryPrefs(recoveryPrefs.filter((item) => item !== pref));
-    } else {
-      if (recoveryPrefs.length >= 3) {
-        setRecoveryPrefs([...recoveryPrefs.slice(1), pref]);
-      } else {
-        setRecoveryPrefs([...recoveryPrefs, pref]);
-      }
-    }
-  };
-
-  // STEP 4: 최종 데이터 전송 및 AI 루틴 생성 처리
-  useEffect(() => {
-    const fetchAIRoutine = async () => {
-      if (currentStep === 4) {
-        try {
-          const requestData = {
-            categories: selectedCategories,
-            fatigueFactors: fatigueFactors,
-            recoveryPrefs: recoveryPrefs,
-            requestText: requestText
-          };
-          
-          // 실제 API 함수명(createAIRoutine 등)에 맞춰 수정해주세요
-          // const response = await scheduleApi.createAIRoutine(requestData);
-          
-          // API 연동 전 테스트를 위한 가상 딜레이 (실제 연동 시 삭제)
-          await new Promise(resolve => setTimeout(resolve, 3000));
-          
-          // 성공 시 결과 페이지로 이동 (응답 데이터를 state로 넘겨줄 수 있음)
-          navigate('/result' /*, { state: { routineData: response.data } } */);
-        } catch (error) {
-          console.error("AI 루틴 생성 실패:", error);
-          alert("루틴 생성 중 오류가 발생했습니다. 다시 시도해주세요.");
-          setCurrentStep(3); // 에러 발생 시 이전 단계로 돌아감
-        }
-      }
-    };
-
-    fetchAIRoutine();
-  }, [currentStep, navigate, selectedCategories, fatigueFactors, recoveryPrefs, requestText]);
-
-// STEP 5 화면 이미지 저장 및 API 연동
-  const handleSaveImage = async () => {
-    if (!scheduleCaptureRef.current) return;
-    try {
-      const canvas = await html2canvas(scheduleCaptureRef.current, {
-        scale: 2,
-        useCORS: true,
-        backgroundColor: "#ffffff",
-      });
-      
-      canvas.toBlob(async (blob) => {
-        const file = new File([blob], "weekly-schedule.png", { type: "image/png" });
-        const formData = new FormData();
-        formData.append("scheduleType", "주간근무");
-        formData.append("image", file);
-
-        await scheduleApi.uploadScheduleImage(formData);
-        
-        const image = canvas.toDataURL('image/png');
-        setPreviewImage(image); // 캡처된 이미지를 1단계 미리보기에 세팅
-        
-        alert('스케줄표 저장 및 업로드 성공!');
-        setCurrentStep(1); // 💡 2단계 자동 넘김 해제, 1단계로 이동
-      }, 'image/png');
-
-    } catch (error) {
-      console.error('이미지 저장 중 오류 발생:', error);
-      alert('이미지 저장 및 업로드에 실패했습니다.');
-    }
-  };
-
   // STEP 6 화면 이미지 저장 및 API 연동
   const handleSaveAndRegister = async () => {
     if (!monthlyCaptureRef.current) return;
+
     try {
+      const duties = Object.keys(shiftData).map((date) => ({
+        date: date,
+        dutyType: shiftData[date],
+        memo: memoData[date] || "",
+      }));
+
+      if (duties.length > 0) {
+        await scheduleApi.saveScheduleManual({ duties });
+      }
+
       const canvas = await html2canvas(monthlyCaptureRef.current, {
         scale: 2,
         useCORS: true,
         backgroundColor: "#ffffff",
       });
 
-      canvas.toBlob(async (blob) => {
-        const file = new File([blob], "monthly-schedule.png", { type: "image/png" });
-        const formData = new FormData();
-        formData.append("scheduleType", "3교대");
-        formData.append("image", file);
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+      if (!blob) throw new Error("이미지 생성 실패");
 
-        await scheduleApi.uploadScheduleImage(formData);
+      const file = new File([blob], "monthly-schedule.png", { type: "image/png" });
+      const formData = new FormData();
+      formData.append("scheduleType", "3교대");
+      formData.append("image", file);
 
-        const image = canvas.toDataURL('image/png');
-        setPreviewImage(image); // 캡처된 이미지를 1단계 미리보기에 세팅
-        
-        alert("스케줄 표가 저장 및 서버에 업로드되었습니다!");
-        setCurrentStep(1); // 업로드 성공 시 자동으로 다음 단계로 넘어감
-      }, 'image/png');
+      await scheduleApi.uploadScheduleImage(formData);
+
+      const image = canvas.toDataURL("image/png");
+      setPreviewImage(image);
+
+      alert("스케줄 데이터와 이미지가 성공적으로 등록되었습니다!");
+      setCurrentStep(1);
 
     } catch (error) {
-      console.error("이미지 캡처 및 등록 중 오류 발생:", error);
-      alert("이미지 처리에 실패했습니다.");
+      console.error("저장 및 등록 중 오류 발생:", error);
+      alert("처리에 실패했습니다. 다시 시도해 주세요.");
     }
   };
 
+  // STEP 7 관련 효과 및 저장
   useEffect(() => {
     if (currentStep === 7 && selectedDateForAction) {
       setInputDate(selectedDateForAction);
       setSelectedShiftType(shiftData[selectedDateForAction] || "D");
       setInputMemo(memoData[selectedDateForAction] || "");
     }
-  }, [currentStep, selectedDateForAction]);
+  }, [currentStep, selectedDateForAction, shiftData, memoData]);
 
   const handleSaveStep7 = () => {
     if (!inputDate) {
@@ -311,32 +445,23 @@ export default function AIRoutine() {
     setCurrentStep(6); 
   };
 
-  const handleNextStepFrom1 = async () => {
-    if (!uploadedFile && !previewImage) {
-      alert("이미지를 업로드하거나 스케줄표를 제작해 주세요!");
-      return;
-    }
+  // 모달 제어 상태
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState(null);
 
-    try {
-      const formData = new FormData();
-      formData.append("scheduleType", "3교대"); 
-      
-      if (uploadedFile) {
-        formData.append("image", uploadedFile);
-      } else if (previewImage) {
-        const res = await fetch(previewImage);
-        const blob = await res.blob();
-        const file = new File([blob], "schedule.png", { type: "image/png" });
-        formData.append("image", file);
-      }
-
-      await scheduleApi.uploadScheduleImage(formData);
-      setCurrentStep(2);
-    } catch (error) {
-      console.error("업로드 실패:", error);
-      alert("이미지 업로드 중 오류가 발생했습니다.");
+// 이미지 파일 선택 시 미리보기 및 파일 저장 핸들러
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setUploadedFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
+
 
   return (
     <>
@@ -513,15 +638,9 @@ export default function AIRoutine() {
               >
                 이전 단계
               </button>
-              <button
+                <button
                 className="nav-btn next-btn"
-                onClick={() => {
-                  if (selectedCategories.length === 0) {
-                    alert("카테고리를 1개 이상 선택해 주세요!");
-                  } else {
-                    setCurrentStep(3);
-                  }
-                }}
+                onClick={handleNextFromStep2}
               >
                 다음 단계
               </button>
@@ -617,7 +736,7 @@ export default function AIRoutine() {
               >
                 이전 단계
               </button>
-              <button
+<button
                 className="nav-btn next-btn"
                 onClick={() => {
                   if (
@@ -626,7 +745,7 @@ export default function AIRoutine() {
                   ) {
                     alert("질문 1, 2에 대해 최소 1개 이상 선택해 주세요!");
                   } else {
-                    setCurrentStep(4);
+                    handleNextFromStep3();
                   }
                 }}
               >
@@ -659,7 +778,7 @@ export default function AIRoutine() {
               </div>
 
               <h2 className="step4-title">
-                {userName}님을 위한
+                AI 분석을 통해
                 <br />
                 스케줄표를 만들고 있어요
               </h2>
@@ -842,10 +961,13 @@ export default function AIRoutine() {
                               ? "current-month"
                               : "other-month"
                           }
-                          onClick={() => {
-                            setSelectedDateForAction(cell.dateStr);
-                            setCurrentStep(7); // 날짜 클릭 시 바로 STEP 7(직접 일정 추가/수정 폼)으로 이동
-                          }}
+                            onClick={() => {
+                              setSelectedDateForAction(cell.dateStr);
+                              setInputDate(cell.dateStr); // 이 부분이 확실하게 들어가 있어야 합니다!
+                              setSelectedShiftType(shiftData[cell.dateStr] || "D");
+                              setInputMemo(memoData[cell.dateStr] || "");
+                              setCurrentStep(7);
+                            }}
                         >
                           <div className="cal-date-mock">
                             <span className="date-number">{cell.day}</span>

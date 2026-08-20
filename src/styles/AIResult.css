@@ -1,164 +1,335 @@
-/* AIResult.css */
+/* ==========================================
+   1. 전체 레이아웃 & 페이지 컨테이너
+   ========================================== */
 .ai-result-wrapper {
   padding: 20px;
-  max-width: 480px;
-  margin: 0 auto;
+  max-width: 480px; /* 모바일 뷰 최적화 너비 */
+  margin: 0 auto; /* 중앙 정렬 */
   box-sizing: border-box;
   background-color: #fff;
   min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
+/* ==========================================
+   2. 상단 헤더 (뒤로가기 버튼 + 타이틀)
+   ========================================== */
 .header-row {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
 }
 
+/* 뒤로가기 버튼 */
 .back-btn {
   background: none;
   border: none;
   font-size: 20px;
   cursor: pointer;
   margin-right: 10px;
+  color: #2B3143;
 }
 
+/* 헤더 제목 */
 .title-text {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 17px;
+  font-weight: 700;
   margin: 0;
+  color: #1A1A1A;
 }
 
+/* ==========================================
+   3. AI 월간 바이오 브리핑 박스
+   ========================================== */
+/* 연보라색 브리핑 외곽 박스 */
 .briefing-box {
-  background: #f4f4fd;
+  background: #EEF0FF;
   border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 24px;
+  padding: 18px;
+  margin-bottom: 20px;
 }
 
+/* 브리핑 상단 메인 안내 문구 */
 .briefing-text {
   font-size: 14px;
-  color: #333;
+  color: #222;
   line-height: 1.5;
-  margin: 0 0 12px 0;
+  margin: 0 0 14px 0;
 }
 
+/* 강조 텍스트 (밑줄 제거 및 시그니처 컬러 적용) */
 .highlight {
-  color: #5a45ff;
-  font-weight: bold;
+  color: #6F6AF8;
+  font-weight: 700;
+  text-decoration: none;
 }
 
+/* 브리핑 내부 흰색 데이터 카드 */
 .inner-briefing {
   background: #fff;
   border-radius: 12px;
-  padding: 16px;
+  padding: 14px 16px;
 }
 
+/* 내부 카드 소제목 */
 .inner-briefing h4 {
   font-size: 13px;
-  font-weight: bold;
-  margin: 0 0 8px 0;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+  color: #2B3143;
 }
 
+/* 브리핑 본문 텍스트 (기본/강조) */
 .briefing-content {
   font-size: 12px;
-  color: #555;
-  line-height: 1.4;
+  color: #2B3143;
+  font-weight: 450;
+  line-height: 1.45;
   margin: 0 0 12px 0;
 }
 
+.briefing-content-highlight {
+  font-size: 12px;
+  color: #6F6AF8;
+  font-weight: 500;
+  line-height: 1.45;
+  margin: 0 0 12px 0;
+}
+
+/* 브리핑 하단 정보 구분선 및 푸터 */
 .briefing-footer {
   display: flex;
   justify-content: space-between;
   font-size: 11px;
-  color: #888;
-  border-top: 1px solid #eee;
+  color: #6E6E73;
+  border-top: 1px solid #D2D0D0;
   padding-top: 8px;
 }
 
+/* ==========================================
+   4. 주차 선택 탭 Navigation
+   ========================================== */
+/* 탭 영역 배경 */
 .week-tabs {
   display: flex;
-  background: #eaeaea;
+  background: #D4D9FF;
   border-radius: 12px;
   padding: 4px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
+/* 개별 주차 버튼 (비활성 상태) */
 .tab-btn {
+ 
   flex: 1;
-  padding: 10px 0;
+  padding: 9px 0;
   border: none;
-  border-radius: 10px;
+  border-radius: 9px;
   background: transparent;
-  color: #666;
-  font-weight: bold;
+  color: #6E6E73;
+  font-weight: 600;
+  font-size: 13px;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
+/* 활성화된 주차 버튼 (그라데이션 및 그림자 적용) */
 .tab-btn.active {
-  background: #5a45ff;
+  background: linear-gradient(90deg, #7B61FF 0%, #726DFC 100%);
   color: #fff;
+  box-shadow: 0 2px 6px rgba(108, 92, 231, 0.25);
 }
 
-.section-container {
-  border: 1px solid #e5e5e5;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #fff;
-  margin-bottom: 12px;
-}
-
-.section-header {
+/* ==========================================
+   5. 주차별 타이틀 섹션
+   ========================================== */
+.section-title-row {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 16px;
-  cursor: pointer;
-  background: #fafafa;
+  margin-bottom: 14px;
+  gap: 8px;
 }
 
-.section-title {
-  font-weight: bold;
-  font-size: 14px;
+.calendar-icon {
+  width: 20px;
+  height: 20px;
 }
 
-.toggle-badge {
-  font-size: 12px;
-  color: #5a45ff;
-  background: #f0eeff;
-  padding: 4px 8px;
-  border-radius: 6px;
+.section-title-main {
+  font-size: 15px;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
 }
 
-.item-list {
-  padding: 8px 16px 16px 16px;
+/* ==========================================
+   6. 아코디언 형태의 루틴 목록 섹션
+   ========================================== */
+/* 루틴 카테고리 전체 감싸는 영역 */
+.routines-wrapper {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.item-card {
+/* 상황별 아코디언 그룹 컨테이너 */
+.section-container {
+   border: 1.5px solid #D2D0D0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* 아코디언 헤더 (클릭 가능한 영역) */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  cursor: pointer;
+  background: #fff;
+}
+
+.header-left {
   display: flex;
   align-items: center;
-  padding: 12px;
-  border: 1px solid #eee;
-  border-radius: 10px;
+  gap: 10px;
+}
+
+/* 아코디언 펼침/접힘 화살표 아이콘 */
+.chevron {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.chevron.right {
+  margin-right: 4px;
+}
+
+.section-title-text {
+  font-weight: 700;
+  font-size: 14px;
+  color: #222;
+}
+
+/* '펼치기' 뱃지 태그 */
+.toggle-badge {
+  font-size: 11px;
+  color: #6F6AF8;
+  background: #EEF0FF;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+/* ==========================================
+   7. 상세 루틴 카드 (아코디언 내부 아이템)
+   ========================================== */
+.item-list {
+  padding: 4px 14px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* 개별 루틴 아이템 카드 */
+.item-card {
+  border: 1.2px solid #D2D0D0;
+  display: flex;
+  align-items: center;
+  padding: 12px 14px;
+  background: #EEF0FF;
+  border-radius: 12px;
   gap: 12px;
 }
 
-.item-icon {
+/* 좌측 아이콘 영역 */
+.icon-wrapper {
   width: 32px;
   height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* 비타민 등 텍스트 기반 태그 스타일 */
+.vitamin-tag {
+  font-weight: 800;
+  color: #5A45FF;
+  font-size: 16px;
+}
+
+.item-icon {
+  width: 22px;
+  height: 22px;
+}
+
+/* 루틴 이름 및 설명 텍스트 */
+.item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.routine-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #2B3143;
+}
+
+.routine-sub {
+  font-size: 11px;
+  color: #6E6E73;
+}
+
+/* ==========================================
+   8. 하단 구분을 위한 경계선 및 버튼 영역
+   ========================================== */
+.divider {
+  margin: 2rem 0;
+}
+
+/* 다른 루틴 세트 재추천 카드 */
+.re-recommend-card {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  border-top: 1px solid #D2D0D0;
+  border-bottom: 1px solid #D2D0D0;
+  background: #fff;
+  cursor: pointer;
+  margin-bottom: 24px;
+  transition: background 0.2s;
+}
+
+.re-recommend-card:hover {
+  background: #FAF8FF;
+}
+
+.re-recommend-text {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2B3143;
+  margin-left: 6px;
+}
+
+/* 메인 하단 버튼 ('이대로 적용하기') */
 .apply-btn {
   width: 100%;
   padding: 16px;
-  background: #5a45ff;
+  background: linear-gradient(90deg, #7B61FF 0%, #4F45FF 100% );
   color: #fff;
   border: none;
-  border-radius: 16px;
+  border-radius: 14px;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(90, 69, 255, 0.3);
+  box-shadow: 0 4px 14px rgba(108, 92, 231, 0.35);
+  transition: transform 0.1s;
+}
+
+/* 클릭 동작 시 터치 반응 효과 */
+.apply-btn:active {
+  transform: scale(0.99);
 }
