@@ -10,14 +10,7 @@ function RoutineCard({ routineName, cycle, initialChecks }) {
     initialChecks || [false, false, false, false, false, false, false]
   );
 
-  // 체크 상태를 토글(클릭 시 상태 변경)하는 함수
-  const handleToggleCheck = (index) => {
-    setChecks((prevChecks) => {
-      const newChecks = [...prevChecks];
-      newChecks[index] = !newChecks[index];
-      return newChecks;
-    });
-  };
+  
 
   return (
     <S.CardContainer>
@@ -38,7 +31,7 @@ function RoutineCard({ routineName, cycle, initialChecks }) {
           return (
             <S.DayColumn
               key={index}
-              onClick={() => handleToggleCheck(index)}
+              
             >
               <S.DayLabel>{day}</S.DayLabel>
 
