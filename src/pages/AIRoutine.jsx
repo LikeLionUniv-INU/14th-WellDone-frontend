@@ -157,41 +157,84 @@ const preferencesData = {
       }
     }
   };
-// STEP 4: AI 루틴 분석 요청 API 호출 연동
-  useEffect(() => {
-    const fetchAIRoutine = async () => {
-      // 현재 스텝이 4번일 때만 실행
-      if (currentStep === 4) {
-        try {
-          console.log("🚀 AI 루틴 분석 API 호출 시작...");
-          
-          // 방금 만든 실제 API 호출
-          const response = await scheduleApi.generateAIRoutine();
-          console.log("✨ AI 분석 시작 성공:", response);
-          
-          // 성공 시 응답 데이터 처리 (예: 분석 ID 확인 등)
-          // const analysisId = response.result?.analysisId;
+// STEP 4: AI 루틴 분석 요청 및 상태 조회(폴링) API 연동
+useEffect(() => {
+  let intervalId = null;
 
-          // 결과 페이지나 다음 화면으로 이동
-          navigate('/result'); // 혹은 라우터 경로에 맞게 수정
-          
-        } catch (error) {
-          console.error("🚨 AI 루틴 생성 실패:", error);
-          
-          if (error.response?.data?.message) {
-            alert(error.response.data.message);
-          } else {
-            alert("루틴 생성 중 오류가 발생했습니다. 다시 시도해주세요.");
-          }
-          
-          // 실패 시 유저가 다시 시도할 수 있도록 스텝 3 등으로 복귀
-          setCurrentStep(3); 
+  const fetchAIRoutine = async () => {
+    // 현재 스텝이 4번일 때만 실행
+    if (currentStep === 4) {
+      try {
+
+        console.log("🚀 AI 루틴 분석 API 호출 시작...");
+        
+        // 1. 분석 요청 API 호출
+        const response = await scheduleApi.generateAIRoutine();
+        console.log("✨ AI 분석 시작 성공:", response);
+        
+        // 응답 데이터에서 analysisId 추출 (백엔드 응답 구조에 맞춤)
+        const analysisId = response.result?.analysisId;
+
+        if (!analysisId) {
+          throw new Error("분석 ID가 반환되지 않았습니다.");
         }
-      }
-    };
 
-    fetchAIRoutine();
-  }, [currentStep, navigate]);
+        // 2. 비동기 상태 조회를 위한 폴링(Polling) 시작
+        console.log("⏳ AI 분석 상태 확인 중...");
+        intervalId = setInterval(async () => {
+          try {
+            // 상태 조회 API 호출 (스프링 부트 등의 쿼리 파라미터 구조에 맞춤)
+            const statusRes = await scheduleApi.checkRoutineStatus(analysisId);
+            const currentStatus = statusRes.result?.status;
+
+            console.log("📊 현재 분석 상태:", currentStatus);
+
+            if (currentStatus === "DONE") {
+              clearInterval(intervalId);
+              console.log("✅ 분석 완료! 결과 페이지로 이동");
+              navigate('/result', { state: { analysisId: analysisId } });
+            } else if (currentStatus === "FAILED") {
+              clearInterval(intervalId);
+              alert("AI 루틴 분석에 실패했습니다.");
+              setCurrentStep(3);
+            }
+            // "PROCESSING" 상태인 경우는 끝나지 않았으므로 아무것도 하지 않고 대기
+          } catch (statusError) {
+            console.error("🚨 상태 조회 중 오류 발생:", statusError);
+            clearInterval(intervalId);
+            alert("루틴 상태 확인 중 오류가 발생했습니다.");
+            setCurrentStep(3);
+          }
+        }, 1000); // 2초마다 상태 체크
+
+      } catch (error) {
+        console.error("🚨 AI 루틴 생성 요청 실패:", error);
+        // STEP 4 코드에서 이 부분만 잠깐 교체해서 콘솔 확인해보기
+const response = await scheduleApi.generateAIRoutine();
+console.log("📦 generateAIRoutine 전체 응답 데이터:", response); // 👈 이거 꼭 확인!
+        
+const analysisId = response.result?.analysisId;
+console.log("🔑 추출된 analysisId:", analysisId); // 👈 undefined인지 확인!
+        
+        if (error.response?.data?.message) {
+          alert(error.response.data.message);
+        } else {
+          alert("루틴 생성 중 오류가 발생했습니다. 다시 시도해주세요.");
+        }
+        
+        // 실패 시 유저가 다시 시도할 수 있도록 스텝 3 등으로 복귀
+        setCurrentStep(3); 
+      }
+    }
+  };
+
+  fetchAIRoutine();
+
+  // 컴포넌트가 언마운트되거나 스텝이 바뀔 때 무한 요청을 막기 위해 타이머 정리
+  return () => {
+    if (intervalId) clearInterval(intervalId);
+  };
+}, [currentStep, navigate]);
 
 
 

@@ -42,11 +42,12 @@ export const scheduleApi = {
       throw error;
     }
   },
-// 3. 웰니스 카테고리 선택 제출 API
+
+  // 3. 웰니스 카테고리 선택 제출 API
   submitCategories: async (categories) => {
     try {
       const token = localStorage.getItem("accessToken");
-      console.log(" 서버로 보내는 카테고리 데이터:", JSON.stringify({ categories }, null, 2));
+      console.log("서버로 보내는 카테고리 데이터:", JSON.stringify({ categories }, null, 2));
       const response = await axios.post(`${BASE_URL}/onboarding/categories`, {
         categories: categories
       }, {
@@ -79,15 +80,16 @@ export const scheduleApi = {
       throw error;
     }
   },
-// 5. AI 루틴 분석 요청 API
+
+  // 5. AI 루틴 분석 요청 API
   generateAIRoutine: async () => {
     try {
       const token = localStorage.getItem("accessToken");
       
       const response = await axios.post(`${BASE_URL}/onboarding/routine/generate`, null, {
         headers: {
-          "Content-Type": "application/json", // 필요 시 추가
-          ...(token && { Authorization: `Bearer ${token}` }), // 🔑 ${token} 꼭 붙여주기!
+          "Content-Type": "application/json",
+          ...(token && { Authorization: `Bearer ${token}` }),
         },
       });
       return response.data;
@@ -96,12 +98,13 @@ export const scheduleApi = {
       throw error;
     }
   },
+
   // 6. AI 루틴 제안 결과 조회 API
   getRoutineSuggestion: async () => {
     try {
       const token = localStorage.getItem("accessToken");
       
-      const response = await axios.get(`${BASE_URL}/api/onboarding/routine/suggestion`, {
+      const response = await axios.get(`${BASE_URL}/onboarding/routine/suggestion`, {
         headers: {
           "Content-Type": "application/json",
           ...(token && { Authorization: `Bearer ${token}` }),
@@ -110,6 +113,67 @@ export const scheduleApi = {
       return response.data;
     } catch (error) {
       console.error("AI 루틴 결과 조회 실패:", error);
+      throw error;
+    }
+  },
+
+  // 7. AI 루틴 재추천 API
+  regenerateAIRoutine: async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+
+      const response = await axios.post(`${BASE_URL}/onboarding/routine/regenerate`, null, {
+        headers: {
+          "Content-Type": "application/json",
+          ...(token && { Authorization: `Bearer ${token}` }),
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("AI 루틴 재추천 요청 실패:", error);
+      throw error;
+    }
+  },
+
+  // 8. 루틴 적용(온보딩 완료) API
+  applyRoutine: async (analysisId) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+
+      const response = await axios.post(
+        `${BASE_URL}/onboarding/routine/apply`,
+        { analysisId },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            ...(token && { Authorization: `Bearer ${token}` }),
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("루틴 적용 실패:", error);
+      throw error;
+    }
+  },
+
+  // 9. AI 루틴 분석 상태 조회 API (새로 추가)
+  checkRoutineStatus: async (analysisId) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+
+      const response = await axios.get(
+        `${BASE_URL}/onboarding/routine/status?analysisId=${analysisId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            ...(token && { Authorization: `Bearer ${token}` }),
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("AI 루틴 분석 상태 조회 실패:", error);
       throw error;
     }
   },

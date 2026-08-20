@@ -1,17 +1,31 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { scheduleApi } from "../api/scheduleApi";
 import "../styles/AIResult.css";
 
-// 이미지 import (경로는 실제 폴더 구조에 맞게 수정해주세요)
 import calendarIcon from "../images/today.svg";
 import userIcon from "../images/person.svg";
 import cupIcon from "../images/Coffee.svg";
 
 export default function AIResult() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState("1주차");
-  
-  // 아코디언 토글 상태 (그룹별로 열리고 닫히는 상태 관리)
+  const [loading, setLoading] = useState(true);
+
+  // 🔑 1. 라우터 state 또는 localStorage에서 analysisId 안전하게 가져오기
+  const [analysisId, setAnalysisId] = useState(() => {
+    const stateId = location.state?.analysisId;
+    if (stateId) {
+      localStorage.setItem("analysisId", stateId);
+      return stateId;
+    }
+    return localStorage.getItem("analysisId") || "";
+  });
+
+  const [routineData, setRoutineData] = useState(null);
+
+  // 아코디언 토글 상태
   const [openSections, setOpenSections] = useState({
     "출근 전 케어": true,
     "퇴근 후 수면 골든타임": false,
@@ -19,87 +33,107 @@ export default function AIResult() {
   });
 
   const toggleSection = (situationTitle) => {
-    setOpenSections((prev) => ({ 
-      ...prev, 
-      [situationTitle]: !prev[situationTitle] 
+    setOpenSections((prev) => ({
+      ...prev,
+      [situationTitle]: !prev[situationTitle],
     }));
   };
 
-  // 주차별 가상 더미 데이터 (주차마다 다른 브리핑과 루틴을 보여줍니다!)
-  const dummyRoutineData = {
-    "1주차": {
-      weeklyBriefing: "이번 달 1주차는 주간 근무 위주로, 가벼운 스트레칭과 수분 섭취를 통한 컨디션 예열이 중심입니다.",
-      groups: [
-        {
-          situation: "출근 전 케어",
-          count: 2,
-          routines: [
-            { routineName: "10분 목과 어깨 스트레칭", cycle: "주 3회", suggestedTime: "출근 30분 전" },
-            { routineName: "따뜻한 물 150ml 마시기", cycle: "매일", suggestedTime: "출근 직전" }
-          ]
-        },
-        {
-          situation: "근무 중 식사 및 영양",
-          count: 1,
-          routines: [
-            { routineName: "비타민 한 포 섭취", cycle: "매일", suggestedTime: "점심 식사 직후" }
-          ]
+  // 2. 서버에서 루틴 추천 결과 데이터 가져오기
+  const fetchRoutineSuggestion = async () => {
+    try {
+      setLoading(true);
+      const res = await scheduleApi.getRoutineSuggestion();
+
+      if (res && res.isSuccess) {
+        // 서버 응답에 analysisId가 있다면 상태 및 로컬스토리지 갱신
+        if (res.result?.analysisId) {
+          setAnalysisId(res.result.analysisId);
+          localStorage.setItem("analysisId", res.result.analysisId);
         }
-      ]
-    },
-    "2주차": {
-      weeklyBriefing: "2주차부터 야간(N) 근무가 시작됩니다. 생체 리듬 유지를 위한 수면 환경 조성과 부종 완화가 핵심입니다.",
-      groups: [
-        {
-          situation: "퇴근 후 수면 골든타임",
-          count: 2,
-          routines: [
-            { routineName: "반신욕 30분", cycle: "매일", suggestedTime: "취침 1시간 전" },
-            { routineName: "블루라이트 차단 암막 커튼 치기", cycle: "매일", suggestedTime: "취침 30분 전" }
-          ]
-        },
-        {
-          situation: "출근 전 케어",
-          count: 1,
-          routines: [
-            { routineName: "가벼운 유산소 스트레칭", cycle: "주 2회", suggestedTime: "기상 직후" }
-          ]
-        }
-      ]
-    },
-    "3주차": {
-      weeklyBriefing: "야간 근무 피로가 누적되는 3주차입니다. 카페인 섭취를 조절하고 심신 안정을 위한 이완 루틴이 적용됩니다.",
-      groups: [
-        {
-          situation: "퇴근 후 수면 골든타임",
-          count: 2,
-          routines: [
-            { routineName: "캐모마일 티 한 잔", cycle: "매일", suggestedTime: "취침 전" },
-            { routineName: "종아리 마사지 링 활용", cycle: "매일", suggestedTime: "취침 직전" }
-          ]
-        }
-      ]
-    },
-    "4주차": {
-      weeklyBriefing: "다시 주간 근무로 돌아오는 구간입니다. 흐트러진 생체 시계를 원래대로 되돌리는 주간 적응 루틴입니다.",
-      groups: [
-        {
-          situation: "출근 전 케어",
-          count: 2,
-          routines: [
-            { routineName: "아침 햇볕 10분 쬐기", cycle: "매일", suggestedTime: "기상 직후" },
-            { routineName: "단백질 중심 가벼운 아침 식사", cycle: "매일", suggestedTime: "출근 1시간 전" }
-          ]
-        }
-      ]
+        setRoutineData(res.result?.weeklyRoutines || res.result);
+      }
+    } catch (error) {
+      console.error("루틴 제안 조회 실패:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  // 현재 선택된 탭의 더미 데이터 가져오기
-  const currentData = dummyRoutineData[activeTab];
+  useEffect(() => {
+    console.log("🆔 현재 확보된 analysisId:", analysisId);
+    fetchRoutineSuggestion();
+  }, []);
+
+  // 3. 다른 루틴 세트로 재추천 API 연동
+  const handleReRecommend = async () => {
+    try {
+      setLoading(true);
+      const res = await scheduleApi.regenerateAIRoutine();
+      
+      if (res && res.isSuccess) {
+        // 재추천 시 새로 발급된 analysisId 반영
+        const newId = res.result?.analysisId;
+        if (newId) {
+          setAnalysisId(newId);
+          localStorage.setItem("analysisId", newId);
+        }
+        alert("AI가 새로운 루틴 세트를 재추천했습니다!");
+        await fetchRoutineSuggestion();
+      }
+    } catch (error) {
+      console.error("재추천 요청 실패:", error);
+      alert("루틴 재추천 중 오류가 발생했습니다.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 4. 루틴 적용 (온보딩 완료) API 연동
+  const handleApplyRoutine = async () => {
+    const currentId = analysisId || localStorage.getItem("analysisId");
+    
+    if (!currentId) {
+      alert("적용할 분석 ID가 유효하지 않습니다.");
+      return;
+    }
+
+    try {
+      const res = await scheduleApi.applyRoutine(currentId);
+      if (res && res.isSuccess) {
+        localStorage.removeItem("analysisId"); // 성공 시 정리
+        alert("온보딩이 완료되었습니다!");
+        navigate("/home");
+      }
+    } catch (error) {
+      console.error("루틴 적용 실패:", error);
+      if (error.response?.data?.code === "ONBOARDING_400_7") {
+        alert("이미 적용된 루틴입니다.");
+        navigate("/home");
+      } else {
+        alert("루틴 적용 중 오류가 발생했습니다.");
+      }
+    }
+  };
+
+  // 선택된 주차 데이터 가져오기 (데이터 없을 시 세이프가드)
+  const currentData = routineData?.[activeTab] || routineData || {
+    subTitle: "",
+    weeklyBriefing: "루틴 분석 정보를 불러오는 중입니다.",
+    groups: [],
+  };
+
+  if (loading) {
+    return (
+      <div className="ai-result-wrapper" style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+        <p>AI가 분석한 맞춤형 루틴을 불러오는 중입니다...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="ai-result-wrapper">
+      {/* 헤더 */}
       <div className="header-row">
         <button className="back-btn" onClick={() => navigate(-1)}>&lt;</button>
         <h2 className="title-text">스케줄 기반 AI 루틴 형성</h2>
@@ -117,13 +151,13 @@ export default function AIResult() {
             {currentData.weeklyBriefing}
           </p>
           <div className="briefing-footer">
-            <span className="highlight">{activeTab} • 맞춤형 구간</span>
+            <span className="highlight">{activeTab} • 맞춤 구간</span>
             <span>주간 • 야간 비중</span>
           </div>
         </div>
       </div>
 
-      {/* 주차별 탭 버튼 */}
+      {/* 주차 선택 탭 */}
       <div className="week-tabs">
         {["1주차", "2주차", "3주차", "4주차"].map((week) => (
           <button
@@ -136,61 +170,82 @@ export default function AIResult() {
         ))}
       </div>
 
-      <div style={{ display: "flex", alignItems: "center", marginBottom: "16px", gap: "8px" }}>
-        <img src={calendarIcon} alt="달력" style={{ width: "20px" }} />
-        <h3 className="section-title">{activeTab} 웰니스 루틴</h3>
+      {/* 주차 제목 */}
+      <div className="section-title-row">
+        <img src={calendarIcon} alt="달력" className="calendar-icon" />
+        <h3 className="section-title-main">
+          {activeTab} 웰니스 루틴 {currentData.subTitle || ""}
+        </h3>
       </div>
 
-      {/* ---------------------------------------------------- */}
-      {/* [나중에 백엔드 연동할 때 참고할 영역 주석] */}
-      {/* 
-        const [routineData, setRoutineData] = useState(null);
-        // useEffect 안에서 scheduleApi.getRoutineSuggestion() 호출하여 
-        // routineData에 넣고 아래 groups를 map 돌리면 됩니다!
-      */}
-      {/* ---------------------------------------------------- */}
-
-      {/* 더미 데이터 기반 아코디언 리스트 렌더링 */}
-      {currentData.groups.map((group) => {
-        const isOpen = openSections[group.situation] || false;
-        return (
-          <div className="section-container" key={group.situation}>
-            <div
-              className="section-header"
-              onClick={() => toggleSection(group.situation)}
-            >
-              <span className="section-title">{group.situation} ({group.count})</span>
-              <span className="toggle-badge">
-                {isOpen ? "접기" : "펼치기"}
-              </span>
-            </div>
-
-            {isOpen && (
-              <div className="item-list">
-                {group.routines.map((routine, idx) => (
-                  <div className="item-card" key={idx}>
-                    <img 
-                      src={group.situation.includes("출근") ? userIcon : cupIcon} 
-                      className="item-icon" 
-                      alt="아이콘" 
-                    />
-                    <div>
-                      <div style={{ fontSize: "13px", fontWeight: "bold" }}>
-                        {routine.routineName}
-                      </div>
-                      <div style={{ fontSize: "11px", color: "#888" }}>
-                        • {routine.cycle} / {routine.suggestedTime}
-                      </div>
-                    </div>
+      {/* 아코디언 루틴 목록 */}
+      <div className="routines-wrapper">
+        {currentData.groups && currentData.groups.length > 0 ? (
+          currentData.groups.map((group) => {
+            const isOpen = openSections[group.situation] || false;
+            return (
+              <div className="section-container" key={group.situation}>
+                <div
+                  className="section-header"
+                  onClick={() => toggleSection(group.situation)}
+                >
+                  <div className="header-left">
+                    <span className={`chevron ${isOpen ? "down" : "right"}`}>
+                      {isOpen ? "⌵" : "›"}
+                    </span>
+                    <span className="section-title-text">
+                      {group.situation} ({group.count || group.routines?.length || 0})
+                    </span>
                   </div>
-                ))}
-              </div>
-            )}
-          </div>
-        );
-      })}
+                  {!isOpen && <span className="toggle-badge">펼치기</span>}
+                </div>
 
-      <button className="apply-btn" onClick={() => navigate("/home")}>
+                {isOpen && (
+                  <div className="item-list">
+                    {group.routines?.map((routine, idx) => (
+                      <div className="item-card" key={idx}>
+                        <div className="icon-wrapper">
+                          {routine.type === "vitamin" ? (
+                            <span className="vitamin-tag">B</span>
+                          ) : (
+                            <img
+                              src={routine.type === "user" ? userIcon : cupIcon}
+                              className="item-icon"
+                              alt="아이콘"
+                            />
+                          )}
+                        </div>
+                        <div className="item-info">
+                          <div className="routine-name">{routine.routineName}</div>
+                          <div className="routine-sub">
+                            • {routine.cycle} / {routine.suggestedTime}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })
+        ) : (
+          <p style={{ textAlign: "center", color: "#888", fontSize: "13px", padding: "20px 0" }}>
+            해당 주차에 등록된 루틴이 없습니다.
+          </p>
+        )}
+      </div>
+
+      {/* 구분선 */}
+      <div className="divider" />
+
+      {/* 다른 루틴 세트로 재추천 버튼 */}
+      <div className="re-recommend-card" onClick={handleReRecommend}>
+        <span className="chevron right">›</span>
+        <span className="re-recommend-text">다른 루틴 세트로 재추천</span>
+      </div>
+
+      {/* 최종 적용하기 버튼 */}
+      <button className="apply-btn" onClick={handleApplyRoutine}>
         이대로 적용하기
       </button>
     </div>
