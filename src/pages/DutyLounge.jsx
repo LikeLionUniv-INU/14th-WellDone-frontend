@@ -6,72 +6,56 @@ import RewardItem from "../components/RewardItem";
 import TeamChallengeCard from "../components/TeamChallengeCard";
 import { useNavigate } from "react-router-dom";
 
-// import axios from "axios"; // Axios 설치 시 사용
-
-// 백엔드 API 명세서 구조를 그대로 본뜬 더미 데이터
-const MOCK_DATA = {
-  isSuccess: true,
-  code: "COMMON_200",
-  message: "요청에 성공했습니다.",
-  result: {
-    groupTag: "NIGHT",
-    talks: [
-      {
-        talkId: 501,
-        nickname: "익명의 나이트워커",
-        message: "진짜 너무 졸리네요 ㅋㅋ",
-        createdAt: "방금 전",
-      },
-      {
-        talkId: 500,
-        nickname: "익명의 나이트워커",
-        message: "비타민이랑 같이 버티고 있어요",
-        createdAt: "1분 전",
-      },
-      {
-        talkId: 499,
-        nickname: "익명의 나이트워커",
-        message: "나이트 근무자들 파이팅",
-        createdAt: "2분 전",
-      },
-      {
-        talkId: 498,
-        nickname: "익명의 나이트워커",
-        message: "4번째 글입니다 (화면에 안 보여야 정상)",
-        createdAt: "5분 전",
-      },
-    ],
-  },
-};
-
-const itemList = [
-  {
-    id: 1,
-    name: "온열 수면 안대",
-    description: "따뜻한 수면 안대",
-    points: 1200,
-    imageUrl: "https://example.com/eye-mask.jpg",
-  },
-  {
-    id: 2,
-    name: "아메리카노",
-    description: "스타벅스 기프티콘",
-    points: 100,
-    imageUrl: "https://example.com/americano.jpg",
-  },
-  {
-    id: 3,
-    name: "비타민 음료",
-    description: "비타민 음료",
-    points: 100,
-    imageUrl: "https://example.com/americano.jpg",
-  },
-];
+// 1. API 함수 3개 가져오기
+import { getItemLst, getMainData, getDutyTalk } from "../api/dutylng";
 
 function DutyLounge() {
-  // 1. API에서 받아온 talks 배열 상태값 관리
-  const [talks, setTalks] = useState(MOCK_DATA.result.talks);
+  // 상태값 관리 (중복 선언 제거)
+  const [talks, setTalks] = useState([]);
+  const [rewards, setRewards] = useState([]);
+  const [myPoint, setMyPoint] = useState(0);
+  const [todayDutyType, setTodayDutyType] = useState("");
+  const [group, setGroup] = useState(null);
   const [text, setText] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  // 2. 통합 useEffect (Promise.all로 3개 API 동시 호출)
+  useEffect(() => {
+    const fetchAllLoungeData = async () => {
+      try {
+        // 3개의 API 요청을 동시에 병렬 실행
+        const [mainRes, rewardsRes, talkRes] = await Promise.all([
+          getMainData(),
+          getItemLst(),
+          getDutyTalk(),
+        ]);
+
+        // [1] 메인 데이터 세팅
+        if (mainRes?.isSuccess && mainRes?.result) {
+          setMyPoint(mainRes.result.myPoint);
+          setTodayDutyType(mainRes.result.todayDutyType);
+          setGroup(mainRes.result.group); // OFF일 경우 null 들어감
+        }
+
+        // [2] 리워드 데이터 세팅
+        if (rewardsRes?.isSuccess && rewardsRes?.result) {
+          setRewards(rewardsRes.result.rewards || []);
+        }
+
+        // [3] 듀티톡 데이터 세팅
+        if (talkRes?.isSuccess && talkRes?.result) {
+          setTalks(talkRes.result.talks || []);
+        }
+      } catch (error) {
+        console.error("데이터 로딩 중 에러 발생:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAllLoungeData();
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault(); // 페이지 뒤로가기/새로고침 방지
     if (!text.trim()) return; // 빈 값 전송 방지
@@ -94,7 +78,7 @@ function DutyLounge() {
               </S.SubTitle>
             </S.TitleLayout>
 
-            <S.PointBox>💎 300P</S.PointBox>
+            <S.PointBox>💎 {(myPoint || 0).toLocaleString()}P</S.PointBox>
           </S.FirstLayout>
 
           <TeamChallengeCard
@@ -107,30 +91,24 @@ function DutyLounge() {
             onMoreClick={() => alert("상세보기 클릭!")}
           />
 
-          {/* <S.ChallengBox>
-            <S.ChSrcLayout>
-              <S.TeamLayout>
-                <S.TeamBox>
-                  <S.TeamName>Team NIGHT</S.TeamName>
-                  <S.Type>NIGHT</S.Type>
-                </S.TeamBox>
-
-                <S.MoreBtn>
-                  상세 보기 <ChevronRight size={16} />{" "}
-                </S.MoreBtn>
-              </S.TeamLayout>
-
-              <div
-                style={{
-                  backgroundColor: "#D2D0D0",
-                  height: "1px",
-                  width: "100%",
-                  flex: "none",
-                  margin: "10px 0",
-                }}
-              ></div>
-            </S.ChSrcLayout>
-          </S.ChallengBox> */}
+          {/* 챌린지 카드: group 데이터 유무에 따른 조건부 렌더링 */}
+          {group ? (
+            <TeamChallengeCard
+              teamName={group.groupName}
+              type={group.tag}
+              percentage={group.achievementRate}
+              remainingPercent={group.remainingRate}
+              participantCount={group.participantCount?.toLocaleString()}
+              rewardInfo={group.rewardCondition}
+              onMoreClick={() => alert("상세보기 클릭!")}
+            />
+          ) : (
+            /* OFF 이거나 그룹이 없을 때 나타나는 UI 예시 */
+            <div style={{ padding: "20px", textAlign: "center" }}>
+              오늘({todayDutyType})은 참여 중인 팀 챌린지가 없습니다. 푹 쉬세요!
+              😴
+            </div>
+          )}
 
           <S.TalkBox>
             <S.ChSrcLayout>
@@ -178,13 +156,12 @@ function DutyLounge() {
               </S.TeamLayout>
 
               <div style={{ display: "flex", gap: "10px" }}>
-                {itemList.map((item) => (
+                {rewards.map((item) => (
                   <RewardItem
-                    key={item.id}
+                    key={item.rewardId} // id -> rewardId
                     imageUrl={item.imageUrl}
                     name={item.name}
-                    description={item.description}
-                    points={item.points}
+                    points={item.requiredPoint} // points -> requiredPoint
                   />
                 ))}
               </div>

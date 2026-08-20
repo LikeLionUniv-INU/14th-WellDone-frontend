@@ -4,12 +4,11 @@ import { motion } from "framer-motion";
 import "swiper/css"; // Swiper 필수 스타일
 import * as S from "../styles/TabHeaderSwiper.styles";
 import RoutineCard from "./RoutineCard"; // 주간 웰니스 루틴 수행  컴포넌트
-import BoosterCard from "./BoosterCard";// 지난 달 리포트 1번째 박스
-import RoutineSummaryCard from "./RoutineSummaryCard";// 2번째 박스
-import GoldenTimeCard from "./GoldenTimeCard";// 3번째 박스
-import NextMonthCard from "./NextMonthCard";// 4번째 박스
+import BoosterCard from "./BoosterCard"; // 지난 달 리포트 1번째 박스
+import RoutineSummaryCard from "./RoutineSummaryCard"; // 2번째 박스
+import GoldenTimeCard from "./GoldenTimeCard"; // 3번째 박스
+import NextMonthCard from "./NextMonthCard"; // 4번째 박스
 import { PageWrapper } from "../styles/TabHeaderSwiper.styles";
-
 
 // 탭 목록 데이터
 const TABS = ["주간 기록", "지난 달 리포트"];
@@ -89,90 +88,90 @@ export default function TabHeaderSwiper() {
   };
 
   return (
-  <PageWrapper>
-    <S.Container>
-      {/* 1. 상단 커스텀 탭 버튼 영역 */}
-      <S.TabTrack>
-        {TABS.map((tabTitle, index) => {
-          const isActive = activeIndex === index;
+    <PageWrapper>
+      <S.Container>
+        {/* 1. 상단 커스텀 탭 버튼 영역 */}
+        <S.TabTrack>
+          {TABS.map((tabTitle, index) => {
+            const isActive = activeIndex === index;
 
-          return (
-            <S.TabButton
-              key={tabTitle}
-              onClick={() => handleTabClick(index)}
-            >
-              {/* 💡 layoutId="activeTab": 활성화 상태가 바뀔 때 보라색 상자가 이전 위치에서 현재 위치로 스무스하게 이동함 */}
-              {isActive && (
-                <S.ActiveHighlight
-                  layoutId="activeTabHighlight"
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+            return (
+              <S.TabButton
+                key={tabTitle}
+                onClick={() => handleTabClick(index)}
+              >
+                {/* 💡 layoutId="activeTab": 활성화 상태가 바뀔 때 보라색 상자가 이전 위치에서 현재 위치로 스무스하게 이동함 */}
+                {isActive && (
+                  <S.ActiveHighlight
+                    layoutId="activeTabHighlight"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <S.TabText $isActive={isActive}>{tabTitle}</S.TabText>
+              </S.TabButton>
+            );
+          })}
+        </S.TabTrack>
+
+        {/* 2. 하단 Swiper 슬라이드 영역 */}
+        <Swiper
+          initialSlide={1} // 초기 화면: '주간'
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper; // Swiper 객체를 ref에 저장
+          }}
+          // 💡 손으로 드래그해서 슬라이드가 변경되었을 때 상단 탭 인덱스 업데이트
+          onSlideChange={(swiper) => {
+            setActiveIndex(swiper.activeIndex);
+          }}
+          style={{ width: "100%" }}
+        >
+          <SwiperSlide>
+            <S.SlideContentArea>
+              <S.ReportTitle>주간 웰니스 루틴 수행 내역</S.ReportTitle>
+              {/* 여기에 주간 데이터 리스트 배치 */}
+              {/* 더미 데이터의 routines 배열을 map으로 돌려 각 카드를 생성 */}
+              {MOCK_ROUTINE_DATA.result.routines.map((routine, index) => (
+                <RoutineCard
+                  key={index}
+                  routineName={routine.routineName}
+                  cycle={routine.cycle}
+                  initialChecks={routine.checks}
                 />
-              )}
-              <S.TabText $isActive={isActive}>{tabTitle}</S.TabText>
-            </S.TabButton>
-          );
-        })}
-      </S.TabTrack>
+              ))}
+            </S.SlideContentArea>
+          </SwiperSlide>
 
-      {/* 2. 하단 Swiper 슬라이드 영역 */}
-      <Swiper
-        initialSlide={1} // 초기 화면: '주간'
-        onSwiper={(swiper) => {
-          swiperRef.current = swiper; // Swiper 객체를 ref에 저장
-        }}
-        // 💡 손으로 드래그해서 슬라이드가 변경되었을 때 상단 탭 인덱스 업데이트
-        onSlideChange={(swiper) => {
-          setActiveIndex(swiper.activeIndex);
-        }}
-        style={{ width: "100%" }}
-      >
-        <SwiperSlide>
-          <S.SlideContentArea>
-           <S.ReportTitle>주간 웰니스 루틴 수행 내역</S.ReportTitle>
-            {/* 여기에 주간 데이터 리스트 배치 */}
-            {/* 더미 데이터의 routines 배열을 map으로 돌려 각 카드를 생성 */}
-            {MOCK_ROUTINE_DATA.result.routines.map((routine, index) => (
-              <RoutineCard
-                key={index}
-                routineName={routine.routineName}
-                cycle={routine.cycle}
-                initialChecks={routine.checks}
+          <SwiperSlide>
+            <S.SlideContentArea>
+              <S.ReportTitle>6월 웰니스 리포트</S.ReportTitle>
+
+              {/* 1. 부스터 모드 일수 컴포넌트 */}
+              <BoosterCard
+                days={data.booster.days}
+                rate={data.booster.rate}
+                subText={data.booster.subText}
               />
-            ))}
-          </S.SlideContentArea>
-        </SwiperSlide>
 
-        <SwiperSlide>
-          <S.SlideContentArea>
-            <S.ReportTitle>6월 웰니스 리포트</S.ReportTitle>
+              {/* 2. 루틴 영역별 달성 요약 컴포넌트 */}
+              <RoutineSummaryCard
+                categories={data.routineCategories}
+                bestCategory={data.bestCategory}
+                worstCategory={data.worstCategory}
+              />
 
-            {/* 1. 부스터 모드 일수 컴포넌트 */}
-            <BoosterCard
-              days={data.booster.days}
-              rate={data.booster.rate}
-              subText={data.booster.subText}
-            />
+              {/* 3. 골든 타임 회복률 컴포넌트 */}
+              <GoldenTimeCard rate={data.goldenTimeRate} />
 
-            {/* 2. 루틴 영역별 달성 요약 컴포넌트 */}
-            <RoutineSummaryCard
-              categories={data.routineCategories}
-              bestCategory={data.bestCategory}
-              worstCategory={data.worstCategory}
-            />
-
-            {/* 3. 골든 타임 회복률 컴포넌트 */}
-            <GoldenTimeCard rate={data.goldenTimeRate} />
-
-            {/* 4. 다음 달 회복 포인트 컴포넌트 */}
-            <NextMonthCard
-              subTitle={data.nextMonthPoint.subTitle}
-              title={data.nextMonthPoint.title}
-              description={data.nextMonthPoint.description}
-            />
-          </S.SlideContentArea>
-        </SwiperSlide>
-      </Swiper>
-    </S.Container>
-  </PageWrapper>
+              {/* 4. 다음 달 회복 포인트 컴포넌트 */}
+              <NextMonthCard
+                subTitle={data.nextMonthPoint.subTitle}
+                title={data.nextMonthPoint.title}
+                description={data.nextMonthPoint.description}
+              />
+            </S.SlideContentArea>
+          </SwiperSlide>
+        </Swiper>
+      </S.Container>
+    </PageWrapper>
   );
 }

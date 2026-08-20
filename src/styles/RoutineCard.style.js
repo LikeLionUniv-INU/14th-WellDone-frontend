@@ -8,13 +8,13 @@ export const CardContainer = styled.div`
   height: auto;
 
   background-color: #ffffff;
-  border: 1.5px solid #D2D0D0;
+  border: 1.5px solid #d2d0d0;
   border-radius: 16px;
   padding: 16px;
   margin-bottom: 12px;
   box-sizing: border-box;
   margin-bottom: 20px;
-  
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -38,7 +38,7 @@ export const RoutineTitle = styled.h4`
 // 루틴 주기 (매일)
 export const CycleText = styled.span`
   font-size: 0.85rem;
-  color: #6E6E73;
+  color: #6e6e73;
   font-weight: 500;
 `;
 

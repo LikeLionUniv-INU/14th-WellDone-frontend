@@ -7,8 +7,17 @@ function BoosterCard({ days = 25, rate = 82, subText }) {
       {/* 💡 SVG 기반의 둥근 원형 프로그레스 바 */}
       <S.CircleWrapper>
         <S.StyledSvg viewBox="0 0 100 100">
-          <S.BackgroundTrack cx="50" cy="50" r="40" />
-          <S.ProgressCircle cx="50" cy="50" r="40" $rate={rate} />
+          <S.BackgroundTrack
+            cx="50"
+            cy="50"
+            r="40"
+          />
+          <S.ProgressCircle
+            cx="50"
+            cy="50"
+            r="40"
+            $rate={rate}
+          />
         </S.StyledSvg>
         <S.InnerText>{rate}%</S.InnerText>
       </S.CircleWrapper>

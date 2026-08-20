@@ -7,7 +7,8 @@ import { Navigation } from "swiper/modules";
 import { ChevronLeft, ChevronRight, Pencil, Share2 } from "lucide-react";
 import SettingsModal from "../components/SettingsModal";
 import "swiper/css";
-
+import RoutineItem from "../components/RoutineItem";
+import { Loutine } from "../api/home";
 
 // 💡 1. 백엔드 연동 시 사용할 더미 데이터 (임시 데이터)
 const DUMMY_GOALS = [
@@ -39,6 +40,60 @@ export default function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false); // 설정모달 오픈 상태
 
+  // 백엔드 API 응답 구조에 맞춘 더미 데이터
+  const dummyData = {
+    isSuccess: true,
+    code: "COMMON_200",
+    message: "요청에 성공했습니다.",
+    result: {
+      items: [
+        { time: "19:30", type: "SCHEDULE", title: "퇴근", "duration": null, isOverdue: false },
+        {
+          time: "20:00",
+          type: "ROUTINE",
+          title: "반신욕",
+          "duration": "30분",
+
+          isOverdue: false,
+        },
+        {
+          time: "21:00",
+          type: "ROUTINE",
+          title: "림프관 마사지",
+          "duration": "30분",
+
+          isOverdue: false,
+        },
+        {
+          time: "21:30",
+          type: "ROUTINE",
+          title: "따뜻한 물 150ml",
+          "duration": null ,
+
+          isOverdue: false,
+        },
+        { time: "22:00", type: "SCHEDULE", title: "취침","duration": null , isOverdue: false },
+      ],
+    },
+  };
+
+  const [routines, setRoutines] = useState(dummyData.result.items); //루틴 데이터
+
+  useEffect(() => {
+    const fetchRoutines = async () => {
+      try {
+        const data = await Loutine();
+        if (data.isSuccess) {
+          setRoutines(data.result.items);
+        }
+      } catch (error) {
+        console.error("오늘의 루틴을 불러오는데 실패했습니다.", error);
+      }
+    };
+
+    fetchRoutines();
+  }, []);
+
   // 💡 백엔드 연동 예시 코드 (현재는 더미데이터 바인딩)
   useEffect(() => {
     /* [백엔드 연동 코드 예시]
@@ -53,25 +108,28 @@ export default function Home() {
     <>
       <div className="wrapper">
         <Header onOpenSettings={() => setIsSettingsOpen(true)} />
-          <div className=" array">
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        ></div>
-        <div className="weekbox">
-          <img style={ { width :"23px" }}
-            src="today.svg"
-            alt="달력"
-          />
-          <span>{getMonthWeek()} </span>
-        </div>
-        <div className="nowbar">
-          <div className="nowbox"><span className="text">NOW</span></div>
-          <h2>나이트 근무 중 식사후 3시간 경과</h2>
-        </div>
+        <div className=" array">
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          ></div>
+          <div className="weekbox">
+            <img
+              style={{ width: "23px" }}
+              src="today.svg"
+              alt="달력"
+            />
+            <span>{getMonthWeek()} </span>
+          </div>
+          <div className="nowbar">
+            <div className="nowbox">
+              <span className="text">NOW</span>
+            </div>
+            <h2>나이트 근무 중 식사후 3시간 경과</h2>
+          </div>
         </div>
 
         {/* ----------------------슬라이더 와 원형 그래프 76~ 173 --------------------- */}
@@ -106,18 +164,30 @@ export default function Home() {
                       <svg
                         className="circle-chart"
                         viewBox="0 0 220 220"
-
-                        
                       >
-
                         <defs>
-    {/* x1, y1, x2, y2로 그라데이션 방향 지정 (90deg = 왼쪽에서 오른쪽) */}
-    <linearGradient id="purpleGradient" x1="100%" y1="100%" x2="0%" y2="0%">
-      <stop offset="40%" stopColor="#7b61ff" />
-      <stop offset="60%" stopColor="#767bf6" />
-      <stop offset="100%" stopColor="#c2d0ff" />
-    </linearGradient>
-  </defs>
+                          {/* x1, y1, x2, y2로 그라데이션 방향 지정 (90deg = 왼쪽에서 오른쪽) */}
+                          <linearGradient
+                            id="purpleGradient"
+                            x1="100%"
+                            y1="100%"
+                            x2="0%"
+                            y2="0%"
+                          >
+                            <stop
+                              offset="40%"
+                              stopColor="#7b61ff"
+                            />
+                            <stop
+                              offset="60%"
+                              stopColor="#767bf6"
+                            />
+                            <stop
+                              offset="100%"
+                              stopColor="#c2d0ff"
+                            />
+                          </linearGradient>
+                        </defs>
                         {/* 배경 원 (연한 보라색 트랙) */}
                         <circle
                           className="circle-bg"
@@ -189,7 +259,22 @@ export default function Home() {
         />
 
         {/* ----------------------루틴 리스트--------------------- */}
-        
+        <div className="array">
+
+        <div className="loutin-title" >오늘의 루틴 <img style={{height: "1rem"}} src="alert.svg"/> </div>
+</div>
+        <div className="today-routine-box">
+          <div className="routine-list-wrapper">
+            {routines.map((item, index) => (
+              <RoutineItem
+                key={index}
+                time={item.time}
+                title={item.title}
+                duration = {item.duration}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </>
   );
