@@ -108,6 +108,7 @@ export const ChallengBox = styled.div`
 export const ChSrcLayout = styled.div`
   //  가운데로 만들기
   width: 88%;
+  height: 100%;
   flex: none;
   height: fit-content;
 `;
@@ -115,6 +116,7 @@ export const ChSrcLayout = styled.div`
 export const TalkBox = styled.div`
   // 채팅방 박스
   width: 100%;
+  min-height:  20dvh;
   height: fit-content;
   background-color: #ffffff;
   border-radius: 10px;
@@ -123,6 +125,7 @@ export const TalkBox = styled.div`
   justify-content: center;
   margin-bottom: 35px;
   margin-top: 10px;
+  gap: 17px;
 `;
 
 export const TalkTitle = styled.div`
@@ -143,7 +146,7 @@ export const ChatInputContainer = styled.form`
   width: 100%;
   height: 34px;
   padding: 0 7px;
-  margin-top: 17px;
+  margin-top: auto;
   margin-bottom: 19px;
 
   background-color: #ffffff;
