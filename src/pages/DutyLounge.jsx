@@ -130,7 +130,7 @@ function DutyLounge() {
           ) : (
             /* OFF 이거나 그룹이 없을 때 나타나는 UI 예시 */
             <div style={{ color: "#A4A4A4", marginBottom: "15px",borderRadius: "10px",backgroundColor:"white" ,padding: "20px", textAlign: "center" }}>
-              오늘({todayDutyType})은 참여 중인 팀 챌린지가 없습니다.<br/> 푹 쉬세요!
+              오늘은 참여 중인 팀 챌린지가 없습니다.<br/> 푹 쉬세요!
               😴
             </div>
           )}
