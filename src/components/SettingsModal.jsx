@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // 💡 useNavigate import 추가
 import {
   Hand,
   Clock,
@@ -10,6 +11,7 @@ import {
 import * as S from "../styles/SettingsModal.styles";
 
 export default function SettingsModal({ isOpen, onClose }) {
+  const navigate = useNavigate(); // 💡 navigate 함수 초기화
   const [dragY, setDragY] = useState(0);
   const [isDragging, setIsDragging] = useState(false); // 드래그 중인지 상태 추가
   const touchStartY = useRef(0); // useref로 touchStartY 변수를 만들고 변수에 0 넣기
@@ -74,6 +76,10 @@ export default function SettingsModal({ isOpen, onClose }) {
       icon: <S.Icon src="schedule.svg" />,
       title: "스케줄표 업데이트 및 갱신",
       subtitle: "최근 업데이트 : 8월 2일",
+      onClick: () => {
+        if (onClose) onClose(); // 💡 이동하기 전 모달 창 닫기
+        navigate("/routine");   // 💡 /routine 경로로 이동
+      },
     },
     {
       id: 3,
@@ -122,7 +128,9 @@ export default function SettingsModal({ isOpen, onClose }) {
           {menuItems.map((item) => (
             <S.MenuItemButton
               key={item.id}
-              onClick={() => {}}
+              onClick={() => {
+                if (item.onClick) item.onClick();
+              }}
             >
               <S.ItemLeft>
                 <S.IconWrapper>{item.icon}</S.IconWrapper>
